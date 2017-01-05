@@ -23,23 +23,24 @@ from scipy.optimize import  differential_evolution
 from scipy.optimize import minimize
 from libs.dir_and_file_operations import create_out_data_folder
 
-def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_minimize'):
+def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
     # (does not use gradient methods) to find the minimium, and can search large areas of candidate space,
     # but often requires larger numbers of function evaluations than conventional gradient based techniques.
 
 
     # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
-    methodName = 'Nelder-Mead'
+    # methodName = 'Nelder-Mead'
+    methodName = 'randtobest1exp'
     # methodName = 'BFGS'
-    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_3306')
+    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_1')
 
     def fun(x):
         return func_CoO(x, projPath=newProjPath)
 
 
 
-
+    # 0
     # bounds = [(0.001, 20),  # MgOH
     #           (0.001, 20),  # MgCO3
     #           (0.001, 50),  # MgO
@@ -50,14 +51,17 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_minimiz
     #           ]
     # result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
 
+
+    # 1
     bounds = [(0.001, 5),  # MgOH
               (5, 15),  # MgCO3
               (5, 15),  # MgO
               (1, 6),  # Au
               (1, 6),  # CoO
-              (15, 25),  # Co
+              (7, 25),  # Co
               (0.001, 5),  # C
               ]
+    result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
 
     # sample.Mg_Hydrate.thickness = x[0]
     # sample.MgCO3.thickness = x[1]
@@ -84,7 +88,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_minimiz
           1.932]
     # result = minimize(fun, x0, )
     # result = minimize(fun, x0, method=methodName, options={'maxiter' : 10000}, tol=1e-6)
-    result = minimize(fun, x0, method=methodName, options={'gtol': 1e-6, 'disp': True, 'maxiter' : 10000})
+    # result = minimize(fun, x0, method=methodName, options={'gtol': 1e-6, 'disp': True, 'maxiter' : 10000})
 
     print('-*'*25)
     print('==  Answer is:')

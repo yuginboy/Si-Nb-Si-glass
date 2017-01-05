@@ -61,19 +61,19 @@
 \MODEL SIMULATE
 \model plot region 1
 \PLOT SAVE DATA "out\Mg1s.dat"
-\PLOT SAVE JPG "out\Mg1s.jpg" WIDTH 800 HEIGHT 600
+--\PLOT SAVE JPG "out\Mg1s.jpg" WIDTH 800 HEIGHT 600
 
 \model plot region 2                                                     
 \PLOT SAVE DATA "out\Co2p.dat"
-\PLOT SAVE JPG "out\Co2p.jpg" WIDTH 800 HEIGHT 600
+--\PLOT SAVE JPG "out\Co2p.jpg" WIDTH 800 HEIGHT 600
 
 \model plot region 3                                                    
 \PLOT SAVE DATA "out\O1s.dat"
-\PLOT SAVE JPG "out\O1s.jpg" WIDTH 800 HEIGHT 600
+--\PLOT SAVE JPG "out\O1s.jpg" WIDTH 800 HEIGHT 600
 
 \model plot region 4                                                    
 \PLOT SAVE DATA "out\Au4f.dat"
-\PLOT SAVE JPG "out\Au4f.jpg" WIDTH 800 HEIGHT 600
+--\PLOT SAVE JPG "out\Au4f.jpg" WIDTH 800 HEIGHT 600
 
 
 -- end

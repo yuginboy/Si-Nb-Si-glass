@@ -185,7 +185,7 @@ def func_CoO(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out'):
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
     print('-----------> NumericData.global_R_factor = {0}'.format(NumericData.global_R_factor))
-    print('Answer is: {}'.format(func_CoO ([1, 10, 15, 3, 3, 15])))
+    print('Answer is: {}'.format(func_CoO ([1, 10, 15, 3, 3, 15, 1])))
     print('-----------> NumericData.global_R_factor = {0}'.format(NumericData.global_R_factor))
-    print('Answer is: {}'.format(func_CoO ([10, 10, 15, 3, 3, 15])))
+    print('Answer is: {}'.format(func_CoO ([10, 10, 15, 3, 3, 15, 2])))
     print('-----------> NumericData.global_R_factor = {0}'.format(NumericData.global_R_factor))
