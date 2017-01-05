@@ -1,0 +1,29 @@
+-- Step #08
+-- befor 13+1+1 = 15 A Oxides 
+-- h[Si] = 55A
+-- h[SiXNbX] = 5 A
+-- h[Nb] = 10A
+-- h[Si] = 70 A
+-- total depth sputtering = 15 + (85-55) = 45 A
+-- t (Time for this cycle) = 8 min
+-- Avarage sputter rate = 45/8 = 5.8 A/min
+\sample set thickness 0.0001 lay 1
+\sample set thickness 0.0001 lay 2
+\sample set thickness 0.0001 lay 3
+\sample set thickness 55 lay 4
+\sample set thickness 0.0001 lay 5
+\sample set thickness 0.0001 lay 6
+\sample set thickness 7 lay 7
+\sample set thickness 5 lay 8
+\sample set thickness 3.3 lay 9
+\sample set thickness 0.0001 lay 10
+\sample set thickness 0.0001 lay 11
+\sample set thickness 70 lay 12
+\sample set thickness 5 lay 13
+\sample set thickness 10 lay 14
+\sample set thickness 15 lay 15
+\model  simulate
+\model plot  region 1
+\PLOT SAVE DATA "out\Si-08.dat"
+\model plot  region 2
+\PLOT SAVE DATA "out\Nb-08.dat"

@@ -1,0 +1,29 @@
+-- Step #0 - h=0 A
+-- SiO2 h = 13 A
+-- Si2O3 h = 6 A
+-- Si2O h = 1 A
+-- Si h = 80 A
+-- Nb+ NxSix h = 13 A
+-- 
+-- 
+-- 
+\sample set thickness 40 lay 1
+\sample set thickness 0.00001 lay 2
+\sample set thickness 0.00001 lay 3
+\sample set thickness 60 lay 4
+\sample set thickness 0.00001 lay 5
+\sample set thickness 0.00001 lay 6
+\sample set thickness 3.3 lay 7
+\sample set thickness 7 lay 8
+\sample set thickness 3.3 lay 9
+\sample set thickness 0.0001 lay 10
+\sample set thickness 0.0001 lay 11
+\sample set thickness 70 lay 12
+\sample set thickness 5 lay 13
+\sample set thickness 10 lay 14
+\sample set thickness 15 lay 15
+\model  simulate
+\model plot  region 1
+\PLOT SAVE DATA "out\Si-00.dat"
+\model plot  region 2
+\PLOT SAVE DATA "out\Nb-00.dat"
