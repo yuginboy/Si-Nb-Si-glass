@@ -86,10 +86,10 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_minimiz
     # result = minimize(fun, x0, method=methodName, options={'maxiter' : 10000}, tol=1e-6)
     result = minimize(fun, x0, method=methodName, options={'gtol': 1e-6, 'disp': True, 'maxiter' : 10000})
 
-    print('-*'*15)
+    print('-*'*25)
     print('==  Answer is:')
     print (result)
-    print('-*'*15)
+    print('-*'*25)
     # print('Answer is: x= {0:1.3f}, R= {1}'(result.x, result.fun))
 
 
