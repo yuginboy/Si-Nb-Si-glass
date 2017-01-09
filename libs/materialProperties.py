@@ -28,6 +28,16 @@ class Material:
         print ('DIIMFP: {0}'.format(self.DIIMFP))
         print('=' * 10)
 
+class Au(Material):
+    # bottom layer of gold
+    def __init__(self):
+        super(Au, self).__init__()
+        self.material = '/Au/'
+        self.thickness = 3  # A
+        self.density = 19.3  # g/cm^3
+        self.Egap = 0  # eV
+        self.DIIMFP = '/Au/'
+
 class Au_bottom(Material):
     # bottom layer of gold
     def __init__(self):
@@ -102,11 +112,39 @@ class C_contamination(Material):
         self.Egap = 0.0  # eV
         self.DIIMFP = '/C/'
 
+class CoO_Au_mix(Material):
+    # Carbon contamination top layer
+    def __init__(self):
+        super(CoO_Au_mix, self).__init__()
+        self.material = '/Co[Co-O]/O[Co-O]/Au/'
+        self.density = 2.2  # g/cm^3
+        self.thickness = 5  # A
+        self.Egap = 0.0  # eV
+        self.DIIMFP = '/Co[Co-O]/O[Co-O]/Au/'
+        self._x_amount_CoO_in_Au = 0.5
+
+    def set_x_amount_CoO_in_Au(self, x):
+        self._x_amount_CoO_in_Au = x
+        self.updateProperties()
+
+    def updateProperties(self):
+        if abs(self._x_amount_CoO_in_Au) > 1:
+            self._x_amount_CoO_in_Au = 0.99
+        x = abs(self._x_amount_CoO_in_Au)
+        y = 1-x
+        self.material = '/Co[Co-O]{0:1.2f}/O[Co-O]{0:1.2f}/Au{1:1.2f}/'.format(x/2, y)
+        self.DIIMFP = '/Co[Co-O]{0:1.2f}/O[Co-O]{0:1.2f}/Au{1:1.2f}/'.format(x/2, y)
+        # self.density = Au.density*y + Co_Oxide.density*x
+        self.density = round(19.3*y + 6.44*x, 3)
+        # self.Egap = Co_Oxide.Egap*x
+        self.Egap = round(2.6*x, 3)
+
 
 if __name__ == "__main__":
     print ('-> you run ',  __file__, ' file in a main mode' )
     a = Material()
     a.density=5.4
     a.info()
-    a = Mg_Hydrate()
+    a = CoO_Au_mix()
+    a.set_x_amount_CoO_in_Au(0.6)
     a.info()

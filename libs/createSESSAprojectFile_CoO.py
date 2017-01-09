@@ -18,6 +18,7 @@ class SAMPLE():
         self.Co_metal = Co_metal()
         self.Co_oxide = Co_Oxide()
         self.Au_interlayer = Au_top()
+        self.CoO_Au_mix = CoO_Au_mix()
         self.MgO = Mg_Oxide()
         self.MgCO3 = Mg_Carbonate()
         self.Mg_Hydrate = Mg_Hydrate()
@@ -59,10 +60,15 @@ class SAMPLE():
         self.addLayer(self.Au_bottom)
         # add Co-metal:
         self.addLayer(self.Co_metal)
+
+        # # add CoO_Au_mix:
+        # self.addLayer(self.CoO_Au_mix)
+
         # add CoO:
         self.addLayer(self.Co_oxide)
         # add Au 3A:
         self.addLayer(self.Au_interlayer)
+
         # add MgO:
         self.addLayer(self.MgO)
         # add MgCO3:
@@ -71,6 +77,7 @@ class SAMPLE():
         self.addLayer(self.Mg_Hydrate)
         # add Mg[OH]2:
         self.addLayer(self.C_contamination)
+
 
 
         self.outTxt = self.outTxt + r'\PROJECT LOAD SESSION "additional_commands.ses"' + ' \n'
@@ -97,4 +104,8 @@ class SAMPLE():
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
     a = SAMPLE()
+    a.CoO_Au_mix.set_x_amount_CoO_in_Au(0.7)
+    a.CoO_Au_mix.info()
+    a.Au_interlayer.thickness = 0.001
+    a.Co_oxide.thickness = 0.001
     a.writeSesFile()

@@ -18,7 +18,7 @@ from libs.dir_and_file_operations import create_out_data_folder, createFolder
 
 import numpy as np
 import pickle
-from libs.functionsForMinimize import func_CoO
+from libs.functionsForMinimize import func_CoO, func_mix_of_CoO_Au
 from scipy.optimize import  differential_evolution
 from scipy.optimize import minimize
 from libs.dir_and_file_operations import create_out_data_folder
@@ -33,13 +33,12 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     # methodName = 'Nelder-Mead'
     methodName = 'randtobest1exp'
     # methodName = 'BFGS'
-    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_1')
+    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au_x')
 
-    def fun(x):
-        return func_CoO(x, projPath=newProjPath)
-
-
-
+    # ====================================================================================================
+    # CoO and Au interlayer:
+    # def fun(x):
+    #     return func_CoO(x, projPath=newProjPath)
     # 0
     # bounds = [(0.001, 20),  # MgOH
     #           (0.001, 20),  # MgCO3
@@ -50,18 +49,43 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     #           (0.001, 15),  # C
     #           ]
     # result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
+    # # 1
+    # bounds = [(0.001, 5),  # MgOH
+    #           (5, 15),  # MgCO3
+    #           (5, 15),  # MgO
+    #           (1, 6),  # Au
+    #           (1, 6),  # CoO
+    #           (7, 25),  # Co
+    #           (0.001, 5),  # C
+    #           ]
+    # result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
 
 
-    # 1
+    # ====================================================================================================
+    # 2 for mix of CoO - Au
+    # sample.Mg_Hydrate.thickness = x[0]
+    # sample.MgCO3.thickness = x[1]
+    # sample.MgO.thickness = x[2]
+    # sample.CoO_Au_mix.set_x_amount_CoO_in_Au(x[3])
+    # sample.CoO_Au_mix.thickness = x[4]
+    # sample.Au_interlayer.thickness = 0.001
+    # sample.Co_oxide.thickness = 0.001
+    # sample.Co_metal.thickness = x[5]
+    # sample.C_contamination.thickness = x[6]
     bounds = [(0.001, 5),  # MgOH
               (5, 15),  # MgCO3
               (5, 15),  # MgO
-              (1, 6),  # Au
-              (1, 6),  # CoO
+              (0.001, 0.999),  # x of (CoO)x_Au(1-x)
+              (1, 6),  # (CoO)x_Au(1-x)
               (7, 25),  # Co
               (0.001, 5),  # C
               ]
+    def fun(x):
+        return func_mix_of_CoO_Au(x, projPath=newProjPath)
     result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
+
+
+
 
     # sample.Mg_Hydrate.thickness = x[0]
     # sample.MgCO3.thickness = x[1]
@@ -79,13 +103,13 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     #       1.837]
 
     # 3306
-    x0 = [5.136,
-          11.186,
-          8.739,
-          0.835,
-          2.427,
-          9.766,
-          1.932]
+    # x0 = [5.136,
+    #       11.186,
+    #       8.739,
+    #       0.835,
+    #       2.427,
+    #       9.766,
+    #       1.932]
     # result = minimize(fun, x0, )
     # result = minimize(fun, x0, method=methodName, options={'maxiter' : 10000}, tol=1e-6)
     # result = minimize(fun, x0, method=methodName, options={'gtol': 1e-6, 'disp': True, 'maxiter' : 10000})
