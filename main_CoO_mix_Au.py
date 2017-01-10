@@ -58,7 +58,14 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
               ]
     def fun(x):
         return func_mix_of_CoO_Au(x, projPath=newProjPath, case_R_factor=case_R_factor)
-    result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
+    try:
+        result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
+    except KeyboardInterrupt:
+        print('====***' * 15)
+        print('==== stop-file was found: program has been finished')
+        print('====***' * 15)
+        sys.exit(0)
+
 
 
 

@@ -31,14 +31,15 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     case_R_factor = 'without_Mg'
     # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
     # methodName = 'Nelder-Mead'
-    methodName = 'randtobest1exp'
+    # methodName = 'randtobest1exp'
+    methodName = 'rand1exp'
     # methodName = 'BFGS'
-    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au_x')
+    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au_'+case_R_factor)
 
     # ====================================================================================================
     # CoO and Au interlayer:
-    # def fun(x):
-    #     return func_CoO(x, projPath=newProjPath, case_R_factor=case_R_factor)
+    def fun(x):
+        return func_CoO(x, projPath=newProjPath, case_R_factor=case_R_factor)
     # 0
     # bounds = [(0.001, 20),  # MgOH
     #           (0.001, 20),  # MgCO3
@@ -50,40 +51,15 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     #           ]
     # result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
     # # 1
-    # bounds = [(0.001, 5),  # MgOH
-    #           (5, 15),  # MgCO3
-    #           (5, 15),  # MgO
-    #           (1, 6),  # Au
-    #           (1, 6),  # CoO
-    #           (7, 25),  # Co
-    #           (0.001, 5),  # C
-    #           ]
-    # result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
-
-
-    # ====================================================================================================
-    # 2 for mix of CoO - Au
-    # sample.Mg_Hydrate.thickness = x[0]
-    # sample.MgCO3.thickness = x[1]
-    # sample.MgO.thickness = x[2]
-    # sample.CoO_Au_mix.set_x_amount_CoO_in_Au(x[3])
-    # sample.CoO_Au_mix.thickness = x[4]
-    # sample.Au_interlayer.thickness = 0.001
-    # sample.Co_oxide.thickness = 0.001
-    # sample.Co_metal.thickness = x[5]
-    # sample.C_contamination.thickness = x[6]
     bounds = [(0.001, 5),  # MgOH
               (5, 15),  # MgCO3
               (5, 15),  # MgO
-              (0.001, 0.999),  # x of (CoO)x_Au(1-x)
-              (1, 6),  # (CoO)x_Au(1-x)
+              (1, 6),  # Au
+              (1, 6),  # CoO
               (7, 25),  # Co
               (0.001, 5),  # C
               ]
-    def fun(x):
-        return func_mix_of_CoO_Au(x, projPath=newProjPath, case_R_factor=case_R_factor)
-    result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
-
+    result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy=methodName)
 
 
 
