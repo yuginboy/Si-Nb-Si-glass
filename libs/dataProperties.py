@@ -135,6 +135,14 @@ class NumericData():
     def __init__(self):
         self.showFigs = True
         self.total_R_faktor = -1
+        self.k_R_Au_0  = 1
+        self.k_R_Au_60 = 1
+        self.k_R_Co_0  = 1
+        self.k_R_Co_60 = 1
+        self.k_R_O_0  = 1
+        self.k_R_O_60 = 1
+        self.k_R_Mg_0  = 1
+        self.k_R_Mg_60 = 1
         self.total_min_R_faktor = 1000
         self.suptitle_txt = '$Fit$ $for$ $model$ $of$ $sample$ $Au/Co/CoO/Au/MgO/MgCO_3/Mg[OH]_2$'
         self.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
@@ -284,15 +292,20 @@ class NumericData():
         self.Mg1s._60.calcRfactor()
 
         self.total_R_faktor = (
-                              self.Au4f._0.R_factor + \
-                              self.Au4f._60.R_factor + \
-                              self.Co2p._0.R_factor +  \
-                              self.Co2p._60.R_factor + \
-                              self.O1s._0.R_factor +   \
-                              self.O1s._60.R_factor +  \
-                              self.Mg1s._0.R_factor +  \
-                              self.Mg1s._60.R_factor
-                              )/8
+                              self.k_R_Au_0  * self.Au4f._0.R_factor + \
+                              self.k_R_Au_60 * self.Au4f._60.R_factor + \
+                              self.k_R_Co_0  * self.Co2p._0.R_factor +  \
+                              self.k_R_Co_60 * self.Co2p._60.R_factor + \
+                              self.k_R_O_0  *  self.O1s._0.R_factor +   \
+                              self.k_R_O_60 *  self.O1s._60.R_factor +  \
+                              self.k_R_Mg_0 *  self.Mg1s._0.R_factor +  \
+                              self.k_R_Mg_60 * self.Mg1s._60.R_factor
+                              )/(
+                                 self.k_R_Au_0 + self.k_R_Au_60 + \
+                                 self.k_R_Co_0 + self.k_R_Co_60 + \
+                                 self.k_R_O_0 + self.k_R_O_60 + \
+                                 self.k_R_Mg_0 + self.k_R_Mg_60
+                                 )
 
         # self.total_R_faktor = (
         #                       self.Au4f._0.R_factor + \

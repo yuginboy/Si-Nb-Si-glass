@@ -33,32 +33,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     # methodName = 'Nelder-Mead'
     methodName = 'randtobest1exp'
     # methodName = 'BFGS'
-    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au_x')
+    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au_x_'+case_R_factor)
 
-    # ====================================================================================================
-    # CoO and Au interlayer:
-    # def fun(x):
-    #     return func_CoO(x, projPath=newProjPath, case_R_factor=case_R_factor)
-    # 0
-    # bounds = [(0.001, 20),  # MgOH
-    #           (0.001, 20),  # MgCO3
-    #           (0.001, 50),  # MgO
-    #           (0.001, 10),  # Au
-    #           (0.001, 10),  # CoO
-    #           (0.001, 25),  # Co
-    #           (0.001, 15),  # C
-    #           ]
-    # result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
-    # # 1
-    # bounds = [(0.001, 5),  # MgOH
-    #           (5, 15),  # MgCO3
-    #           (5, 15),  # MgO
-    #           (1, 6),  # Au
-    #           (1, 6),  # CoO
-    #           (7, 25),  # Co
-    #           (0.001, 5),  # C
-    #           ]
-    # result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy='randtobest1exp')
 
 
     # ====================================================================================================
