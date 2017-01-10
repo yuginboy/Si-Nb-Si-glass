@@ -51,7 +51,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     bounds = [(0.001, 5),  # MgOH
               (5, 15),  # MgCO3
               (5, 15),  # MgO
-              (0.001, 0.999),  # x of (CoO)x_Au(1-x)
+              (0.1, 0.9),  # x of (CoO)x_Au(1-x)
               (1, 6),  # (CoO)x_Au(1-x)
               (7, 25),  # Co
               (0.001, 5),  # C
