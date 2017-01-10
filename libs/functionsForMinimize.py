@@ -81,6 +81,11 @@ def func_CoO(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', case_R_fac
         if case_R_factor is 'without_Mg':
             a.k_R_Mg_0 = 0
             a.k_R_Mg_60 = 0
+        if case_R_factor is 'without_Co_and_Au':
+            a.k_R_Co_0 = 0
+            a.k_R_Co_60 = 0
+            a.k_R_Au_0 = 0
+            a.k_R_Au_60 = 0
         if returncode is not -1:
             # if process has been finished properly:
             a.theoryDataPath = workFolder
@@ -244,7 +249,11 @@ def func_mix_of_CoO_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', 
         if case_R_factor is 'without_Mg':
             a.k_R_Mg_0 = 0
             a.k_R_Mg_60 = 0
-
+        if case_R_factor is 'without_Co_and_Au':
+            a.k_R_Co_0 = 0
+            a.k_R_Co_60 = 0
+            a.k_R_Au_0 = 0
+            a.k_R_Au_60 = 0
 
         if returncode is not -1:
             # if process has been finished properly:
