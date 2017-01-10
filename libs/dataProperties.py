@@ -414,22 +414,38 @@ class NumericData():
 
             self.Co2p.axes = self.fig.add_subplot(gs[0, 0])
             self.Co2p.axes.invert_xaxis()
-            self.Co2p.axes.set_title('Co2p, $R_{{0}}=${0:1.4}, $R_{{60}}=${1:1.4}'.format(self.Co2p._0.R_factor, self.Co2p._60.R_factor))
+            if abs(self.k_R_Co_0 + self.k_R_Co_60) > 0:
+                Rtot = (self.k_R_Co_0  * self.Co2p._0.R_factor + self.k_R_Co_60 * self.Co2p._60.R_factor)/(self.k_R_Co_0 + self.k_R_Co_60)
+            else:
+                Rtot = (self.k_R_Co_0  * self.Co2p._0.R_factor + self.k_R_Co_60 * self.Co2p._60.R_factor)/2
+            self.Co2p.axes.set_title('Co2p, $R_{{0}}=${0:1.4}, $R_{{60}}=${1:1.4}, $R_{{tot}}=${2:1.4}'.format(self.Co2p._0.R_factor, self.Co2p._60.R_factor, Rtot))
             self.Co2p.axes.grid(True)
 
             self.Au4f.axes = self.fig.add_subplot(gs[0, 1])
             self.Au4f.axes.invert_xaxis()
-            self.Au4f.axes.set_title('Au4f, $R_{{0}}=${0:1.4}, $R_{{60}}=${1:1.4}'.format(self.Au4f._0.R_factor, self.Au4f._60.R_factor))
+            if abs(self.k_R_Au_0 + self.k_R_Au_60) > 0:
+                Rtot = (self.k_R_Au_0  * self.Au4f._0.R_factor + self.k_R_Au_60 * self.Au4f._60.R_factor)/(self.k_R_Au_0 + self.k_R_Au_60)
+            else:
+                Rtot = (self.k_R_Au_0  * self.Au4f._0.R_factor + self.k_R_Au_60 * self.Au4f._60.R_factor)/2
+            self.Au4f.axes.set_title('Au4f, $R_{{0}}=${0:1.4}, $R_{{60}}=${1:1.4}, $R_{{tot}}=${2:1.4}'.format(self.Au4f._0.R_factor, self.Au4f._60.R_factor, Rtot))
             self.Au4f.axes.grid(True)
 
             self.O1s.axes = self.fig.add_subplot(gs[1, 0])
             self.O1s.axes.invert_xaxis()
-            self.O1s.axes.set_title('O1s, $R_{{0}}=${0:1.4}, $R_{{60}}=${1:1.4}'.format(self.O1s._0.R_factor, self.O1s._60.R_factor))
+            if abs(self.k_R_O_0 + self.k_R_O_60) > 0:
+                Rtot = (self.k_R_O_0  * self.O1s._0.R_factor + self.k_R_O_60 * self.O1s._60.R_factor)/(self.k_R_O_0 + self.k_R_O_60)
+            else:
+                Rtot = (self.k_R_O_0  * self.O1s._0.R_factor + self.k_R_O_60 * self.O1s._60.R_factor)/2
+            self.O1s.axes.set_title('O1s, $R_{{0}}=${0:1.4}, $R_{{60}}=${1:1.4}, $R_{{tot}}=${2:1.4}'.format(self.O1s._0.R_factor, self.O1s._60.R_factor, Rtot))
             self.O1s.axes.grid(True)
 
             self.Mg1s.axes = self.fig.add_subplot(gs[1, 1])
             self.Mg1s.axes.invert_xaxis()
-            self.Mg1s.axes.set_title('Mg1s, $R_{{0}}=${0:1.4}, $R_{{60}}=${1:1.4}'.format(self.Mg1s._0.R_factor, self.Mg1s._60.R_factor))
+            if abs(self.k_R_Mg_0 + self.k_R_Mg_60) > 0:
+                Rtot = (self.k_R_Mg_0  * self.Mg1s._0.R_factor + self.k_R_Mg_60 * self.Mg1s._60.R_factor)/(self.k_R_Mg_0 + self.k_R_Mg_60)
+            else:
+                Rtot = (self.k_R_Mg_0  * self.Mg1s._0.R_factor + self.k_R_Mg_60 * self.Mg1s._60.R_factor)/2
+            self.Mg1s.axes.set_title('Mg1s, $R_{{0}}=${0:1.4}, $R_{{60}}=${1:1.4}, $R_{{tot}}=${2:1.4}'.format(self.Mg1s._0.R_factor, self.Mg1s._60.R_factor, Rtot))
             self.Mg1s.axes.grid(True)
 
             self.Co2p.axes.set_ylabel('Reletive Intensity (a.u.)', fontsize=16, fontweight='bold')
