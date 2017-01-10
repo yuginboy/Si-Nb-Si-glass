@@ -33,7 +33,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     # methodName = 'Nelder-Mead'
     methodName = 'randtobest1exp'
     # methodName = 'BFGS'
-    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au_x_'+case_R_factor)
+    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au_x__R_'+case_R_factor)
 
 
 

@@ -34,7 +34,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     # methodName = 'randtobest1exp'
     methodName = 'rand1exp'
     # methodName = 'BFGS'
-    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au_'+case_R_factor)
+    newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_Au__R_'+case_R_factor)
 
     # ====================================================================================================
     # CoO and Au interlayer:
