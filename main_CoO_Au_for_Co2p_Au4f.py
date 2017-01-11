@@ -19,9 +19,10 @@ from libs.dir_and_file_operations import create_out_data_folder, createFolder
 import numpy as np
 import pickle
 from libs.functionsForMinimize import func_CoO, func_mix_of_CoO_Au
-from scipy.optimize import  differential_evolution
+from scipy.optimize import  differential_evolution, basinhopping
 from scipy.optimize import minimize
 from libs.dir_and_file_operations import create_out_data_folder
+from libs.minimization_additions import SESSA_Step, BH_Bounds_for_SESSA
 
 def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
@@ -34,13 +35,26 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     # case_R_factor = 'without_Co_and_Au'
     case_R_factor = 'without_O_and_Mg'
 
+    case_optimize_method = 'differential evolution'
+    case_optimize_method = 'basinhopping'
+
     # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
     # methodName = 'Nelder-Mead'
     methodName = 'randtobest1exp'
+    minimizer_kwargs = {"method": "L-BFGS-B", "jac": False}
     # methodName = 'rand1exp'
     # methodName = 'BFGS'
+
+    if case_optimize_method is 'differential evolution':
+        optimize_method = 'DE'
+    if case_optimize_method is 'basinhopping':
+        optimize_method = 'BH'
+        methodName = minimizer_kwargs['method']
+
+
+
     if case_mix_or_layers is 'layers':
-        newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_layers__R_'+case_R_factor)
+        newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=optimize_method+'_'+methodName+'_CoO_layers__R_'+case_R_factor)
 
         # ====================================================================================================
         # CoO and Au interlayer:
@@ -63,18 +77,25 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             y[5] = x[2]
             y[6] = 1.932
             return func_CoO(y, projPath=newProjPath, case_R_factor=case_R_factor)
-
+        # ====================================================================================================
         # # 1
         bounds = [
             (0.5, 10),  # Au
             (0.5, 10),  # CoO
             (1, 25),  # Co
                   ]
-
+        # 3306
+        x0 = [5.136,
+              11.186,
+              8.739,
+              0.835,
+              2.427,
+              9.766,
+              1.932]
 
 
     if case_mix_or_layers is 'mix':
-        newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=methodName+'_CoO_mix__R_'+case_R_factor)
+        newProjPath = create_out_data_folder(projPath, first_part_of_folder_name=optimize_method+'_'+methodName+'_CoO_mix__R_'+case_R_factor)
         # 2 for mix of CoO - Au
         # sample.Mg_Hydrate.thickness = x[0]
         # sample.MgCO3.thickness = x[1]
@@ -113,8 +134,44 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             (0.5, 10),  # (CoO)x_Au(1-x)
             (1, 25),  # Co
         ]
+        bounds_xmax = [0.9, 10, 25]
+        bounds_xmin = [0.1, 0.5, 1]
+        bh_bounds = BH_Bounds_for_SESSA()
+        bh_bounds.xmax = bounds_xmax
+        bh_bounds.xmin = bounds_xmin
 
-    result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy=methodName, init='random')
+        #/home/yugin/VirtualboxShare/Co-CoO/out_genetic/randtobest1exp_CoO_mix__R_without_O_and_Mg_00001/00078
+        # x0 = [
+        #       5.136,   # MgOH
+        #       11.186,  # MgCO3
+        #       8.739,   # MgO
+        #       0.863,   # x of (CoO)x_Au(1-x)
+        #       2.212,   # (CoO)x_Au(1-x)
+        #       8.975,   # Co
+        #       1.932    # C
+        #       ]
+        x0 = [
+              0.863,   # x of (CoO)x_Au(1-x)
+              2.212,   # (CoO)x_Au(1-x)
+              8.975,   # Co
+              ]
+
+
+    if case_optimize_method is 'differential evolution':
+        result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy=methodName, init='random')
+
+    if case_optimize_method is 'basinhopping':
+        take_step = SESSA_Step()
+        take_step.xmax = [x[1] for x in bounds]
+        take_step.xmin = [x[0] for x in bounds]
+        # # rewrite the bounds in the way required by L-BFGS-B
+        # bounds = [(low, high) for low, high in zip(xmin, xmax)]
+
+        # use method L-BFGS-B because the problem is smooth and bounded
+        minimizer_kwargs = dict(method=minimizer_kwargs['method'], bounds=bounds)
+        # res = basinhopping(f, x0, minimizer_kwargs=minimizer_kwargs)
+        result = basinhopping(fun, x0, niter=200, take_step=take_step, minimizer_kwargs=minimizer_kwargs)
+
     print('-*'*25)
     print('==  Answer is:')
     print (result)

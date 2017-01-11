@@ -57,13 +57,13 @@ def func_CoO(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', case_R_fac
         sample.workDir = workFolder
 
 
-        sample.Mg_Hydrate.thickness = x[0]
-        sample.MgCO3.thickness = x[1]
-        sample.MgO.thickness = x[2]
-        sample.Au_interlayer.thickness = x[3]
-        sample.Co_oxide.thickness = x[4]
-        sample.Co_metal.thickness = x[5]
-        sample.C_contamination.thickness = x[6]
+        sample.Mg_Hydrate.setThickness(x[0])
+        sample.MgCO3.setThickness(x[1])
+        sample.MgO.setThickness(x[2])
+        sample.Au_interlayer.setThickness(x[3])
+        sample.Co_oxide.setThickness(x[4])
+        sample.Co_metal.setThickness(x[5])
+        sample.C_contamination.setThickness(x[6])
 
         sample.writeSesFile()
         # Saving the objects:
@@ -230,15 +230,15 @@ def func_mix_of_CoO_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', 
         sample.workDir = workFolder
 
 
-        sample.Mg_Hydrate.thickness = x[0]
-        sample.MgCO3.thickness = x[1]
-        sample.MgO.thickness = x[2]
+        sample.Mg_Hydrate.setThickness(x[0])
+        sample.MgCO3.setThickness(x[1])
+        sample.MgO.setThickness(x[2])
         sample.CoO_Au_mix.set_x_amount_CoO_in_Au(x[3])
-        sample.CoO_Au_mix.thickness = x[4]
-        sample.Au_interlayer.thickness = 0.001
-        sample.Co_oxide.thickness = 0.001
-        sample.Co_metal.thickness = x[5]
-        sample.C_contamination.thickness = x[6]
+        sample.CoO_Au_mix.setThickness(x[4])
+        sample.Au_interlayer.setThickness(0.001)
+        sample.Co_oxide.setThickness(0.001)
+        sample.Co_metal.setThickness(x[5])
+        sample.C_contamination.setThickness(x[6])
 
         sample.writeSesFile()
         # Saving the objects:

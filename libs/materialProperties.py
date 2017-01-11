@@ -16,7 +16,18 @@ class Material:
         Material.count = Material.count + 1
         self.id = Material.count
         self.number = self.id
-
+    def setThickness(self, x):
+        if x <= 0.0001:
+            x = 0.001
+        self.thickness = x
+    def setDensity(self, x):
+        if x <= 0.0001:
+            x = 0.001
+        self.density = x
+    def setEgap(self, x):
+        if x < 0.0:
+            x = 0.0
+        self.Egap = x
     def info(self):
         print('-'*10)
         print ('id: {0}'.format(self.id))
