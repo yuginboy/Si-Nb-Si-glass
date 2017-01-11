@@ -549,7 +549,7 @@ class NumericData():
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
     a = NumericData()
-    a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00038'
+    a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00001'
     a.loadExperimentData()
     a.loadTheoryData()
     a.Au4f._0.experiment.data.energyRegion = [1395, 1405]
