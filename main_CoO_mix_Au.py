@@ -37,7 +37,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     # case_R_factor = 'without_O_and_Mg'
     case_R_factor = 'all_lines'
 
-    case_optimize_method = 'differential evolution'
+    # case_optimize_method = 'differential evolution'
     case_optimize_method = 'basinhopping'
     # case_optimize_method = 'brute force'
 
@@ -151,14 +151,24 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
         # ====================================================================================================
 
-        # /home/yugin/VirtualboxShare/Co-CoO/out_genetic/randtobest1exp_CoO_mix__R_without_O_and_Mg_00001/00078
+        # # /home/yugin/VirtualboxShare/Co-CoO/out_genetic/randtobest1exp_CoO_mix__R_without_O_and_Mg_00001/00078
+        # x0 = [
+        #       5.136,   # MgOH
+        #       11.186,  # MgCO3
+        #       8.739,   # MgO
+        #       0.863,   # x of (CoO)x_Au(1-x)
+        #       2.212,   # (CoO)x_Au(1-x)
+        #       8.975,   # Co
+        #       1.932    # C
+        #       ]
+        # /home/yugin/VirtualboxShare/Co-CoO/out_genetic/randtobest1exp_CoO_mix__R_without_O_and_Mg_00001/00181
         x0 = [
               5.136,   # MgOH
               11.186,  # MgCO3
               8.739,   # MgO
-              0.863,   # x of (CoO)x_Au(1-x)
-              2.212,   # (CoO)x_Au(1-x)
-              8.975,   # Co
+              0.708,   # x of (CoO)x_Au(1-x)
+              3.073,   # (CoO)x_Au(1-x)
+              9.598,   # Co
               1.932    # C
               ]
 
