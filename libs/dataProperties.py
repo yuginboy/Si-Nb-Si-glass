@@ -396,10 +396,13 @@ class NumericData():
             # save to the PNG file:
             # out_file_name = '%s_' % (case) + "%05d.png" % (numOfIter)
             # fig.savefig(os.path.join(out_dir, out_file_name))
-    def updatePlot(self, saveFigs=True):
+    def updatePlot(self, saveFigs=True, doLoadMaterialsData=True):
+
+
+        if doLoadMaterialsData:
+            self.loadMaterialsData()
 
         self.updateRfactor()
-        self.loadMaterialsData()
 
         if self.showFigs:
 

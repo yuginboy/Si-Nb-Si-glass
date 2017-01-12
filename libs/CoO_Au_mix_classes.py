@@ -74,10 +74,13 @@ class Class_for_mix_CoO_Au(NumericData):
         self.thicknessVector[6] = obj[0].Mg_Hydrate.thickness
         self.thicknessVector[7] = obj[0].C_contamination.thickness
 
-    def updatePlot(self, saveFigs=True):
+    def updatePlot(self, saveFigs=True, doLoadMaterialsData=True):
+
+        if doLoadMaterialsData:
+            self.loadMaterialsData()
 
         self.updateRfactor()
-        self.loadMaterialsData()
+
 
         if self.showFigs:
 

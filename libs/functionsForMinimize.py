@@ -8,7 +8,7 @@
 import os, sys
 import datetime
 from shutil import copyfile
-from libs.dir_and_file_operations import create_out_data_folder, createFolder
+from libs.dir_and_file_operations import create_out_data_folder, createFolder, listOfFilesFN_with_selected_ext
 import numpy as np
 from libs.dataProperties import NumericData
 from libs.createSESSAprojectFile_CoO import SAMPLE
@@ -214,6 +214,229 @@ def func_CoO(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', case_R_fac
         print('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
         print('-> |R - Rmin| = {}'.format(np.abs(a.global_min_R_factor - a.total_R_faktor)))
         print('====***' * 15)
+
+        textFile = open(os.path.join(projPath, 'readme.txt'), 'a')
+        # load calculated data from the best case:
+        lsFiles = listOfFilesFN_with_selected_ext(folder=a.global_min_R_factor_path)
+        copyfile(lsFiles[-1],
+                 os.path.join(projPath, os.path.basename(lsFiles[-1])))
+
+        textFile.write('\n')
+        textFile.write('-> global minimum R-factor is: {}'.format(a.global_min_R_factor))
+        textFile.write('\n')
+        textFile.write('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
+        textFile.write('\n')
+        textFile.write('-> |R - Rmin| = {}'.format(np.abs(a.global_min_R_factor - a.total_R_faktor)))
+        textFile.write('\n')
+        textFile.close()
+
+
+        sys.exit(0)
+
+        return a.total_R_faktor
+def func_CoO_no_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', case_R_factor='all'):
+    # main function for minimize:
+    sample = SAMPLE()
+    a = NumericData()
+    a.Au4f._0.experiment.filename = r'raw_Au4f_Mg2s_alpha=0deg_CoO_no_Au.txt'
+    a.Au4f._60.experiment.filename = r'raw_Au4f_Mg2s_alpha=60deg.txt'
+
+    a.Co2p._0.experiment.filename = r'raw_Co2p_alpha=0deg_CoO_no_Au.txt'
+    a.Co2p._60.experiment.filename = r'raw_Co2p_alpha=60deg.txt'
+
+    a.O1s._0.experiment.filename = r'raw_O1s_alpha=0deg_CoO_no_Au.txt'
+    a.O1s._60.experiment.filename = r'raw_O1s_alpha=60deg.txt'
+
+    a.Mg1s._0.experiment.filename = r'raw_Mg1s_alpha=0deg_CoO_no_Au.txt'
+    a.Mg1s._60.experiment.filename = r'raw_Mg1s_alpha=60deg.txt'
+
+
+    if not checkStopFile(projPath):
+        workFolder = create_out_data_folder(projPath, first_part_of_folder_name = '')
+        generateWorkPlace(workFolder)
+        sample.workDir = workFolder
+
+
+        sample.Mg_Hydrate.setThickness(x[0])
+        sample.MgCO3.setThickness(x[1])
+        sample.MgO.setThickness(x[2])
+        sample.Au_interlayer.setThickness(x[3])
+        sample.Co_oxide.setThickness(x[4])
+        sample.Co_metal.setThickness(x[5])
+        sample.C_contamination.setThickness(x[6])
+
+        sample.writeSesFile()
+        # Saving the objects:
+        pcklFile = os.path.join(workFolder, 'objs.pickle')
+        with open(pcklFile, 'wb') as f:
+            pickle.dump([sample], f)
+
+        # # Getting back the objects:
+        # with open(pcklFile, 'rb') as f:
+        #     obj0 = pickle.load(f)
+        returncode = execProjectSessionWithTimeoutControl(workDir=workFolder, timeOut=120)
+        clearWorkPlace(workFolder)
+
+        # calculate total R-factor with the selected R-factors:
+        # we have no data for angle=60 deg
+        a.k_R_Co_60 = 0
+        a.k_R_Au_60 = 0
+        a.k_R_Mg_60 = 0
+        a.k_R_O_60 = 0
+
+        if case_R_factor is 'without_Mg':
+            a.k_R_Mg_0 = 0
+            a.k_R_Mg_60 = 0
+        if case_R_factor is 'without_Co_and_Au':
+            a.k_R_Co_0 = 0
+            a.k_R_Co_60 = 0
+            a.k_R_Au_0 = 0
+            a.k_R_Au_60 = 0
+        if case_R_factor is 'without_O_and_Mg':
+            a.k_R_O_0 = 0
+            a.k_R_O_60 = 0
+            a.k_R_Mg_0 = 0
+            a.k_R_Mg_60 = 0
+
+        if returncode is not -1:
+            # if process has been finished properly:
+            a.theoryDataPath = workFolder
+            a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
+            a.loadExperimentData()
+            a.loadTheoryData()
+            a.Au4f._0.experiment.data.energyRegion = [1395, 1405]
+            a.Au4f._0.theory.data.energyRegion = [1395, 1405]
+            a.Au4f._60.experiment.data.energyRegion = [1395, 1405]
+            a.Au4f._60.theory.data.energyRegion = [1395, 1405]
+
+            a.Co2p._0.experiment.data.energyRegion = [700, 710]
+            a.Co2p._0.theory.data.energyRegion = [700, 710]
+            a.Co2p._60.experiment.data.energyRegion = [700, 710]
+            a.Co2p._60.theory.data.energyRegion = [700, 710]
+
+            a.O1s._0.experiment.data.energyRegion = [950, 960]
+            a.O1s._0.theory.data.energyRegion = [950, 960]
+            a.O1s._60.experiment.data.energyRegion = [950, 960]
+            a.O1s._60.theory.data.energyRegion = [950, 960]
+
+            a.Mg1s._0.experiment.data.energyRegion = [179, 185]
+            a.Mg1s._0.theory.data.energyRegion = [179, 185]
+            a.Mg1s._60.experiment.data.energyRegion = [179, 185]
+            a.Mg1s._60.theory.data.energyRegion = [179, 185]
+
+            # start to Global Normolize procedure:
+            a.Au4f._0.getMaxIntensityValue()
+            a.Au4f._60.getMaxIntensityValue()
+            # print('a.Au4f._0.experiment.data.fit.maxIntensity = {0}'.format(a.Au4f._0.experiment.data.fit.maxIntensity))
+            # print('a.Au4f._0.theory.data.fit.maxIntensity = {0}'.format(a.Au4f._0.theory.data.fit.maxIntensity))
+            # print('a.Au4f._60.experiment.data.fit.maxIntensity = {0}'.format(a.Au4f._60.experiment.data.fit.maxIntensity))
+            # print('a.Au4f._60.theory.data.fit.maxIntensity = {0}'.format(a.Au4f._60.theory.data.fit.maxIntensity))
+
+            a.Co2p._0.getMaxIntensityValue()
+            a.Co2p._60.getMaxIntensityValue()
+            # print('a.Co2p._0.experiment.data.fit.maxIntensity = {0}'.format(a.Co2p._0.experiment.data.fit.maxIntensity))
+            # print('a.Co2p._0.theory.data.fit.maxIntensity = {0}'.format(a.Co2p._0.theory.data.fit.maxIntensity))
+            # print('a.Co2p._60.experiment.data.fit.maxIntensity = {0}'.format(a.Co2p._60.experiment.data.fit.maxIntensity))
+            # print('a.Co2p._60.theory.data.fit.maxIntensity = {0}'.format(a.Co2p._60.theory.data.fit.maxIntensity))
+
+            a.O1s._0.getMaxIntensityValue()
+            a.O1s._60.getMaxIntensityValue()
+            # print('a.O1s._0.experiment.data.fit.maxIntensity = {0}'.format(a.O1s._0.experiment.data.fit.maxIntensity))
+            # print('a.O1s._0.theory.data.fit.maxIntensity = {0}'.format(a.O1s._0.theory.data.fit.maxIntensity))
+            # print('a.O1s._60.experiment.data.fit.maxIntensity = {0}'.format(a.O1s._60.experiment.data.fit.maxIntensity))
+            # print('a.O1s._60.theory.data.fit.maxIntensity = {0}'.format(a.O1s._60.theory.data.fit.maxIntensity))
+
+            a.Mg1s._0.getMaxIntensityValue()
+            a.Mg1s._60.getMaxIntensityValue()
+            # print('a.Mg1s._0.experiment.data.fit.maxIntensity = {0}'.format(a.Mg1s._0.experiment.data.fit.maxIntensity))
+            # print('a.Mg1s._0.theory.data.fit.maxIntensity = {0}'.format(a.Mg1s._0.theory.data.fit.maxIntensity))
+            # print('a.Mg1s._60.experiment.data.fit.maxIntensity = {0}'.format(a.Mg1s._60.experiment.data.fit.maxIntensity))
+            # print('a.Mg1s._60.theory.data.fit.maxIntensity = {0}'.format(a.Mg1s._60.theory.data.fit.maxIntensity))
+
+            maxIntensity_0_theory = np.max(
+                [a.Au4f._0.theory.data.fit.maxIntensity, a.Co2p._0.theory.data.fit.maxIntensity,
+                 a.O1s._0.theory.data.fit.maxIntensity, a.Mg1s._0.theory.data.fit.maxIntensity])
+            maxIntensity_60_theory = np.max(
+                [a.Au4f._60.theory.data.fit.maxIntensity, a.Co2p._60.theory.data.fit.maxIntensity,
+                 a.O1s._60.theory.data.fit.maxIntensity, a.Mg1s._60.theory.data.fit.maxIntensity])
+
+            maxIntensity_0_experiment = np.max(
+                [a.Au4f._0.experiment.data.fit.maxIntensity, a.Co2p._0.experiment.data.fit.maxIntensity,
+                 a.O1s._0.experiment.data.fit.maxIntensity, a.Mg1s._0.experiment.data.fit.maxIntensity])
+            maxIntensity_60_experiment = np.max(
+                [a.Au4f._60.experiment.data.fit.maxIntensity, a.Co2p._60.experiment.data.fit.maxIntensity,
+                 a.O1s._60.experiment.data.fit.maxIntensity, a.Mg1s._60.experiment.data.fit.maxIntensity])
+
+            a.Au4f._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
+            a.Au4f._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
+
+            a.Co2p._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
+            a.Co2p._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
+
+            a.O1s._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
+            a.O1s._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
+
+            a.Mg1s._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
+            a.Mg1s._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
+
+            a.Au4f._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
+            a.Au4f._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+
+            a.Co2p._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
+            a.Co2p._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+
+            a.O1s._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
+            a.O1s._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+
+            a.Mg1s._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
+            a.Mg1s._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+
+            a.setupAxes()
+            a.updatePlot()
+            print('=*'*15)
+            print('-> total R-factor is: {}'.format(a.total_R_faktor))
+            a.set_global_R_factor()
+            a.get_global_R_factor()
+            a.set_global_min_R_factor()
+            a.get_global_min_R_factor()
+            print('-> global minimum R-factor is: {}'.format(a.global_min_R_factor))
+            print('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
+            print('-> |R - Rmin| = {}'.format( np.abs(a.global_min_R_factor - a.total_R_faktor)) )
+            print('=*'*15)
+
+        else:
+            a.get_global_R_factor()
+            a.total_R_faktor = a.total_R_faktor + 0.1
+
+
+        return a.total_R_faktor
+    else:
+        print('====***' * 15)
+        print('==== stop-file was found: program has been finished')
+        print('====***' * 15)
+        a.get_global_R_factor()
+        a.get_global_min_R_factor()
+        print('-> global minimum R-factor is: {}'.format(a.global_min_R_factor))
+        print('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
+        print('-> |R - Rmin| = {}'.format(np.abs(a.global_min_R_factor - a.total_R_faktor)))
+        print('====***' * 15)
+
+        textFile = open(os.path.join(projPath, 'readme.txt'), 'a')
+        # load calculated data from the best case:
+        lsFiles = listOfFilesFN_with_selected_ext(folder=a.global_min_R_factor_path)
+        copyfile(lsFiles[-1],
+                 os.path.join(projPath, os.path.basename(lsFiles[-1])))
+
+        textFile.write('\n')
+        textFile.write('-> global minimum R-factor is: {}'.format(a.global_min_R_factor))
+        textFile.write('\n')
+        textFile.write('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
+        textFile.write('\n')
+        textFile.write('-> |R - Rmin| = {}'.format(np.abs(a.global_min_R_factor - a.total_R_faktor)))
+        textFile.write('\n')
+        textFile.close()
+
+
         sys.exit(0)
 
         return a.total_R_faktor
@@ -222,6 +445,7 @@ def func_mix_of_CoO_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', 
     # main function for minimize:
     sample = Sample_with_mix_of_CoO_Au()
     a = Class_for_mix_CoO_Au()
+
     if not checkStopFile(projPath):
 
 
@@ -390,6 +614,234 @@ def func_mix_of_CoO_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', 
         print('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
         print('-> |R - Rmin| = {}'.format( np.abs(a.global_min_R_factor - a.total_R_faktor)) )
         print('====***' * 15)
+
+        textFile = open(os.path.join(projPath, 'readme.txt'), 'a')
+        # load calculated data from the best case:
+        lsFiles = listOfFilesFN_with_selected_ext(folder=a.global_min_R_factor_path)
+        copyfile(lsFiles[-1],
+                 os.path.join(projPath, os.path.basename(lsFiles[-1])))
+
+        textFile.write('\n')
+        textFile.write('-> global minimum R-factor is: {}'.format(a.global_min_R_factor))
+        textFile.write('\n')
+        textFile.write('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
+        textFile.write('\n')
+        textFile.write('-> |R - Rmin| = {}'.format(np.abs(a.global_min_R_factor - a.total_R_faktor)))
+        textFile.write('\n')
+        textFile.close()
+
+
+        sys.exit(0)
+
+        return a.total_R_faktor
+
+def func_mix_of_CoO_no_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', case_R_factor = 'without_Mg'):
+    # main function for minimize:
+    sample = Sample_with_mix_of_CoO_Au()
+    a = Class_for_mix_CoO_Au()
+    a.Au4f._0.experiment.filename = r'raw_Au4f_Mg2s_alpha=0deg_CoO_no_Au.txt'
+    a.Au4f._60.experiment.filename = r'raw_Au4f_Mg2s_alpha=60deg.txt'
+
+    a.Co2p._0.experiment.filename = r'raw_Co2p_alpha=0deg_CoO_no_Au.txt'
+    a.Co2p._60.experiment.filename = r'raw_Co2p_alpha=60deg.txt'
+
+    a.O1s._0.experiment.filename = r'raw_O1s_alpha=0deg_CoO_no_Au.txt'
+    a.O1s._60.experiment.filename = r'raw_O1s_alpha=60deg.txt'
+
+    a.Mg1s._0.experiment.filename = r'raw_Mg1s_alpha=0deg_CoO_no_Au.txt'
+    a.Mg1s._60.experiment.filename = r'raw_Mg1s_alpha=60deg.txt'
+
+    if not checkStopFile(projPath):
+
+
+        workFolder = create_out_data_folder(projPath, first_part_of_folder_name = '')
+        generateWorkPlace(workFolder)
+        sample.workDir = workFolder
+
+
+        sample.Mg_Hydrate.setThickness(x[0])
+        sample.MgCO3.setThickness(x[1])
+        sample.MgO.setThickness(x[2])
+        sample.CoO_Au_mix.set_x_amount_CoO_in_Au(x[3])
+        sample.CoO_Au_mix.setThickness(x[4])
+        sample.Au_interlayer.setThickness(0.001)
+        sample.Co_oxide.setThickness(0.001)
+        sample.Co_metal.setThickness(x[5])
+        sample.C_contamination.setThickness(x[6])
+
+        sample.writeSesFile()
+        # Saving the objects:
+        pcklFile = os.path.join(workFolder, 'objs.pickle')
+        with open(pcklFile, 'wb') as f:
+            pickle.dump([sample], f)
+
+        # # Getting back the objects:
+        # with open(pcklFile, 'rb') as f:
+        #     obj0 = pickle.load(f)
+        returncode = execProjectSessionWithTimeoutControl(workDir=workFolder, timeOut=120)
+        clearWorkPlace(workFolder)
+
+
+        # calculate total R-factor with the selected R-factors:
+        # we have no data for angle=60 deg
+        a.k_R_Co_60 = 0
+        a.k_R_Au_60 = 0
+        a.k_R_Mg_60 = 0
+        a.k_R_O_60 = 0
+
+        if case_R_factor is 'without_Mg':
+            a.k_R_Mg_0 = 0
+            a.k_R_Mg_60 = 0
+        if case_R_factor is 'without_Co_and_Au':
+            a.k_R_Co_0 = 0
+            a.k_R_Co_60 = 0
+            a.k_R_Au_0 = 0
+            a.k_R_Au_60 = 0
+        if case_R_factor is 'without_O_and_Mg':
+            a.k_R_O_0 = 0
+            a.k_R_O_60 = 0
+            a.k_R_Mg_0 = 0
+            a.k_R_Mg_60 = 0
+
+        if returncode is not -1:
+            # if process has been finished properly:
+            a.theoryDataPath = workFolder
+            a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
+            a.loadExperimentData()
+            a.loadTheoryData()
+            a.Au4f._0.experiment.data.energyRegion = [1395, 1405]
+            a.Au4f._0.theory.data.energyRegion = [1395, 1405]
+            a.Au4f._60.experiment.data.energyRegion = [1395, 1405]
+            a.Au4f._60.theory.data.energyRegion = [1395, 1405]
+
+            a.Co2p._0.experiment.data.energyRegion = [700, 710]
+            a.Co2p._0.theory.data.energyRegion = [700, 710]
+            a.Co2p._60.experiment.data.energyRegion = [700, 710]
+            a.Co2p._60.theory.data.energyRegion = [700, 710]
+
+            a.O1s._0.experiment.data.energyRegion = [950, 960]
+            a.O1s._0.theory.data.energyRegion = [950, 960]
+            a.O1s._60.experiment.data.energyRegion = [950, 960]
+            a.O1s._60.theory.data.energyRegion = [950, 960]
+
+            a.Mg1s._0.experiment.data.energyRegion = [179, 185]
+            a.Mg1s._0.theory.data.energyRegion = [179, 185]
+            a.Mg1s._60.experiment.data.energyRegion = [179, 185]
+            a.Mg1s._60.theory.data.energyRegion = [179, 185]
+
+            # start to Global Normolize procedure:
+            a.Au4f._0.getMaxIntensityValue()
+            a.Au4f._60.getMaxIntensityValue()
+            # print('a.Au4f._0.experiment.data.fit.maxIntensity = {0}'.format(a.Au4f._0.experiment.data.fit.maxIntensity))
+            # print('a.Au4f._0.theory.data.fit.maxIntensity = {0}'.format(a.Au4f._0.theory.data.fit.maxIntensity))
+            # print('a.Au4f._60.experiment.data.fit.maxIntensity = {0}'.format(a.Au4f._60.experiment.data.fit.maxIntensity))
+            # print('a.Au4f._60.theory.data.fit.maxIntensity = {0}'.format(a.Au4f._60.theory.data.fit.maxIntensity))
+
+            a.Co2p._0.getMaxIntensityValue()
+            a.Co2p._60.getMaxIntensityValue()
+            # print('a.Co2p._0.experiment.data.fit.maxIntensity = {0}'.format(a.Co2p._0.experiment.data.fit.maxIntensity))
+            # print('a.Co2p._0.theory.data.fit.maxIntensity = {0}'.format(a.Co2p._0.theory.data.fit.maxIntensity))
+            # print('a.Co2p._60.experiment.data.fit.maxIntensity = {0}'.format(a.Co2p._60.experiment.data.fit.maxIntensity))
+            # print('a.Co2p._60.theory.data.fit.maxIntensity = {0}'.format(a.Co2p._60.theory.data.fit.maxIntensity))
+
+            a.O1s._0.getMaxIntensityValue()
+            a.O1s._60.getMaxIntensityValue()
+            # print('a.O1s._0.experiment.data.fit.maxIntensity = {0}'.format(a.O1s._0.experiment.data.fit.maxIntensity))
+            # print('a.O1s._0.theory.data.fit.maxIntensity = {0}'.format(a.O1s._0.theory.data.fit.maxIntensity))
+            # print('a.O1s._60.experiment.data.fit.maxIntensity = {0}'.format(a.O1s._60.experiment.data.fit.maxIntensity))
+            # print('a.O1s._60.theory.data.fit.maxIntensity = {0}'.format(a.O1s._60.theory.data.fit.maxIntensity))
+
+            a.Mg1s._0.getMaxIntensityValue()
+            a.Mg1s._60.getMaxIntensityValue()
+            # print('a.Mg1s._0.experiment.data.fit.maxIntensity = {0}'.format(a.Mg1s._0.experiment.data.fit.maxIntensity))
+            # print('a.Mg1s._0.theory.data.fit.maxIntensity = {0}'.format(a.Mg1s._0.theory.data.fit.maxIntensity))
+            # print('a.Mg1s._60.experiment.data.fit.maxIntensity = {0}'.format(a.Mg1s._60.experiment.data.fit.maxIntensity))
+            # print('a.Mg1s._60.theory.data.fit.maxIntensity = {0}'.format(a.Mg1s._60.theory.data.fit.maxIntensity))
+
+            maxIntensity_0_theory = np.max(
+                [a.Au4f._0.theory.data.fit.maxIntensity, a.Co2p._0.theory.data.fit.maxIntensity,
+                 a.O1s._0.theory.data.fit.maxIntensity, a.Mg1s._0.theory.data.fit.maxIntensity])
+            maxIntensity_60_theory = np.max(
+                [a.Au4f._60.theory.data.fit.maxIntensity, a.Co2p._60.theory.data.fit.maxIntensity,
+                 a.O1s._60.theory.data.fit.maxIntensity, a.Mg1s._60.theory.data.fit.maxIntensity])
+
+            maxIntensity_0_experiment = np.max(
+                [a.Au4f._0.experiment.data.fit.maxIntensity, a.Co2p._0.experiment.data.fit.maxIntensity,
+                 a.O1s._0.experiment.data.fit.maxIntensity, a.Mg1s._0.experiment.data.fit.maxIntensity])
+            maxIntensity_60_experiment = np.max(
+                [a.Au4f._60.experiment.data.fit.maxIntensity, a.Co2p._60.experiment.data.fit.maxIntensity,
+                 a.O1s._60.experiment.data.fit.maxIntensity, a.Mg1s._60.experiment.data.fit.maxIntensity])
+
+            a.Au4f._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
+            a.Au4f._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
+
+            a.Co2p._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
+            a.Co2p._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
+
+            a.O1s._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
+            a.O1s._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
+
+            a.Mg1s._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
+            a.Mg1s._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
+
+            a.Au4f._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
+            a.Au4f._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+
+            a.Co2p._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
+            a.Co2p._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+
+            a.O1s._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
+            a.O1s._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+
+            a.Mg1s._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
+            a.Mg1s._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+
+            a.setupAxes()
+            a.updatePlot()
+            print('=*'*15)
+            print('-> total R-factor is: {}'.format(a.total_R_faktor))
+            a.set_global_R_factor()
+            a.get_global_R_factor()
+            a.set_global_min_R_factor()
+            a.get_global_min_R_factor()
+            print('-> global minimum R-factor is: {}'.format(a.global_min_R_factor))
+            print('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
+            print('-> |R - Rmin| = {}'.format( np.abs(a.global_min_R_factor - a.total_R_faktor)) )
+            print('=*'*15)
+
+        else:
+            a.get_global_R_factor()
+            a.total_R_faktor = a.total_R_faktor + 0.1
+
+
+        return a.total_R_faktor
+    else:
+        print('====***' * 15)
+        print('==== stop-file was found: program has been finished')
+        print('====***' * 15)
+        a.get_global_R_factor()
+        a.get_global_min_R_factor()
+        print('-> global minimum R-factor is: {}'.format(a.global_min_R_factor))
+        print('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
+        print('-> |R - Rmin| = {}'.format( np.abs(a.global_min_R_factor - a.total_R_faktor)) )
+        print('====***' * 15)
+
+        textFile = open(os.path.join(projPath, 'readme.txt'), 'a')
+        # load calculated data from the best case:
+        lsFiles = listOfFilesFN_with_selected_ext(folder=a.global_min_R_factor_path)
+        copyfile(lsFiles[-1],
+                 os.path.join(projPath, os.path.basename(lsFiles[-1])))
+
+        textFile.write('\n')
+        textFile.write('-> global minimum R-factor is: {}'.format(a.global_min_R_factor))
+        textFile.write('\n')
+        textFile.write('-> global minimum R-factor project folder: {}'.format(a.global_min_R_factor_path))
+        textFile.write('\n')
+        textFile.write('-> |R - Rmin| = {}'.format(np.abs(a.global_min_R_factor - a.total_R_faktor)))
+        textFile.write('\n')
+        textFile.close()
+
+
         sys.exit(0)
 
         return a.total_R_faktor

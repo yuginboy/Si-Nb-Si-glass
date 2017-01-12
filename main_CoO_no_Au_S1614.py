@@ -2,12 +2,7 @@
 * Created by Zhenia Syryanyy (Yevgen Syryanyy)
 * e-mail: yuginboy@gmail.com
 * License: this code is in GPL license
-* Last modified: 2016-12-22
-Calculated by SESSA spectra for selected cases in CoO project.
-sample:
-substrate / Au[h=200A] / Co_metal[h=18A] / CoO[3h=A] / MgO [h=40A] / MgCO3 [h=5A] / Mg(OH)2[h=5A] <-- top surface
-You can modify the thickness, percent of composition for all layers in investigated material.
-The script use a brute force method
+* Last modified: 2017-01-12
 '''
 import sys
 import os
@@ -18,14 +13,14 @@ from libs.dir_and_file_operations import create_out_data_folder, createFolder
 
 import numpy as np
 import pickle
-from libs.functionsForMinimize import func_CoO, func_mix_of_CoO_Au
+from libs.functionsForMinimize import func_CoO_no_Au, func_mix_of_CoO_no_Au
 from scipy.optimize import  differential_evolution
 from scipy.optimize import basinhopping, brute
 from scipy.optimize import minimize
 from libs.dir_and_file_operations import create_out_data_folder
-from libs.minimization_additions import SESSA_Step, BH_Bounds_for_SESSA
+from libs.minimization_additions import SESSA_Step
 
-def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic'):
+def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic_CoO_no_Au'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
     # (does not use gradient methods) to find the minimium, and can search large areas of candidate space,
     # but often requires larger numbers of function evaluations than conventional gradient based techniques.
@@ -82,14 +77,14 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             # y[5] = x[2]
             # y[6] = 1.932
             y = x
-            return func_CoO(y, projPath=newProjPath, case_R_factor=case_R_factor)
+            return func_CoO_no_Au(y, projPath=newProjPath, case_R_factor=case_R_factor)
 
         # ====================================================================================================
         # # 1
         bounds = [
-                  (0.001, 8),  # MgOH
-                  (5, 15),  # MgCO3
-                  (5, 15),  # MgO
+                  (0.001, 15),  # MgOH
+                  (5, 35),  # MgCO3
+                  (5, 35),  # MgO
                   (1, 7),  # Au
                   (1, 7),  # CoO
                   (7, 25),  # Co
@@ -167,7 +162,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             # y[5] = x[2]
             # y[6] = 1.932
             y = x
-            return func_mix_of_CoO_Au(y, projPath=newProjPath, case_R_factor=case_R_factor)
+            return func_mix_of_CoO_no_Au(y, projPath=newProjPath, case_R_factor=case_R_factor)
 
         # ====================================================================================================
 
@@ -194,9 +189,9 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
         # ====================================================================================================
         bounds = [
-                  (0.001, 8),  # MgOH
-                  (7, 15),  # MgCO3
-                  (7, 15),  # MgO
+                  (0.001, 15),  # MgOH
+                  (7, 35),  # MgCO3
+                  (7, 35),  # MgO
                   (0.05, 0.95),  # x of (CoO)x_Au(1-x)
                   (1, 7),  # (CoO)x_Au(1-x)
                   (7, 25),  # Co
