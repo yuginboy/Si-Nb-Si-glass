@@ -112,8 +112,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         #       ]
         x0 = [5.136,
               11.186,
-              8.739,
-              1.1,
+              28.739,
+              0.01,
               2.2,
               10.5,
               1.932,
@@ -180,7 +180,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         x0 = [
               5.136,   # MgOH
               11.186,  # MgCO3
-              8.739,   # MgO
+              28.739,   # MgO
               0.708,   # x of (CoO)x_Au(1-x)
               3.073,   # (CoO)x_Au(1-x)
               9.598,   # Co
