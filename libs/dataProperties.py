@@ -15,10 +15,14 @@ from libs.dir_and_file_operations import get_folder_name
 
 import pickle
 import matplotlib.pyplot as plt
+
 # import guiqwt.pyplot as plt
 
-def bg_subtraction(x, y):
-    return y - shirley_new(x, y)
+def bg_subtraction(x, y, iter = 3):
+    if iter <=0:
+        return y - shirley_new(x, y)
+    print('===== iter = {}\n'.format(iter))
+    return bg_subtraction(x, y, iter-1)
 
 class RawFit():
     def __init__(self):
@@ -78,10 +82,13 @@ class TwoTypesData():
 
     def subtractBG(self):
         self.interpolateTheorData()
-        self.theory.data.fit.intensity = bg_subtraction(self.theory.data.fit.kineticEnergy,
-                                                        self.theory.data.fit.intensity)
-        self.experiment.data.fit.intensity = bg_subtraction(self.experiment.data.fit.kineticEnergy,
-                                                            self.experiment.data.fit.intensity)
+        x = self.theory.data.fit.kineticEnergy
+        y = self.theory.data.fit.intensity
+        self.theory.data.fit.intensity = bg_subtraction(x, y)
+
+        x = self.experiment.data.fit.kineticEnergy
+        y = self.experiment.data.fit.intensity
+        self.experiment.data.fit.intensity = bg_subtraction(x,bg_subtraction(x, y))
 
     def getMaxIntensityValue(self):
         self.subtractBG()
@@ -131,6 +138,7 @@ class Angled():
 class NumericData():
     global_R_factor = -1
     global_min_R_factor = 1000
+    global_min_R_factor_Structure = []
     global_min_R_factor_path = r'/home/yugin/VirtualboxShare/Co-CoO/out/00001'
     def __init__(self):
         self.showFigs = True
@@ -148,7 +156,7 @@ class NumericData():
         self.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
         self.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00001'
         # Colors for lines on a graph, length of this value and number of time-point simulations should be the same:
-        self.colorsForGraph = ['peru', 'dodgerblue', 'brown', 'red', 'darkviolet']
+        self.colorsForGraph = ['darkviolet', 'dodgerblue', 'brown', 'red', 'darkviolet']
 
         self.Au4f = Angled()
         self.Co2p = Angled()
@@ -175,13 +183,17 @@ class NumericData():
         self.total_R_faktor = NumericData.global_R_factor
 
 
-    def set_global_min_R_factor(self):
+    def set_global_min_R_factor(self, structure = []):
         if self.total_R_faktor <= NumericData.global_min_R_factor:
             NumericData.global_min_R_factor = self.total_R_faktor
             NumericData.global_min_R_factor_path = self.theoryDataPath
+            NumericData.global_min_R_factor_Structure = structure
 
     def get_global_min_R_factor(self):
         self.total_min_R_faktor = NumericData.global_min_R_factor
+
+    def get_global_min_R_factor_Structure(self):
+        return NumericData.global_min_R_factor_Structure
 
 
     def loadMaterialsData(self):
@@ -190,14 +202,15 @@ class NumericData():
         with open(pcklFile, 'rb') as f:
             obj = pickle.load(f)
         # print('')
-        self.thicknessVector[0] = obj[0].Au_bottom.thickness
-        self.thicknessVector[1] = obj[0].Co_metal.thickness
-        self.thicknessVector[2] = obj[0].Co_oxide.thickness
-        self.thicknessVector[3] = obj[0].Au_interlayer.thickness
-        self.thicknessVector[4] = obj[0].MgO.thickness
-        self.thicknessVector[5] = obj[0].MgCO3.thickness
-        self.thicknessVector[6] = obj[0].Mg_Hydrate.thickness
-        self.thicknessVector[7] = obj[0].C_contamination.thickness
+        self.suptitle_txt = '$Fit$ $model$ $for$ $sample$: ' +  obj[0].layersDescriptionTxt
+        # self.thicknessVector[0] = obj[0].Au_bottom.thickness
+        # self.thicknessVector[1] = obj[0].Co_metal.thickness
+        # self.thicknessVector[2] = obj[0].Co_oxide.thickness
+        # self.thicknessVector[3] = obj[0].Au_interlayer.thickness
+        # self.thicknessVector[4] = obj[0].MgO.thickness
+        # self.thicknessVector[5] = obj[0].MgCO3.thickness
+        # self.thicknessVector[6] = obj[0].Mg_Hydrate.thickness
+        # self.thicknessVector[7] = obj[0].C_contamination.thickness
 
 
     def loadExperimentData(self):
@@ -291,21 +304,27 @@ class NumericData():
         self.Mg1s._0.calcRfactor()
         self.Mg1s._60.calcRfactor()
 
+        denominator = self.k_R_Au_0 + self.k_R_Au_60 + \
+                      self.k_R_Co_0 + self.k_R_Co_60 + \
+                      self.k_R_O_0 + self.k_R_O_60 + \
+                      self.k_R_Mg_0 + self.k_R_Mg_60
+
+        if denominator <= 0:
+            denominator = 8
+
         self.total_R_faktor = (
-                              self.k_R_Au_0  * self.Au4f._0.R_factor + \
-                              self.k_R_Au_60 * self.Au4f._60.R_factor + \
-                              self.k_R_Co_0  * self.Co2p._0.R_factor +  \
-                              self.k_R_Co_60 * self.Co2p._60.R_factor + \
-                              self.k_R_O_0  *  self.O1s._0.R_factor +   \
-                              self.k_R_O_60 *  self.O1s._60.R_factor +  \
-                              self.k_R_Mg_0 *  self.Mg1s._0.R_factor +  \
-                              self.k_R_Mg_60 * self.Mg1s._60.R_factor
-                              )/(
-                                 self.k_R_Au_0 + self.k_R_Au_60 + \
-                                 self.k_R_Co_0 + self.k_R_Co_60 + \
-                                 self.k_R_O_0 + self.k_R_O_60 + \
-                                 self.k_R_Mg_0 + self.k_R_Mg_60
-                                 )
+                          self.k_R_Au_0  * self.Au4f._0.R_factor + \
+                          self.k_R_Au_60 * self.Au4f._60.R_factor + \
+                          self.k_R_Co_0  * self.Co2p._0.R_factor +  \
+                          self.k_R_Co_60 * self.Co2p._60.R_factor + \
+                          self.k_R_O_0  *  self.O1s._0.R_factor +   \
+                          self.k_R_O_60 *  self.O1s._60.R_factor +  \
+                          self.k_R_Mg_0 *  self.Mg1s._0.R_factor +  \
+                          self.k_R_Mg_60 * self.Mg1s._60.R_factor
+                          )/(
+                                denominator
+                             )
+
 
         # self.total_R_faktor = (
         #                       self.Au4f._0.R_factor + \
@@ -406,11 +425,12 @@ class NumericData():
 
         if self.showFigs:
 
-            self.suptitle_txt = '$Fit$ $for$ $model$ $of$ $sample$'+ \
-                '$Au[{0:1.3f}\AA]/Co[{1:1.3f}\AA]/CoO[{2:1.3f}\AA]/Au[{3:1.3f}\AA]/MgO[{4:1.3f}\AA]/MgCO_3[{5:1.3f}\AA]/Mg(OH)_2[{6:1.3f}\AA]/C[{7:1.3f}\AA]$'.format(
-                self.thicknessVector[0], self.thicknessVector[1], self.thicknessVector[2], self.thicknessVector[3],
-                self.thicknessVector[4], self.thicknessVector[5], self.thicknessVector[6], self.thicknessVector[7],
-            )
+            # self.suptitle_txt = '$Fit$ $model$ $for$ $sample$: '+ \
+            #     '$Au[{0:1.3f}\AA]/Co[{1:1.3f}\AA]/CoO[{2:1.3f}\AA]/Au[{3:1.3f}\AA]/MgO[{4:1.3f}\AA]/MgCO_3[{5:1.3f}\AA]/Mg(OH)_2[{6:1.3f}\AA]/C[{7:1.3f}\AA]$'.format(
+            #     self.thicknessVector[0], self.thicknessVector[1], self.thicknessVector[2], self.thicknessVector[3],
+            #     self.thicknessVector[4], self.thicknessVector[5], self.thicknessVector[6], self.thicknessVector[7],
+            # )
+
 
             self.fig.clf()
             gs = gridspec.GridSpec(2, 2)
@@ -551,8 +571,9 @@ class NumericData():
 
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
+    from libs.sample_CoO_no_Au_classes import SAMPLE_CoO_no_Au
     a = NumericData()
-    a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00001'
+    a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00007'
     a.loadExperimentData()
     a.loadTheoryData()
     a.Au4f._0.experiment.data.energyRegion = [1395, 1405]
