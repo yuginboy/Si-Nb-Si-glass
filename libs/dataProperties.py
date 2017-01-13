@@ -18,10 +18,10 @@ import matplotlib.pyplot as plt
 
 # import guiqwt.pyplot as plt
 
-def bg_subtraction(x, y, iter = 3):
+def bg_subtraction(x, y, iter = 7):
     if iter <=0:
         return y - shirley_new(x, y)
-    print('===== iter = {}\n'.format(iter))
+    # print('===== iter = {}\n'.format(iter))
     return bg_subtraction(x, y, iter-1)
 
 class RawFit():
