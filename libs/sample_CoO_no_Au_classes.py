@@ -56,6 +56,18 @@ class NumericData_CoO_no_Au(NumericData):
     def __init__(self):
         super(NumericData_CoO_no_Au, self).__init__()
         # self.colorsForGraph = ['darkviolet', 'dodgerblue', 'brown', 'red', 'darkviolet']
+        self.Au4f._0.experiment.filename = r'raw_Au4f_Mg2s_alpha=0deg_CoO_no_Au.txt'
+        self.Au4f._60.experiment.filename = r'raw_Au4f_Mg2s_alpha=60deg.txt'
+
+        self.Co2p._0.experiment.filename = r'raw_Co2p_alpha=0deg_CoO_no_Au.txt'
+        self.Co2p._60.experiment.filename = r'raw_Co2p_alpha=60deg.txt'
+
+        self.O1s._0.experiment.filename = r'raw_O1s_alpha=0deg_CoO_no_Au.txt'
+        self.O1s._60.experiment.filename = r'raw_O1s_alpha=60deg.txt'
+
+        self.Mg1s._0.experiment.filename = r'raw_Mg1s_alpha=0deg_CoO_no_Au.txt'
+        self.Mg1s._60.experiment.filename = r'raw_Mg1s_alpha=60deg.txt'
+
     def updatePlot(self, saveFigs=True, doLoadMaterialsData=True):
 
 
@@ -207,17 +219,17 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
     def __init__(self):
         self.sample = SAMPLE_CoO_no_Au()
         self.a = NumericData_CoO_no_Au()
-        self.a.Au4f._0.experiment.filename = r'raw_Au4f_Mg2s_alpha=0deg_CoO_no_Au.txt'
-        self.a.Au4f._60.experiment.filename = r'raw_Au4f_Mg2s_alpha=60deg.txt'
-
-        self.a.Co2p._0.experiment.filename = r'raw_Co2p_alpha=0deg_CoO_no_Au.txt'
-        self.a.Co2p._60.experiment.filename = r'raw_Co2p_alpha=60deg.txt'
-
-        self.a.O1s._0.experiment.filename = r'raw_O1s_alpha=0deg_CoO_no_Au.txt'
-        self.a.O1s._60.experiment.filename = r'raw_O1s_alpha=60deg.txt'
-
-        self.a.Mg1s._0.experiment.filename = r'raw_Mg1s_alpha=0deg_CoO_no_Au.txt'
-        self.a.Mg1s._60.experiment.filename = r'raw_Mg1s_alpha=60deg.txt'
+        # self.a.Au4f._0.experiment.filename = r'raw_Au4f_Mg2s_alpha=0deg_CoO_no_Au.txt'
+        # self.a.Au4f._60.experiment.filename = r'raw_Au4f_Mg2s_alpha=60deg.txt'
+        #
+        # self.a.Co2p._0.experiment.filename = r'raw_Co2p_alpha=0deg_CoO_no_Au.txt'
+        # self.a.Co2p._60.experiment.filename = r'raw_Co2p_alpha=60deg.txt'
+        #
+        # self.a.O1s._0.experiment.filename = r'raw_O1s_alpha=0deg_CoO_no_Au.txt'
+        # self.a.O1s._60.experiment.filename = r'raw_O1s_alpha=60deg.txt'
+        #
+        # self.a.Mg1s._0.experiment.filename = r'raw_Mg1s_alpha=0deg_CoO_no_Au.txt'
+        # self.a.Mg1s._60.experiment.filename = r'raw_Mg1s_alpha=60deg.txt'
 
         self.projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out'
         self.case_R_factor = 'all'
@@ -245,13 +257,34 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
         copyfile(os.path.join(runningScriptDir, 'exe', 'additional_commands_Co_no_Au.ses'),
                  os.path.join(dirPath, 'additional_commands.ses'))
 
+    def setPeakRegions(self):
+        self.a.Au4f._0.experiment.data.energyRegion = [1395, 1405]
+        self.a.Au4f._0.theory.data.energyRegion = [1395, 1405]
+        self.a.Au4f._60.experiment.data.energyRegion = [1395, 1405]
+        self.a.Au4f._60.theory.data.energyRegion = [1395, 1405]
+
+        self.a.Co2p._0.experiment.data.energyRegion = [701, 710]
+        self.a.Co2p._0.theory.data.energyRegion = [701, 710]
+        self.a.Co2p._60.experiment.data.energyRegion = [700, 710]
+        self.a.Co2p._60.theory.data.energyRegion = [700, 710]
+
+        self.a.O1s._0.experiment.data.energyRegion = [950, 960]
+        self.a.O1s._0.theory.data.energyRegion = [950, 960]
+        self.a.O1s._60.experiment.data.energyRegion = [950, 960]
+        self.a.O1s._60.theory.data.energyRegion = [950, 960]
+
+        self.a.Mg1s._0.experiment.data.energyRegion = [179, 185]
+        self.a.Mg1s._0.theory.data.energyRegion = [179, 185]
+        self.a.Mg1s._60.experiment.data.energyRegion = [179, 185]
+        self.a.Mg1s._60.theory.data.energyRegion = [179, 185]
+
 
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
-    testCase = 3
+    testCase = 1
     if testCase == 1:
         a = NumericData_CoO_no_Au()
-        a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00007'
+        a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00011'
         a.loadExperimentData()
         a.loadTheoryData()
 
@@ -260,8 +293,8 @@ if __name__ == '__main__':
         a.Au4f._60.experiment.data.energyRegion = [1395, 1405]
         a.Au4f._60.theory.data.energyRegion = [1395, 1405]
 
-        a.Co2p._0.experiment.data.energyRegion = [700, 710]
-        a.Co2p._0.theory.data.energyRegion = [700, 710]
+        a.Co2p._0.experiment.data.energyRegion = [701, 710]
+        a.Co2p._0.theory.data.energyRegion = [701, 710]
         a.Co2p._60.experiment.data.energyRegion = [700, 710]
         a.Co2p._60.theory.data.energyRegion = [700, 710]
 

@@ -5,11 +5,23 @@ from numpy import array, linspace, arange, zeros, ceil, amax, amin, argmax, argm
 from numpy import polyfit, polyval, seterr, trunc, mean
 from numpy.linalg import norm
 from scipy.interpolate import interp1d
+import numpy as np
+import scipy.optimize as sp
+from libs.fitting_functions import *
+import os
+import matplotlib.pyplot as plt
+from statsmodels.nonparametric.smoothers_lowess import lowess
 
 
 
 DEBUG = False
 OPTION = 2
+
+def moving_average(a, windowsize=3) :
+    n = windowsize
+    ret = np.cumsum(a, dtype=float)
+    ret[n:] = ret[n:] - ret[:-n]
+    return ret[n - 1:] / n
 
 def shirley_base(x, y, tol=1e-5, maxit=5):
     """ S = shirley_base(x,y, tol=1e-5, maxit=10)
@@ -172,5 +184,269 @@ def shirley_new(x, y_in, maxit=5, numpoints=3):
         # return yr + B
         return delta + B
 
+def bg_move_curve_to_zero_line(y):
+    min_dy = np.min(np.abs(y))
+    idx = np.where(np.abs(y) == min_dy)
+    dy = y[idx]
+    return y - dy
+
+def bg_subtraction_recursivly (x, y, iter=0, numpoints = 1):
+    if iter <= 0:
+        return y - shirley_new(x, y, numpoints=numpoints)
+    # print('===== iter = {}\n'.format(iter))
+    return bg_subtraction(x, y, iter - 1, numpoints=numpoints)
+
+#############################################################
+# Fitting machinery
+#   Penalty: a class to steer fitting
+#   Background: generic convolution based background
+#############################################################
+
+class Penalty:
+    """Encapsulates a penalty function to steer fitting for a parameter"""
+
+    def __init__(self, f_range, f):
+        """Initialize penalty function"""
+        self.range = f_range
+        self.f = f
+
+    def __call__(self, p):
+        """Penalty!"""
+        return self.f(self.range, p)
 
 
+class Background():
+    def __init__(self, spectrum, name='tougaard',
+                 variables=['ratio', 'ave dE'],
+                 values=np.r_[100, 100],
+                 penalties=[Penalty(np.r_[0, 100], no_penalty), Penalty(np.r_[0, 100], no_penalty)],
+                 kernel=K,
+                 kernel_end=200):
+        self.spectrum = spectrum
+        self.name = name#
+        self.values = values
+        self.variables = variables
+        self.penalties = penalties
+        self.kernel = kernel
+        self.kernel_end = kernel_end
+
+    def set_spec(self, spec):
+        self.penalties = []
+        for range in spec['ranges']:
+            self.penalties.append(Penalty(range, eval(spec['penalty_function'])))
+        self.name = spec['name']
+        self.variables = spec['variables']
+        self.values = spec['values']
+        self.kernel = eval(spec['function'])
+
+    def get_spec(self):
+        ranges = []
+        for pen in self.penalties:
+            ranges.append(pen.range)
+
+        bg_spec = {'name': self.name,
+                   'function': self.kernel.func_name,
+                   'penalty_function': self.penalties[0].f.func_name,
+                   'variables': self.variables,
+                   'values': self.values,
+                   'ranges': ranges
+                   }
+        return bg_spec
+
+    def f(self, values, E, spectrum):
+        dE = E[1] - E[0]
+        #spectrum = spectrum - min(spectrum)
+        spectrum = spectrum - spectrum[-1]
+        #set highest energy to zero, respect physical model behind Tougaard
+        bg = dE * np.convolve( spectrum, self.kernel( values, E)[::-1], 'full')
+        return bg[bg.size-spectrum.size:]
+
+    def residuals(self, values, E, spectrum):
+        res = spectrum - self.f(values, E, spectrum)
+        i = 0
+        for p in values:
+            res *= self.penalties[i](p)
+            i += 1
+
+        res[res<0] = res[res<0]*20
+        return res
+
+    def EE(self, dE):
+        return np.arange(0, self.kernel_end, abs(dE))
+
+    def optimize_fit(self, E, spectrum):
+        #offset = min(spectrum)
+        offset = spectrum[-1]
+        #set highest energy to zero, respect physical model behind Tougaard
+        spectrum = spectrum - offset
+        self.dE = E[1]-E[0]
+        plsq = sp.leastsq(self.residuals, self.values, args=(self.EE(self.dE), spectrum))
+        self.values = plsq[0]
+        return self.f(self.values, self.EE(self.dE), spectrum) + offset
+
+    def __call__(self, E, spectrum):
+        #offset = min(spectrum)
+        offset = spectrum[-1]
+        spectrum = spectrum - offset
+        self.dE = E[1]-E[0]
+        return self.f(self.values, self.EE(self.dE), spectrum) + offset
+
+
+def bg_subtraction (x, y):
+    y = bg_move_curve_to_zero_line(y)
+    # y = y - moving_average(y, windowsize=10)
+    # result = lowess(y, x, frac=0.7)
+    #
+    # y_smooth = result[:,1]
+    # plt.plot(x,y, x, y_smooth )
+    # plt.show()
+    res = y - shirley_new(x, y, numpoints=1)
+    # print('===== iter = {}\n'.format(iter))
+    return res
+
+class BackgroundByName():
+    global_optimalValues = []
+    def __init__(self):
+        self.name = 'tougaard'
+        self.x = []
+        self.y = []
+        self.values = []
+        self.optimal_values = []
+
+
+    def calc_BG(self):
+        f_penalty = no_penalty
+
+        kernelname = self.name
+
+        if kernelname == 'analyzer_function':
+            values = np.r_[1, 6]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        if kernelname == 'analyzer_function_2':
+            values = np.r_[100, 100,]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty),
+                         ]
+        if kernelname == 'slope':
+            values = np.r_[100, 100]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        if kernelname == 'parabola':
+            values = np.r_[100, 100, 100]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty),
+                         Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        elif kernelname == 'cubic_parabola':
+            values = np.r_[100, 100, 10, 10]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty),
+                         Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        elif kernelname == 'sigmoid':
+            values = np.r_[1, 1, 10, 1]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty),
+                         Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        elif kernelname == 'fitting_arctan':
+            values = np.r_[100, 100, 10, 10]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty),
+                         Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        elif kernelname == 'sloped_arctan':
+            values = np.r_[100, 100, 10, 10, 10]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty),
+                         Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty),
+                         Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        elif kernelname == 'K3':
+            values = np.r_[100, 100, 10,]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty),
+                         Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        elif kernelname == 'voigt':
+            values = np.r_[0.1, 0.1]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        elif kernelname == 'toguaard' or kernelname == 'K':
+            values = np.r_[100, 100]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        elif kernelname == 'K3':
+            values = np.r_[100, 100]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+        else:
+            kernelname = 'toguaard_best'
+            values = np.r_[0.1, 0.1]
+            penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
+                         ]
+
+        self.bg = Background(self.y,
+                             kernel=eval(kernelname),
+                             values=values,
+                             penalties=penalties
+                           )
+    def find_optimal_values(self):
+        self.bg.optimize_fit()
+        self.optimal_values = self.bg.values
+
+    def set_values_to_optimal(self):
+        self.values = self.optimal_values
+
+    def set_global_optimalValues(self):
+        BackgroundByName.global_optimalValues = self.optimal_values
+
+    def get_global_optimalValues(self):
+        self.optimal_values = BackgroundByName.global_optimalValues
+
+
+
+if __name__=='__main__':
+    print('-> you run ', __file__, ' file in a main mode')
+    from libs.classFuncMinimize import runningScriptDir
+
+    experimentDataPath = os.path.join(runningScriptDir, 'exe','raw')
+    experiment_filename = r'raw_Co2p_alpha=0deg_CoO_no_Au.txt'
+    energyRegion = [704, 710]
+    data = np.loadtxt(os.path.join(experimentDataPath, experiment_filename), unpack=True)
+    data = np.loadtxt(r'/home/yugin/VirtualboxShare/Co-CoO/out/00011/out/Co2p.dat', unpack=True)
+    x, y = data[0, :], data[1, :]
+    idx = np.where((x >= np.min(energyRegion)) *
+                   (x <= np.max(energyRegion)))
+    xx = x[idx]
+    yy = bg_move_curve_to_zero_line(y[idx])
+    yy = yy/np.max(yy)
+    plt.plot(xx, yy, label='raw')
+
+
+
+
+
+    plt.axhline(0, color='k')
+
+
+
+    y_shir_bg = shirley_new(xx, yy, numpoints=1)
+    plt.plot(xx, y_shir_bg, label='shirley BG')
+
+    # y_shir = bg_subtraction(xx, yy)
+    # plt.plot(xx, y_shir, label='y - shirley BG')
+
+    y_bg = Background(yy, )
+    y_bg.optimize_fit(xx, yy)
+    print(y_bg.values)
+
+    y2_bg = y_bg(xx,yy)
+    plt.plot(xx, y2_bg, label=kernelname + ' BG')
+
+    # y2 = yy - y2_bg
+    # plt.plot(xx, y2, label='y - ' + kernelname +' BG')
+
+    y3 = yy - y_shir_bg
+    y3_bg = y_bg.optimize_fit(xx, y3)
+    y3 = y3 - y3_bg
+    plt.plot(xx, y3 , label='y3 - ' + kernelname +' BG')
+    plt.plot(xx, y3_bg, label=kernelname +' BG')
+
+    plt.legend(loc='best')
+    plt.show()
+    print('stop debug of ', __file__)

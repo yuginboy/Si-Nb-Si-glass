@@ -8,7 +8,7 @@ import os
 import datetime
 import numpy as np
 from scipy.interpolate import interp1d
-from libs.backgrounds import shirley_new
+from libs.backgrounds import bg_subtraction
 import matplotlib.gridspec as gridspec
 from matplotlib import pylab
 from libs.dir_and_file_operations import get_folder_name
@@ -18,11 +18,7 @@ import matplotlib.pyplot as plt
 
 # import guiqwt.pyplot as plt
 
-def bg_subtraction(x, y, iter = 7):
-    if iter <=0:
-        return y - shirley_new(x, y)
-    # print('===== iter = {}\n'.format(iter))
-    return bg_subtraction(x, y, iter-1)
+
 
 class RawFit():
     def __init__(self):
