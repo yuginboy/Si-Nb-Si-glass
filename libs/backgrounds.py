@@ -375,7 +375,7 @@ class BackgroundByName():
             penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
                          ]
         else:
-            kernelname = 'toguaard_best'
+            kernelname = 'tougaard_best'
             values = np.r_[0.1, 0.1]
             penalties = [Penalty(np.r_[0, 100], f_penalty), Penalty(np.r_[0, 100], f_penalty)
                          ]
@@ -416,36 +416,18 @@ if __name__=='__main__':
     yy = bg_move_curve_to_zero_line(y[idx])
     yy = yy/np.max(yy)
     plt.plot(xx, yy, label='raw')
-
-
-
-
-
     plt.axhline(0, color='k')
-
-
 
     y_shir_bg = shirley_new(xx, yy, numpoints=1)
     plt.plot(xx, y_shir_bg, label='shirley BG')
 
-    # y_shir = bg_subtraction(xx, yy)
-    # plt.plot(xx, y_shir, label='y - shirley BG')
+    bg = BackgroundByName()
+    bg.y = yy
+    bg.x = xx
+    bg.calc_BG()
+    y2_bg = bg.y
+    plt.plot(xx, y2_bg, label='BG')
 
-    y_bg = Background(yy, )
-    y_bg.optimize_fit(xx, yy)
-    print(y_bg.values)
-
-    y2_bg = y_bg(xx,yy)
-    plt.plot(xx, y2_bg, label=kernelname + ' BG')
-
-    # y2 = yy - y2_bg
-    # plt.plot(xx, y2, label='y - ' + kernelname +' BG')
-
-    y3 = yy - y_shir_bg
-    y3_bg = y_bg.optimize_fit(xx, y3)
-    y3 = y3 - y3_bg
-    plt.plot(xx, y3 , label='y3 - ' + kernelname +' BG')
-    plt.plot(xx, y3_bg, label=kernelname +' BG')
 
     plt.legend(loc='best')
     plt.show()
