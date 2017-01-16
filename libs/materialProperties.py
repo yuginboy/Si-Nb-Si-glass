@@ -142,8 +142,8 @@ class C_contamination(Material):
     # Carbon contamination top layer
     def __init__(self):
         super(C_contamination, self).__init__()
-        self.material = '/C/'
-        self.layerLabel = 'C'
+        self.material = '/C/O[O-C]/'
+        self.layerLabel = '(C=O)'
         self.density = 2.2  # g/cm^3
         self.thickness = 5  # A
         self.Egap = 0.0  # eV
@@ -170,6 +170,7 @@ class CoO_Au_mix(Material):
     def set_x_amount_CoO_in_Au(self, x):
         self._x_amount_CoO_in_Au = x
         self.updateProperties()
+        self.setlayerDescription()
 
     def updateProperties(self):
         if abs(self._x_amount_CoO_in_Au) > 1:

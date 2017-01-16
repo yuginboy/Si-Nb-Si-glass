@@ -61,19 +61,21 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         def fun(x):
             # x = [200.000, 10.000, 8.0, 0.001, 40.000, 5.000, 5.000, 3.0, 5.000]
             y = np.zeros(9)
-            # fix Au=200A thickness:
-            y[0] = 200
-            # fix Au interlayer thickness:
-            y[3] = 0.001
-
-            y[1] = x[0]
-            y[2] = x[1]
-
-            y[4] = x[2]
-            y[5] = x[3]
-            y[6] = x[4]
-            y[7] = x[5]
-            y[8] = x[6]
+            #     Au      Co     CoO   Au     MgO   MgCO3   MgOH    Au    C=O
+            y = [200.000, x[0],  x[1], 0.001, x[2], x[3],   x[4],  x[5], x[6]]
+            # # fix Au=200A thickness:
+            # y[0] = 200
+            # # fix Au interlayer thickness:
+            # y[3] = 0.001
+            #
+            # y[1] = x[0]
+            # y[2] = x[1]
+            #
+            # y[4] = x[2]
+            # y[5] = x[3]
+            # y[6] = x[4]
+            # y[7] = x[5]
+            # y[8] = x[6]
             return func_CoO_no_Au(y, projPath=newProjPath, case_R_factor=case_R_factor)
 
         # ====================================================================================================

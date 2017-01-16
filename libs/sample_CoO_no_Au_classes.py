@@ -414,7 +414,7 @@ if __name__ == '__main__':
 
     elif testCase == 3:
         b1 = Class_CoO_no_Au()
-        b1.x = [200.000, 10.000, 8.0, 0.001, 40.000, 5.000, 5.000, 3.0, 5.000]
+        b1.x = [200.000, 10.000, 8.0, 0.001, 33.000, 2.000, 2.000, 4.0, 6.000]
         # calc theory and compare with experiment data:
         z = b1.compareTheoryAndExperiment()
         # b2 = Class_CoO_no_Au()

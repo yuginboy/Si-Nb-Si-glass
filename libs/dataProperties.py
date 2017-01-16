@@ -63,6 +63,7 @@ class TwoTypesData():
         self.R_factor = -1
         self.valueForNormalizingSpectraInAllRegions_experiment = -1
         self.valueForNormalizingSpectraInAllRegions_theory = -1
+        self.bg_subtract_iter_num = 2
 
 
     def interpolateTheorData(self):
@@ -81,12 +82,12 @@ class TwoTypesData():
         x = self.theory.data.fit.kineticEnergy
         y = self.theory.data.fit.intensity
         y = bg_move_curve_to_zero_line(y)
-        self.theory.data.fit.intensity = bg_subtraction_recursively(x, y)
+        self.theory.data.fit.intensity = bg_subtraction_recursively(x, y, iter=self.bg_subtract_iter_num)
 
         x = self.experiment.data.fit.kineticEnergy
         y = self.experiment.data.fit.intensity
         y = bg_move_curve_to_zero_line(y)
-        self.experiment.data.fit.intensity = bg_subtraction_recursively(x, y)
+        self.experiment.data.fit.intensity = bg_subtraction_recursively(x, y, iter=self.bg_subtract_iter_num)
 
     def getMaxIntensityValue(self):
         self.subtractBG()
@@ -155,6 +156,7 @@ class NumericData():
         self.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00001'
         # Colors for lines on a graph, length of this value and number of time-point simulations should be the same:
         self.colorsForGraph = ['darkviolet', 'dodgerblue', 'brown', 'red', 'darkviolet']
+        self.suptitle_fontsize = 22
 
         self.Au4f = Angled()
         self.Co2p = Angled()
@@ -173,7 +175,20 @@ class NumericData():
         self.Mg1s._0.experiment.filename = r'raw_Mg1s_alpha=0deg.txt'
         self.Mg1s._60.experiment.filename = r'raw_Mg1s_alpha=60deg.txt'
 
+        self.bg_sub_iterations = 2
+
         self.thicknessVector = [200, 15, 3, 3, 20, 5, 4, 2]
+
+    def set_bg_sub_iterations(self):
+        self.Au4f._0.bg_subtract_iter_num =  self.bg_sub_iterations
+        self.Au4f._60.bg_subtract_iter_num = self.bg_sub_iterations
+        self.Co2p._0.bg_subtract_iter_num =  self.bg_sub_iterations
+        self.Co2p._60.bg_subtract_iter_num = self.bg_sub_iterations
+        self.O1s._0.bg_subtract_iter_num =  self.bg_sub_iterations
+        self.O1s._60.bg_subtract_iter_num = self.bg_sub_iterations
+        self.Mg1s._0.bg_subtract_iter_num =  self.bg_sub_iterations
+        self.Mg1s._60.bg_subtract_iter_num = self.bg_sub_iterations
+
     def set_global_R_factor(self):
         NumericData.global_R_factor = self.total_R_faktor
 
@@ -563,7 +578,7 @@ class NumericData():
 
             # plt.show()
             plt.draw()
-            self.fig.suptitle(self.suptitle_txt, fontsize=22, fontweight='normal')
+            self.fig.suptitle(self.suptitle_txt, fontsize=self.suptitle_fontsize, fontweight='normal')
 
             # put window to the second monitor
             # figManager.window.setGeometry(1923, 23, 640, 529)
@@ -584,6 +599,7 @@ class NumericData():
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
     from libs.sample_CoO_no_Au_classes import SAMPLE_CoO_no_Au
+    from libs.sample_CoO_no_Au_classes import SAMPLE_CoO_with_Au
     a = NumericData()
     a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00011'
     a.loadExperimentData()
