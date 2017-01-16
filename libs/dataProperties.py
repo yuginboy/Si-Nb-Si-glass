@@ -8,7 +8,7 @@ import os
 import datetime
 import numpy as np
 from scipy.interpolate import interp1d
-from libs.backgrounds import bg_subtraction
+from libs.backgrounds import bg_subtraction_recursively, bg_move_curve_to_zero_line
 import matplotlib.gridspec as gridspec
 from matplotlib import pylab
 from libs.dir_and_file_operations import get_folder_name
@@ -80,11 +80,13 @@ class TwoTypesData():
         self.interpolateTheorData()
         x = self.theory.data.fit.kineticEnergy
         y = self.theory.data.fit.intensity
-        self.theory.data.fit.intensity = bg_subtraction(x, y)
+        y = bg_move_curve_to_zero_line(y)
+        self.theory.data.fit.intensity = bg_subtraction_recursively(x, y)
 
         x = self.experiment.data.fit.kineticEnergy
         y = self.experiment.data.fit.intensity
-        self.experiment.data.fit.intensity = bg_subtraction(x,bg_subtraction(x, y))
+        y = bg_move_curve_to_zero_line(y)
+        self.experiment.data.fit.intensity = bg_subtraction_recursively(x, y)
 
     def getMaxIntensityValue(self):
         self.subtractBG()
@@ -537,6 +539,20 @@ class NumericData():
                 self.O1s.axes.spines[axis].set_linewidth(2)
                 self.Mg1s.axes.spines[axis].set_linewidth(2)
 
+            # The formatting of tick labels is controlled by a Formatter object,
+            # which assuming you haven't done anything fancy will be a ScalerFormatterby default.
+            # This formatter will use a constant shift if the fractional change of the values visible is very small.
+            # To avoid this, simply turn it off:
+            self.Co2p.axes.get_xaxis().get_major_formatter().set_scientific(False)
+            self.Au4f.axes.get_xaxis().get_major_formatter().set_scientific(False)
+            self.O1s.axes.get_xaxis().get_major_formatter().set_scientific(False)
+            self.Mg1s.axes.get_xaxis().get_major_formatter().set_scientific(False)
+
+            self.Co2p.axes.get_xaxis().get_major_formatter().set_useOffset(False)
+            self.Au4f.axes.get_xaxis().get_major_formatter().set_useOffset(False)
+            self.O1s.axes.get_xaxis().get_major_formatter().set_useOffset(False)
+            self.Mg1s.axes.get_xaxis().get_major_formatter().set_useOffset(False)
+
             # plt.subplots_adjust(top=0.85)
             # gs1.tight_layout(fig, rect=[0, 0.03, 1, 0.95])
             # self.fig.tight_layout(rect=[0.03, 0.03, 1, 0.95], w_pad=1.1)
@@ -569,7 +585,7 @@ if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
     from libs.sample_CoO_no_Au_classes import SAMPLE_CoO_no_Au
     a = NumericData()
-    a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00007'
+    a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00011'
     a.loadExperimentData()
     a.loadTheoryData()
     a.Au4f._0.experiment.data.energyRegion = [1395, 1405]

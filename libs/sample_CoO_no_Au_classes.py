@@ -3,6 +3,7 @@
 * e-mail: yuginboy@gmail.com
 * License: this code is in GPL license
 * Last modified: 2017-01-12
+Set of classes for sample Au/Co/MgO/Au which named: CoO_no_Au or S1614
 '''
 from libs.createSESSAprojectFile_CoO import SAMPLE
 from libs.dataProperties import NumericData
@@ -67,6 +68,15 @@ class NumericData_CoO_no_Au(NumericData):
 
         self.Mg1s._0.experiment.filename = r'raw_Mg1s_alpha=0deg_CoO_no_Au.txt'
         self.Mg1s._60.experiment.filename = r'raw_Mg1s_alpha=60deg.txt'
+
+        self.k_R_Au_0 = 1
+        self.k_R_Au_60 = 0
+        self.k_R_Co_0 = 1
+        self.k_R_Co_60 = 0
+        self.k_R_O_0 = 1
+        self.k_R_O_60 = 0
+        self.k_R_Mg_0 = 1
+        self.k_R_Mg_60 = 0
 
     def updatePlot(self, saveFigs=True, doLoadMaterialsData=True):
 
@@ -187,6 +197,19 @@ class NumericData_CoO_no_Au(NumericData):
                 self.O1s.axes.spines[axis].set_linewidth(2)
                 self.Mg1s.axes.spines[axis].set_linewidth(2)
 
+            # The formatting of tick labels is controlled by a Formatter object,
+            # which assuming you haven't done anything fancy will be a ScalerFormatterby default.
+            # This formatter will use a constant shift if the fractional change of the values visible is very small.
+            # To avoid this, simply turn it off:
+            self.Co2p.axes.get_xaxis().get_major_formatter().set_scientific(False)
+            self.Au4f.axes.get_xaxis().get_major_formatter().set_scientific(False)
+            self.O1s.axes.get_xaxis().get_major_formatter().set_scientific(False)
+            self.Mg1s.axes.get_xaxis().get_major_formatter().set_scientific(False)
+
+            self.Co2p.axes.get_xaxis().get_major_formatter().set_useOffset(False)
+            self.Au4f.axes.get_xaxis().get_major_formatter().set_useOffset(False)
+            self.O1s.axes.get_xaxis().get_major_formatter().set_useOffset(False)
+            self.Mg1s.axes.get_xaxis().get_major_formatter().set_useOffset(False)
             # plt.subplots_adjust(top=0.85)
             # gs1.tight_layout(fig, rect=[0, 0.03, 1, 0.95])
             # self.fig.tight_layout(rect=[0.03, 0.03, 1, 0.95], w_pad=1.1)
@@ -254,7 +277,9 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
                  os.path.join(dirPath, 'run.exe'))
         copyfile(os.path.join(runningScriptDir, 'exe', 'exec.bat'),
                  os.path.join(dirPath, 'exec.bat'))
-        copyfile(os.path.join(runningScriptDir, 'exe', 'additional_commands_Co_no_Au.ses'),
+        # copyfile(os.path.join(runningScriptDir, 'exe', 'additional_commands_Co_no_Au.ses'),
+        #          os.path.join(dirPath, 'additional_commands.ses'))
+        copyfile(os.path.join(runningScriptDir, 'exe', 'additional_commands_Co_no_Au_normalized.ses'),
                  os.path.join(dirPath, 'additional_commands.ses'))
 
     def setPeakRegions(self):
@@ -263,8 +288,8 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
         self.a.Au4f._60.experiment.data.energyRegion = [1395, 1405]
         self.a.Au4f._60.theory.data.energyRegion = [1395, 1405]
 
-        self.a.Co2p._0.experiment.data.energyRegion = [701, 710]
-        self.a.Co2p._0.theory.data.energyRegion = [701, 710]
+        self.a.Co2p._0.experiment.data.energyRegion = [702, 710]
+        self.a.Co2p._0.theory.data.energyRegion = [702, 710]
         self.a.Co2p._60.experiment.data.energyRegion = [700, 710]
         self.a.Co2p._60.theory.data.energyRegion = [700, 710]
 
@@ -281,20 +306,23 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
 
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
-    testCase = 1
+    testCase = 3
     if testCase == 1:
         a = NumericData_CoO_no_Au()
-        a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00011'
+        print('R0 = {}, R60 = {}'.format(a.k_R_Au_0, a.k_R_Au_60))
+        a.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00003'
         a.loadExperimentData()
         a.loadTheoryData()
+
+        print('R0 = {}, R60 = {}'.format(a.k_R_Au_0, a.k_R_Au_60))
 
         a.Au4f._0.experiment.data.energyRegion = [1395, 1405]
         a.Au4f._0.theory.data.energyRegion = [1395, 1405]
         a.Au4f._60.experiment.data.energyRegion = [1395, 1405]
         a.Au4f._60.theory.data.energyRegion = [1395, 1405]
 
-        a.Co2p._0.experiment.data.energyRegion = [701, 710]
-        a.Co2p._0.theory.data.energyRegion = [701, 710]
+        a.Co2p._0.experiment.data.energyRegion = [702, 710]
+        a.Co2p._0.theory.data.energyRegion = [702, 710]
         a.Co2p._60.experiment.data.energyRegion = [700, 710]
         a.Co2p._60.theory.data.energyRegion = [700, 710]
 
@@ -386,7 +414,8 @@ if __name__ == '__main__':
 
     elif testCase == 3:
         b1 = Class_CoO_no_Au()
-        b1.x = [200.000, 15.000, 3.0, 0.001, 40.000, 5.000, 5.000, 3.0, 5.000]
+        b1.x = [200.000, 10.000, 8.0, 0.001, 40.000, 5.000, 5.000, 3.0, 5.000]
+        # calc theory and compare with experiment data:
         z = b1.compareTheoryAndExperiment()
         # b2 = Class_CoO_no_Au()
         # b2.x = [200.000, 15.000, 3.0, 0.001, 30.000, 15.000,7.000, 3.0, 5.000]

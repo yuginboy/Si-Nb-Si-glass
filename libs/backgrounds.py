@@ -187,14 +187,14 @@ def shirley_new(x, y_in, maxit=5, numpoints=3):
 def bg_move_curve_to_zero_line(y):
     min_dy = np.min(np.abs(y))
     idx = np.where(np.abs(y) == min_dy)
-    dy = y[idx]
+    dy = y[idx][0]
     return y - dy
 
-def bg_subtraction_recursivly (x, y, iter=0, numpoints = 1):
+def bg_subtraction_recursively (x, y, iter=2, numpoints = 1):
     if iter <= 0:
         return y - shirley_new(x, y, numpoints=numpoints)
     # print('===== iter = {}\n'.format(iter))
-    return bg_subtraction(x, y, iter - 1, numpoints=numpoints)
+    return bg_subtraction_recursively(x, bg_subtraction_recursively(x, y, iter=0, numpoints=1), iter - 1, numpoints=numpoints)
 
 #############################################################
 # Fitting machinery
@@ -398,7 +398,26 @@ class BackgroundByName():
     def get_global_optimalValues(self):
         self.optimal_values = BackgroundByName.global_optimalValues
 
+def plot_crv(data):
+        x, y = data[0, :], data[1, :]
+        idx = np.where((x >= np.min(energyRegion)) *
+                       (x <= np.max(energyRegion)))
+        xx = x[idx]
+        yy = bg_move_curve_to_zero_line(y[idx])
+        yy = yy / np.max(yy)
+        plt.plot(xx, yy, 'o-', label='raw')
+        plt.axhline(0, color='k')
 
+        y_shir_bg = shirley_new(xx, yy, numpoints=1)
+        plt.plot(xx, y_shir_bg, label='shirley BG')
+        # y1 = yy - y_shir_bg
+        # plt.plot(xx, y1, label='shirley 1')
+
+        # y_shir_bg2 = shirley_new(xx, y1, numpoints=1)
+        # plt.plot(xx, y_shir_bg2, label='shirley BG2')
+        # y2 = y1 - y_shir_bg2
+        # plt.plot(xx, y2, label='shirley 2')
+        plt.plot(xx, bg_subtraction_recursively(xx, yy, iter=2), label='shirley recurs')
 
 if __name__=='__main__':
     print('-> you run ', __file__, ' file in a main mode')
@@ -408,25 +427,18 @@ if __name__=='__main__':
     experiment_filename = r'raw_Co2p_alpha=0deg_CoO_no_Au.txt'
     energyRegion = [704, 710]
     data = np.loadtxt(os.path.join(experimentDataPath, experiment_filename), unpack=True)
+    plot_crv(data)
     data = np.loadtxt(r'/home/yugin/VirtualboxShare/Co-CoO/out/00011/out/Co2p.dat', unpack=True)
-    x, y = data[0, :], data[1, :]
-    idx = np.where((x >= np.min(energyRegion)) *
-                   (x <= np.max(energyRegion)))
-    xx = x[idx]
-    yy = bg_move_curve_to_zero_line(y[idx])
-    yy = yy/np.max(yy)
-    plt.plot(xx, yy, label='raw')
-    plt.axhline(0, color='k')
+    plot_crv(data)
 
-    y_shir_bg = shirley_new(xx, yy, numpoints=1)
-    plt.plot(xx, y_shir_bg, label='shirley BG')
 
-    bg = BackgroundByName()
-    bg.y = yy
-    bg.x = xx
-    bg.calc_BG()
-    y2_bg = bg.y
-    plt.plot(xx, y2_bg, label='BG')
+
+    # bg = BackgroundByName()
+    # bg.y = yy
+    # bg.x = xx
+    # bg.calc_BG()
+    # y2_bg = bg.y
+    # plt.plot(xx, y2_bg, label='BG')
 
 
     plt.legend(loc='best')
