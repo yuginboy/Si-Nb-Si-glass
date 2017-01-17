@@ -103,7 +103,10 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         rranges = []
 
     if case_optimize_method is 'differential evolution':
-        result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy=methodName, init='random')
+        result = differential_evolution(fun, bounds, disp=True, polish=False,
+                                        mutation=(0.5, 1.3), recombination=0.8, seed=None,
+                                        maxiter=3000, popsize=23, tol=0.01,
+                                        )
 
     if case_optimize_method is 'basinhopping':
         take_step = SESSA_Step()
