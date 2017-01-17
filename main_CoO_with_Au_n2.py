@@ -130,6 +130,9 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             y = np.zeros(11)
             #   Au        Co    CoOx     x   CoO    Au     MgO     MgCO3   MgOH    Au    C=O
             y = [200.000, x[0], x[1],  x[2], 0.001, 0.001, x[3],    x[4],   x[5], 0.001, x[6]]
+            print('-------------------->>>> func(x)')
+            print(y)
+            print('--------------------<<<< func(x)')
             # # 00841
             # y[0] = 2.331
             # y[1] = 11.667
