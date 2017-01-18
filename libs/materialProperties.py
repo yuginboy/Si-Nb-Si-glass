@@ -29,7 +29,7 @@ class Material:
         self.setlayerDescription()
     def setDensity(self, x):
         if x <= 0.0001:
-            x = 0.001
+            x = 0.0001
         self.density = x
         self.setlayerDescription()
     def setEgap(self, x):

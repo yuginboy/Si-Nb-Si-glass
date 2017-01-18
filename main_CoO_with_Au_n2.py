@@ -24,21 +24,24 @@ from scipy.optimize import basinhopping, brute
 from scipy.optimize import minimize
 from libs.dir_and_file_operations import create_out_data_folder
 from libs.minimization_additions import SESSA_Step, BH_Bounds_for_SESSA
+from libs.gensa import gensa
 
 def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic_CoO_with_Au'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
     # (does not use gradient methods) to find the minimium, and can search large areas of candidate space,
     # but often requires larger numbers of function evaluations than conventional gradient based techniques.
 
-    # case_mix_or_layers = 'layers' # with separates CoO and Au
-    case_mix_or_layers = 'mix'  # with mix interlayer
+    case_mix_or_layers = 'layers' # with separates CoO and Au
+    # case_mix_or_layers = 'mix'  # with mix interlayer
 
     # case_R_factor = 'without_Co_and_Au'
     # case_R_factor = 'without_O_and_Mg'
     case_R_factor = 'all_lines'
 
     # case_optimize_method = 'differential evolution'
-    case_optimize_method = 'basinhopping'
+    # case_optimize_method = 'basinhopping'
+    # Find the global minimum of a function using the Generalized Simulated Annealing algorithm:
+    case_optimize_method = 'gensa'
     # case_optimize_method = 'brute force'
 
     # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
@@ -50,6 +53,9 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
     if case_optimize_method is 'differential evolution':
         optimize_method = 'de'
+    if case_optimize_method is 'gensa':
+        optimize_method = 'gensa'
+        methodName = ''
     if case_optimize_method is 'brute force':
         optimize_method = 'brute'
         methodName = ''
@@ -67,7 +73,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
             y = np.zeros(11)
             #   Au        Co    CoOx     x   CoO   Au     MgO     MgCO3   MgOH    Au    C=O
-            y = [200.000, x[0], 0.001, 0.7,  x[1], x[2],  x[3],    x[4],  x[5],  0.001, x[6]]
+            y = [200.000, x[0], 0.0001, 0.7,  x[1], x[2],  x[3],    x[4],  x[5],  0.0001, x[6]]
 
             return func_CoO_with_Au(y, projPath=newProjPath, case_R_factor=case_R_factor)
 
@@ -129,7 +135,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         def fun(x):
             y = np.zeros(11)
             #   Au        Co    CoOx     x   CoO    Au     MgO     MgCO3   MgOH    Au    C=O
-            y = [200.000, x[0], x[1],  x[2], 0.001, 0.001, x[3],    x[4],   x[5], 0.001, x[6]]
+            y = [200.000, x[0], x[1],  x[2], 0.0001, 0.0001, x[3],    x[4],   x[5], 0.0001, x[6]]
             print('-------------------->>>> func(x)')
             print(y)
             print('--------------------<<<< func(x)')
@@ -197,6 +203,10 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
     if case_optimize_method is 'differential evolution':
         result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy=methodName, init='random')
+
+    if case_optimize_method is 'gensa':
+        result = gensa(fun, x0, bounds, maxiter=500, initial_temp=5230., visit=2.62,
+                        accept=-5.0, maxfun=1e7, args=(), seed=None, pure_sa=False)
 
     if case_optimize_method is 'basinhopping':
         take_step = SESSA_Step()

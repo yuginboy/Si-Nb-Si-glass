@@ -19,6 +19,7 @@ from scipy.optimize import basinhopping, brute
 from scipy.optimize import minimize
 from libs.dir_and_file_operations import create_out_data_folder
 from libs.minimization_additions import SESSA_Step
+from libs.gensa import gensa
 
 def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic_CoO_no_Au'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
@@ -26,14 +27,17 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     # but often requires larger numbers of function evaluations than conventional gradient based techniques.
 
     case_mix_or_layers = 'layers' # with separates CoO and Au
+    # at 2017-01-18 mix mode was not exist for case: CoO_no_Au
     # case_mix_or_layers = 'mix'  # with mix interlayer
 
     # case_R_factor = 'without_Co_and_Au'
     # case_R_factor = 'without_O_and_Mg'
     case_R_factor = 'all_lines'
 
-    case_optimize_method = 'differential evolution'
+    # case_optimize_method = 'differential evolution'
     # case_optimize_method = 'basinhopping'
+    # Find the global minimum of a function using the Generalized Simulated Annealing algorithm:
+    case_optimize_method = 'gensa'
     # case_optimize_method = 'brute force'
 
     # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
@@ -45,6 +49,9 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
     if case_optimize_method is 'differential evolution':
         optimize_method = 'de'
+    if case_optimize_method is 'gensa':
+        optimize_method = 'gensa'
+        methodName = ''
     if case_optimize_method is 'brute force':
         optimize_method = 'brute'
         methodName = ''
@@ -62,7 +69,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             # x = [200.000, 10.000, 8.0, 0.001, 40.000, 5.000, 5.000, 3.0, 5.000]
             y = np.zeros(9)
             #     Au      Co     CoO   Au     MgO   MgCO3   MgOH    Au    C=O
-            y = [200.000, x[0],  x[1], 0.001, x[2], x[3],   x[4],  x[5], x[6]]
+            y = [200.000, x[0],  x[1], 0.0001, x[2], x[3],   x[4],  x[5], x[6]]
             # # fix Au=200A thickness:
             # y[0] = 200
             # # fix Au interlayer thickness:
@@ -107,6 +114,10 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
                                         mutation=(0.5, 1.3), recombination=0.8, seed=None,
                                         maxiter=3000, popsize=23, tol=0.01,
                                         )
+
+    if case_optimize_method is 'gensa':
+        result = gensa(fun, x0, bounds, maxiter=500, initial_temp=5230., visit=2.62,
+                        accept=-5.0, maxfun=1e7, args=(), seed=None, pure_sa=False)
 
     if case_optimize_method is 'basinhopping':
         take_step = SESSA_Step()
