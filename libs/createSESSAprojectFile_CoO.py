@@ -110,7 +110,7 @@ class SAMPLE():
 
             t1 = r'\SAMPLE ADD LAYER /Si1.0/ THICKNESS 5 ABOVE 0' + ' \n'
             t2 = r'\SAMPLE SET MATERIAL ' + mat.material + ' LAYER 1' + ' \n'
-            t3 = r'\SAMPLE SET THICKNESS ' + '{0:.3f}'.format(mat.thickness) + ' LAYER 1' + ' \n'
+            t3 = r'\SAMPLE SET THICKNESS ' + '{0:.4f}'.format(mat.thickness) + ' LAYER 1' + ' \n'
             t4 = r'\SAMPLE SET EGAP ' + '{0:.1f}'.format(mat.Egap) + ' LAYER 1' + ' \n'
             t5 = r'\SAMPLE PARAMETERS SET DIIMFP MATERIAL "' + '{0}'.format(mat.DIIMFP) + '" LAYER 1' + ' \n'
             t6 = r'\SAMPLE SET DENSITY ' + '{0:1.3e}'.format(mat.density) + ' LAYER 1' + ' \n'
