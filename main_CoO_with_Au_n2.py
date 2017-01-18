@@ -37,8 +37,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
     # case_R_factor = 'without_O_and_Mg'
     case_R_factor = 'all_lines'
 
-    case_optimize_method = 'differential evolution'
-    # case_optimize_method = 'basinhopping'
+    # case_optimize_method = 'differential evolution'
+    case_optimize_method = 'basinhopping'
     # case_optimize_method = 'brute force'
 
     # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
@@ -141,6 +141,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             # y[4] = x[1]
             # y[5] = x[2]
             # y[6] = 0.759
+
             # # 03306
             # y[0] = 5.136
             # y[1] = 11.186

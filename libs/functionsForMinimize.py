@@ -71,6 +71,7 @@ def func_CoO_no_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', case
         data.k_R_Mg_60 = 0
     # calc theory and compare with experiment data:
     data.compareTheoryAndExperiment()
+    return data.a.total_R_faktor
 
 def func_CoO_with_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', case_R_factor='all'):
     # main function for minimize:
@@ -94,6 +95,7 @@ def func_CoO_with_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', ca
         data.k_R_Mg_60 = 0
     # calc theory and compare with experiment data:
     data.compareTheoryAndExperiment()
+    return data.a.total_R_faktor
 
 
 if __name__ == '__main__':
