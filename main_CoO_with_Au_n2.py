@@ -79,6 +79,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
         # ====================================================================================================
         # # 1
+        #                 Co    CoO   Au    MgO     MgCO3   MgOH    C=O
+        x0 = np.asarray([10,     3,  0.83,  8.7,     11.2,    5,     2.3])
         bounds = [
             (7, 25),  # Co
             (1, 7),  # CoO
@@ -88,34 +90,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             (0.001, 15),  # MgOH
             (0.001, 8),  # C
                   ]
-        # 3306
-        # x0 = [5.136,
-        #       11.186,
-        #       8.739,
-        #       0.835,
-        #       2.427,
-        #       9.766,
-        #       1.932,
-        #       ]
 
-        # -> global minimum R-factor is: 0.4469234152433788
-        # -> global minimum R-factor project folder: /home/yugin/VirtualboxShare/Co-CoO/out_genetic/bh_L-BFGS-B_CoO_layers__R_all_lines_00002/00001
-        # x0 = [5.136,
-        #       11.186,
-        #       8.739,
-        #       1.000,1.1
-        #       2.427,
-        #       9.766,
-        #       1.932,
-        #       ]
-        x0 = [5.136,
-              11.186,
-              8.739,
-              1.1,
-              2.2,
-              10.5,
-              1.932,
-              ]
         rranges = []
         # rranges = (
         #     slice(0.001, 8, 0.2),  # MgOH
@@ -160,27 +135,11 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
         # ====================================================================================================
 
-        # # /home/yugin/VirtualboxShare/Co-CoO/out_genetic/randtobest1exp_CoO_mix__R_without_O_and_Mg_00001/00078
-        # x0 = [
-        #       5.136,   # MgOH
-        #       11.186,  # MgCO3
-        #       8.739,   # MgO
-        #       0.863,   # x of (CoO)x_Au(1-x)
-        #       2.212,   # (CoO)x_Au(1-x)
-        #       8.975,   # Co
-        #       1.932    # C
-        #       ]
-        # /home/yugin/VirtualboxShare/Co-CoO/out_genetic/randtobest1exp_CoO_mix__R_without_O_and_Mg_00001/00181
-        x0 = [
-              5.136,   # MgOH
-              11.186,  # MgCO3
-              8.739,   # MgO
-              0.708,   # x of (CoO)x_Au(1-x)
-              3.073,   # (CoO)x_Au(1-x)
-              9.598,   # Co
-              1.932    # C
-              ]
 
+        # -> global minimum R-factor is: 0.7841880992402152
+        # -> global minimum R-factor project folder: /home/yugin/VirtualboxShare/Co-CoO/out_genetic_CoO_with_Au/gensa__CoO_mix__R_all_lines_00001/00063
+        #                 Co    CoOx     x       MgO     MgCO3   MgOH    C=O
+        x0 = np.asarray([ 16.5, 8.26, 0.75,      13.7,   9.2,     2,     2.3])
         # ====================================================================================================
         bounds = [
             (7, 25),  # Co
@@ -205,6 +164,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy=methodName, init='random')
 
     if case_optimize_method is 'gensa':
+        print('=====  x0 is : {} '.format(x0))
         result = gensa(fun, x0, bounds, maxiter=500, initial_temp=5230., visit=2.62,
                         accept=-5.0, maxfun=1e7, args=(), seed=None, pure_sa=False)
 
@@ -218,6 +178,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         # use method L-BFGS-B because the problem is smooth and bounded
         minimizer_kwargs = dict(method=minimizer_kwargs['method'], bounds=bounds)
         # res = basinhopping(f, x0, minimizer_kwargs=minimizer_kwargs)
+        print('=====  x0 is : {} '.format(x0))
         result = basinhopping(fun, x0, niter=200, take_step=take_step, minimizer_kwargs=minimizer_kwargs)
     if case_optimize_method is 'brute force':
         take_step = SESSA_Step()
