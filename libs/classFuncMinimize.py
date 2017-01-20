@@ -306,6 +306,7 @@ class BaseClassForCalcAndMinimize():
             textFile.write('\n')
             textFile.write('-> |R - Rmin| = {}'.format(np.abs(self.a.global_min_R_factor - self.a.total_R_faktor)))
             textFile.write('\n')
+            textFile.write('\n')
             textFile.write('Optimal structure:\n')
             textFile.write(optimal_structure.tabledLayersStructureInfo)
             textFile.close()
