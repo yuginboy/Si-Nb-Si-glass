@@ -8,7 +8,8 @@ The base classes for minimization procedure
 import os, sys
 import datetime
 from shutil import copyfile
-from libs.dir_and_file_operations import create_out_data_folder, createFolder, listOfFilesFN_with_selected_ext
+from libs.dir_and_file_operations import create_out_data_folder, createFolder, listOfFilesFN_with_selected_ext, \
+                                        create_unique_out_data_file
 import numpy as np
 from libs.dataProperties import NumericData
 from libs.createSESSAprojectFile_CoO import SAMPLE
@@ -22,6 +23,8 @@ runningScriptDir = os.path.dirname(os.path.abspath(__file__))
 runningScriptDir = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0]
 
 class BaseClassForCalcAndMinimize():
+    # tmp value of global minimal R-factor (used for copy current global_min_R_factor to the kernel project dir):
+    tmp_global_min_R_factor = 10
     def __init__(self):
         self.sample = SAMPLE()
         self.a = NumericData()
@@ -238,9 +241,11 @@ class BaseClassForCalcAndMinimize():
                 print('=*' * 15)
                 print('\n'*3)
                 print('---> going to the next step')
+                self.copyCurrentMinimumParametersToTheKernelProjectFolder()
             else:
                 self.a.get_global_R_factor()
                 self.a.total_R_faktor = self.a.total_R_faktor + 0.1
+                self.copyCurrentMinimumParametersToTheKernelProjectFolder()
 
             return self.a.total_R_faktor
         else:
@@ -269,6 +274,7 @@ class BaseClassForCalcAndMinimize():
             textFile.write('-> global minimum R-factor project folder: {}'.format(self.a.global_min_R_factor_path))
             textFile.write('\n')
             textFile.write('-> |R - Rmin| = {}'.format(np.abs(self.a.global_min_R_factor - self.a.total_R_faktor)))
+            textFile.write('\n')
             textFile.write('Optimal structure:\n')
             textFile.write(optimal_structure.tabledLayersStructureInfo)
             textFile.close()
@@ -276,6 +282,35 @@ class BaseClassForCalcAndMinimize():
             sys.exit(0)
 
             return self.a.total_R_faktor
+
+    def copyCurrentMinimumParametersToTheKernelProjectFolder(self):
+        self.a.get_global_R_factor()
+        self.a.get_global_min_R_factor()
+        if BaseClassForCalcAndMinimize.tmp_global_min_R_factor > self.a.global_min_R_factor:
+
+            BaseClassForCalcAndMinimize.tmp_global_min_R_factor = self.a.global_min_R_factor
+
+            optimal_structure = self.a.get_global_min_R_factor_Structure()
+
+            fpath = create_unique_out_data_file(self.projPath, first_part_of_file_name='min_R', ext='txt')
+            textFile = open(fpath, 'a')
+            # load calculated data from the best case:
+            lsFiles = listOfFilesFN_with_selected_ext(folder=self.a.global_min_R_factor_path)
+            copyfile(lsFiles[-1],
+                     os.path.join(self.projPath, os.path.basename(lsFiles[-1])))
+
+            textFile.write('\n')
+            textFile.write('-> global minimum R-factor is: {}'.format(self.a.global_min_R_factor))
+            textFile.write('\n')
+            textFile.write('-> global minimum R-factor project folder: {}'.format(self.a.global_min_R_factor_path))
+            textFile.write('\n')
+            textFile.write('-> |R - Rmin| = {}'.format(np.abs(self.a.global_min_R_factor - self.a.total_R_faktor)))
+            textFile.write('Optimal structure:\n')
+            textFile.write(optimal_structure.tabledLayersStructureInfo)
+            textFile.close()
+
+
+
 
 if __name__=='__main__':
 

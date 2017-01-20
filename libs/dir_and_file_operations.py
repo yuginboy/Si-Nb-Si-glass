@@ -25,6 +25,28 @@ def create_out_data_folder(main_folder_path, first_part_of_folder_name = ''):
         i+=1
     return  out_data_folder_path
 
+def create_unique_out_data_file(main_folder_path, first_part_of_file_name = '', ext = 'txt'):
+    '''
+    create out data directory like 0005 or 0004
+    :param main_folder_path: path to the main project folder
+    :return: full path to the new directory
+    return folder path like: main_folder_path + first_part_of_folder_name + '%04d' % i
+    '''
+    checkFile = 1
+    i = 1
+
+    # check, if first_part_of_folder_name is not absent then add '_' symbol to the end
+    if len(first_part_of_file_name) > 0:
+        first_part_of_file_name += '_'
+
+    while checkFile > 0:
+
+        out_data_file_path = os.path.join( main_folder_path, first_part_of_file_name + '%05d' % i + '.' + ext)
+        if  not (os.path.isfile(out_data_file_path)):
+            checkFile = 0
+        i+=1
+    return  out_data_file_path
+
 # def create_out_data_folder(main_folder_path):
 #     '''
 #     create out data directory like 0005 or 0004
