@@ -47,6 +47,15 @@ def create_unique_out_data_file(main_folder_path, first_part_of_file_name = '', 
         i+=1
     return  out_data_file_path
 
+
+def create_all_dirs_in_path_if_their_not_exist(folder_path):
+    # create all dirs in path if their not exist
+    if not os.path.isdir(folder_path):
+        os.makedirs(folder_path)
+
+    return folder_path
+
+
 # def create_out_data_folder(main_folder_path):
 #     '''
 #     create out data directory like 0005 or 0004

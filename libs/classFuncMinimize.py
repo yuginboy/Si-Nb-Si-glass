@@ -9,7 +9,7 @@ import os, sys
 import datetime
 from shutil import copyfile
 from libs.dir_and_file_operations import create_out_data_folder, createFolder, listOfFilesFN_with_selected_ext, \
-                                        create_unique_out_data_file
+                                        create_unique_out_data_file, create_all_dirs_in_path_if_their_not_exist
 import numpy as np
 from libs.dataProperties import NumericData
 from libs.createSESSAprojectFile_CoO import SAMPLE
@@ -69,6 +69,8 @@ class BaseClassForCalcAndMinimize():
             return 0
 
     def calculateTheory(self):
+        # check outdata folder for exist:
+        create_all_dirs_in_path_if_their_not_exist(self.projPath)
         # run SESSA calculation with a new structure:
         if not self.checkStopFile(self.projPath):
             self.workFolder = create_out_data_folder(self.projPath, first_part_of_folder_name='')
