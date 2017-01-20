@@ -40,7 +40,7 @@ class ConvertRawToNormRaw():
             data = np.loadtxt(i).T
             x, y = data[0, :], data[1, :]
             ymax = np.max(y)
-            y = 1e6*y/ymax
+            y = 1e9*y/ymax
             self.saveOutData(os.path.basename(i), x, y)
 
 if __name__=='__main__':

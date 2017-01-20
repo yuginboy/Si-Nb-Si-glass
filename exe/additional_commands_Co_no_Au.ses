@@ -16,37 +16,6 @@
 \SPECTROMETER ADD REGION RANGE 940:970
 \SPECTROMETER ADD REGION RANGE 1380:1410
 
-\SAMPLE PEAK DELETE PEAK 29
-\SAMPLE PEAK DELETE PEAK 28
-\SAMPLE PEAK DELETE PEAK 18
-\SAMPLE PEAK DELETE PEAK 17
-\SAMPLE PEAK DELETE PEAK 16
-\SAMPLE PEAK DELETE PEAK 15
-\SAMPLE PEAK DELETE PEAK 12
-\SAMPLE PEAK DELETE PEAK 11
-\SAMPLE PEAK DELETE PEAK 10
-\SAMPLE PEAK DELETE PEAK 4
-\SAMPLE PEAK DELETE PEAK 3
-\SAMPLE PEAK DELETE PEAK 2
-\SAMPLE PEAK DELETE PEAK 1
-\SAMPLE PEAK DELETE PEAK 4
-\SAMPLE PEAK DELETE PEAK 5
-
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg1s_MgCO3_ref.txt" SUBPEAK 1 PEAK 1
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg1s_MgCO3_ref.txt" SUBPEAK 1 PEAK 2
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg1s_MgO_ref.txt" SUBPEAK 1 PEAK 3
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Co2p_oxide_ref.txt" SUBPEAK 1 PEAK 4
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Co2p_metall_ref.txt" SUBPEAK 1 PEAK 5
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_Mg(OH)2_ref.txt" SUBPEAK 1 PEAK 6
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_MgCO3_ref.txt" SUBPEAK 1 PEAK 7
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_MgO_ref.txt" SUBPEAK 1 PEAK 8
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_MgO_ref.txt" SUBPEAK 1 PEAK 9
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Au4f5-2_ref.txt" SUBPEAK 1 PEAK 10
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Au4f7-2_ref.txt" SUBPEAK 1 PEAK 11
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg2s_MgCO3_Mg(OH)2_ref.txt" SUBPEAK 1 PEAK 12
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg2s_MgCO3_Mg(OH)2_ref.txt" SUBPEAK 1 PEAK 13
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg2s_MgO_ref.txt" SUBPEAK 1 PEAK 14
-
 \SPECTROMETER SET RANGE 170.000: REGION 1
 \SPECTROMETER SET RANGE :190.000 REGION 1
 \SPECTROMETER SET RANGE 695.000: REGION 2
@@ -54,6 +23,37 @@
 \SPECTROMETER SET RANGE 945: REGION 3
 \SPECTROMETER SET RANGE :965 REGION 3
 \SPECTROMETER SET RANGE 1390.000: REGION 4
+
+\SAMPLE PEAK DELETE PEAK 14
+\SAMPLE PEAK DELETE PEAK 13
+\SAMPLE PEAK DELETE PEAK 11
+\SAMPLE PEAK DELETE PEAK 10
+\SAMPLE PEAK DELETE PEAK 9
+\SAMPLE PEAK DELETE PEAK 7
+\SAMPLE PEAK DELETE PEAK 3
+\SAMPLE PEAK DELETE PEAK 2
+\SAMPLE PEAK DELETE PEAK 1
+
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg1s_[Mg-OH]_MgO_ref.txt" SUBPEAK 1 PEAK 1
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg1s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 2
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg1s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 3
+
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Co2p_oxide_ref.txt" SUBPEAK 1 PEAK 4
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Co2p_metall_ref.txt" SUBPEAK 1 PEAK 5
+
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_[O-C]_MgO_ref.txt" SUBPEAK 1 PEAK 6
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_[Mg-OH]_Mg(OH)2_ref.txt" SUBPEAK 1 PEAK 7
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 8
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 9
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\O1s_[Co-O]_MgO_ref.txt" SUBPEAK 1 PEAK 10
+
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Au4f5-2_ref.txt" SUBPEAK 1 PEAK 11
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Au4f7-2_ref.txt" SUBPEAK 1 PEAK 12
+
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg2s_[Mg-OH]_MgO_ref.txt" SUBPEAK 1 PEAK 13
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg2s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 14
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\fit\Mg2s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 15
+
 
 \MODEL SET CONVERGENCE 1.000e-004
 \PREFERENCES SET NDIIMFP 2 
