@@ -209,6 +209,10 @@ class BaseClassForCalcAndMinimize():
         self.a.Mg1s._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
 
     def compareTheoryAndExperiment(self):
+        # calculate theory data, load experiment and theory data and compare their
+
+        # if loadTheoryData() is Ok
+        loadTeoryDataIsOk = True
 
         self.calculateTheory()
         if not self.checkStopFile(self.projPath):
@@ -220,34 +224,54 @@ class BaseClassForCalcAndMinimize():
                 self.a.theoryDataPath = self.workFolder
                 self.a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
                 self.a.loadExperimentData()
-                self.a.loadTheoryData()
+                try:
+                    self.a.loadTheoryData()
+                except Exception:
+                    # if can't load the theory data try to calc SESSA again:
+                    print('---> Can not load Theory data from: {}'.format(self.a.theoryDataPath))
+                    print('Try to calc theory spectra again by using SESSA solver')
+                    self.calculateTheory()
+                    self.checkCase_R_factor()
+                    self.a.theoryDataPath = self.workFolder
+                    self.a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
+                    self.a.loadExperimentData()
+                    try:
+                        self.a.loadTheoryData()
+                    except Exception:
+                        print('---> At second time can not load Theory data from: {}'.format(self.a.theoryDataPath))
+                        loadTeoryDataIsOk = False
 
-                self.setPeakRegions()
-                self.applyGlobalIntensityNormalization()
+                if loadTeoryDataIsOk:
+                    # if Theory data are exist and we loaded it:
+                    self.setPeakRegions()
+                    self.applyGlobalIntensityNormalization()
 
 
-                self.a.setupAxes()
-                self.a.updatePlot()
-                print('=*' * 15)
-                print('-> total R-factor is: {}'.format(self.a.total_R_faktor))
-                self.a.set_global_R_factor()
-                self.a.get_global_R_factor()
-                self.a.set_global_min_R_factor(structure=self.sample)
-                self.a.get_global_min_R_factor()
-                optimal_structure = self.a.get_global_min_R_factor_Structure()
-                print('-> global minimum R-factor is: {}'.format(self.a.global_min_R_factor))
-                print('-> global minimum R-factor project folder: {}'.format(self.a.global_min_R_factor_path))
-                print('-> |R - Rmin| = {}'.format(np.abs(self.a.global_min_R_factor - self.a.total_R_faktor)))
-                print('Optimal structure:\n')
-                print(optimal_structure.getLayersStructureInfo())
-                print('=*' * 15)
-                print('\n'*3)
-                print('---> going to the next step')
-                self.copyCurrentMinimumParametersToTheKernelProjectFolder()
+                    self.a.setupAxes()
+                    self.a.updatePlot()
+                    print('=*' * 15)
+                    print('-> total R-factor is: {}'.format(self.a.total_R_faktor))
+                    self.a.set_global_R_factor()
+                    self.a.get_global_R_factor()
+                    self.a.set_global_min_R_factor(structure=self.sample)
+                    self.a.get_global_min_R_factor()
+                    optimal_structure = self.a.get_global_min_R_factor_Structure()
+                    print('-> global minimum R-factor is: {}'.format(self.a.global_min_R_factor))
+                    print('-> global minimum R-factor project folder: {}'.format(self.a.global_min_R_factor_path))
+                    print('-> |R - Rmin| = {}'.format(np.abs(self.a.global_min_R_factor - self.a.total_R_faktor)))
+                    print('Optimal structure:\n')
+                    print(optimal_structure.getLayersStructureInfo())
+                    print('=*' * 15)
+                    print('\n'*3)
+                    print('---> going to the next step')
+                    self.copyCurrentMinimumParametersToTheKernelProjectFolder()
+                else:
+                    self.a.get_global_R_factor()
+                    self.a.total_R_faktor = self.a.total_R_faktor + 0.1
+                    self.copyCurrentMinimumParametersToTheKernelProjectFolder()
             else:
                 self.a.get_global_R_factor()
-                self.a.total_R_faktor = self.a.total_R_faktor + 0.1
-                self.copyCurrentMinimumParametersToTheKernelProjectFolder()
+                self.a.total_R_faktor = self.a.total_R_faktor + 0.5
 
             return self.a.total_R_faktor
         else:
