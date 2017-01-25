@@ -230,6 +230,7 @@ class BaseClassForCalcAndMinimize():
                     # if can't load the theory data try to calc SESSA again:
                     print('---> Can not load Theory data from: {}'.format(self.a.theoryDataPath))
                     print('Try to calc theory spectra again by using SESSA solver')
+                    self.a.increment_global_number_of_continuous_calc_errors()
                     self.calculateTheory()
                     self.checkCase_R_factor()
                     self.a.theoryDataPath = self.workFolder
@@ -239,10 +240,12 @@ class BaseClassForCalcAndMinimize():
                         self.a.loadTheoryData()
                     except Exception:
                         print('---> At second time can not load Theory data from: {}'.format(self.a.theoryDataPath))
+                        self.a.increment_global_number_of_continuous_calc_errors()
                         loadTeoryDataIsOk = False
 
                 if loadTeoryDataIsOk:
                     # if Theory data are exist and we loaded it:
+                    self.a.flush_global_number_of_continuous_calc_errors()
                     self.setPeakRegions()
                     self.applyGlobalIntensityNormalization()
 
@@ -272,6 +275,23 @@ class BaseClassForCalcAndMinimize():
             else:
                 self.a.get_global_R_factor()
                 self.a.total_R_faktor = self.a.total_R_faktor + 0.5
+
+            if self.a.get_global_number_of_continuous_calc_errors() > 3:
+                # if number of serial errors more then 3 we want to exit from the program:
+                print('The number of serial errors is: {}'.format(self.a.get_global_number_of_continuous_calc_errors()))
+                print('Stop the program')
+                print('+---*---'*10)
+                self.a.get_global_R_factor()
+                self.a.get_global_min_R_factor()
+                optimal_structure = self.a.get_global_min_R_factor_Structure()
+                print('-> global minimum R-factor is: {}'.format(self.a.global_min_R_factor))
+                print('-> global minimum R-factor project folder: {}'.format(self.a.global_min_R_factor_path))
+                print('-> |R - Rmin| = {}'.format(np.abs(self.a.global_min_R_factor - self.a.total_R_faktor)))
+                print('Optimal structure:\n')
+                print(optimal_structure.getLayersStructureInfo())
+                print('====***' * 15)
+                self.copyCurrentMinimumParametersToTheKernelProjectFolder()
+                sys.exit(1)
 
             return self.a.total_R_faktor
         else:

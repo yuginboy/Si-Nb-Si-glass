@@ -135,6 +135,8 @@ class Angled():
 
 
 class NumericData():
+    # number of continuous calculation errors to avoid create infinity number of directories without profit of calculation:
+    global_number_of_continuous_calc_errors = 0
     global_R_factor = -1
     global_min_R_factor = 1000
     global_min_R_factor_Structure = []
@@ -207,6 +209,20 @@ class NumericData():
 
     def get_global_min_R_factor_Structure(self):
         return NumericData.global_min_R_factor_Structure
+
+    def set_global_number_of_continuous_calc_errors(self, x=1):
+        NumericData.number_of_continuous_calc_errors = x
+
+    def get_global_number_of_continuous_calc_errors(self):
+        return NumericData.number_of_continuous_calc_errors
+
+    def flush_global_number_of_continuous_calc_errors(self):
+        NumericData.number_of_continuous_calc_errors = 0
+        print('The number of serial errors is: {}'.format(NumericData.number_of_continuous_calc_errors))
+
+    def increment_global_number_of_continuous_calc_errors(self):
+        NumericData.number_of_continuous_calc_errors += 1
+        print('The number of serial errors is: {}'.format(NumericData.number_of_continuous_calc_errors))
 
 
     def loadMaterialsData(self):
