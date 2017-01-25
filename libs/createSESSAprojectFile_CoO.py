@@ -25,6 +25,7 @@ class SAMPLE():
         self.MgO = Mg_Oxide()
         self.MgCO3 = Mg_Carbonate()
         self.Mg_Hydrate = Mg_Hydrate()
+        self.MgCO3_MgOH_mix = MgCO3_MgOH_mix()
         self.C_contamination = C_contamination()
         self.Au_top = Au_top()
         self.layersDescriptionTxt = ''
@@ -94,11 +95,12 @@ class SAMPLE():
     def addLayersProfileToSESSA(self):
          for i in self.layerStructure:
             mat = self.layerStructure[i]['material']
-
-            if i == 1:
-                self.layersDescriptionTxt = self.layersDescriptionTxt + mat.layerDescription
-            else:
-                self.layersDescriptionTxt = self.layersDescriptionTxt + '/' + mat.layerDescription
+            # add description when thickness is more then 0.0005A only:
+            if mat.thickness > 0.0005:
+                if i == 1:
+                    self.layersDescriptionTxt = self.layersDescriptionTxt + mat.layerDescription
+                else:
+                    self.layersDescriptionTxt = self.layersDescriptionTxt + '/' + mat.layerDescription
 
             # mat = SAMPLE.layerStructure['material']
             # t1 = r'\SAMPLE ADD LAYER /Si1.0/ THICKNESS 5 ABOVE 0' + ' \n'

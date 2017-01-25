@@ -9,7 +9,7 @@ from libs.createSESSAprojectFile_CoO import SAMPLE
 from libs.dataProperties import NumericData
 import os
 from shutil import copyfile
-from libs.dir_and_file_operations import createFolder
+from libs.dir_and_file_operations import createFolder, create_out_data_folder
 import pickle
 import matplotlib.gridspec as gridspec
 from matplotlib import pylab
@@ -18,6 +18,9 @@ import datetime
 import numpy as np
 from libs.dir_and_file_operations import get_folder_name
 from libs.classFuncMinimize import BaseClassForCalcAndMinimize, runningScriptDir
+from libs.execCommandInSESSA import execProjectSessionWithTimeoutControl
+
+
 
 # Create structure of layered material:
 class SAMPLE_CoO_no_Au(SAMPLE):
@@ -32,8 +35,8 @@ class SAMPLE_CoO_no_Au(SAMPLE):
         # add Co-metal:
         self.addLayerToStructure(self.Co_metal)
 
-        # # add CoO_Au_mix:
-        # self.addLayer(self.CoO_Au_mix)
+        # add CoO_Au_mix:
+        self.addLayerToStructure(self.CoO_Au_mix)
 
         # add CoO:
         self.addLayerToStructure(self.Co_oxide)
@@ -46,8 +49,13 @@ class SAMPLE_CoO_no_Au(SAMPLE):
         self.addLayerToStructure(self.MgCO3)
         # add Mg[OH]2:
         self.addLayerToStructure(self.Mg_Hydrate)
+
+        # add mix of MgCO3 and Mg[OH]2:
+        self.addLayerToStructure(self.MgCO3_MgOH_mix)
+
         # add Au 3A:
         self.addLayerToStructure(self.Au_top)
+
         # add C contamination on a surface:
         self.addLayerToStructure(self.C_contamination)
 
@@ -56,6 +64,7 @@ class SAMPLE_CoO_no_Au(SAMPLE):
 class NumericData_CoO_no_Au(NumericData):
     def __init__(self):
         super(NumericData_CoO_no_Au, self).__init__()
+        self.suptitle_fontsize = 22
         # self.colorsForGraph = ['darkviolet', 'dodgerblue', 'brown', 'red', 'darkviolet']
         self.Au4f._0.experiment.filename = r'raw_Au4f_Mg2s_alpha=0deg_CoO_no_Au.txt'
         self.Au4f._60.experiment.filename = r'raw_Au4f_Mg2s_alpha=60deg.txt'
@@ -220,7 +229,7 @@ class NumericData_CoO_no_Au(NumericData):
 
             # plt.show()
             plt.draw()
-            self.fig.suptitle(self.suptitle_txt, fontsize=22, fontweight='normal')
+            self.fig.suptitle(self.suptitle_txt, fontsize=self.suptitle_fontsize, fontweight='normal')
 
             # put window to the second monitor
             # figManager.window.setGeometry(1923, 23, 640, 529)
@@ -268,7 +277,59 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
         self.a.k_R_Mg_0 =  1
         self.a.k_R_Mg_60 = 0
 
-        self.x = np.array([200.000, 15.000, 3.0, 0.001, 40.000, 5.000, 5.000, 3.0, 5.000])
+        #                   Au        Co    CoOx x    CoO  Au  MgO     MgCO3  MgOH   MgCO3_y_Mg[OH]2   y         Au    C=O
+        self.x = np.array([200.000, 15.000, 3.0, 0.9, 4,    4, 40.000, 5.000, 5.000,    5.000,        0.3,      0.001, 5.000])
+
+    def calculateTheory(self):
+        # run SESSA calculation with a new structure:
+        if not self.checkStopFile(self.projPath):
+            self.workFolder = create_out_data_folder(self.projPath, first_part_of_folder_name='')
+            self.generateWorkPlace(self.workFolder)
+            self.sample.workDir = self.workFolder
+
+            #  layer 3 is a layer with mix of CoO and Au which takes 2 variables
+            # layer 9 is mix of MgCO3 and MgOH
+            if len(self.sample.layerStructure) == len(self.x)-2:
+                for i in self.sample.layerStructure:
+                    if i == 3:
+                        self.sample.layerStructure[i]['material'].setThickness(self.x[i-1])
+                        self.sample.layerStructure[i]['material'].set_x_amount_CoO_in_Au(self.x[i])
+                        print('------------------ x CoO-Au is {} '.format(self.x[i]))
+                    if i == 9:
+                        self.sample.layerStructure[i]['material'].setThickness(self.x[i])
+                        self.sample.layerStructure[i]['material'].set_x_amount_MgCO3_in_MgOH(self.x[i+1])
+                        print('------------------ x MgCO3 in Mg[OH]2 is {} '.format(self.x[i+1]))
+                    elif (i > 3) and (i < 9):
+                        self.sample.layerStructure[i]['material'].setThickness(self.x[i])
+                    elif i > 9:
+                        self.sample.layerStructure[i]['material'].setThickness(self.x[i+1])
+                    elif i < 3:
+                        self.sample.layerStructure[i]['material'].setThickness(self.x[i - 1])
+
+            else:
+                print('Number of layers is not equal to dimension of minimization variable')
+                print('You put: {0} but Class {1} need: {2}'.format(len(self.sample.layerStructure),
+                                                                    self.__class__.__name__, len(self.x)-1))
+                return 1
+            # sample.Mg_Hydrate.setThickness(x[0])
+            # sample.MgCO3.setThickness(x[1])
+            # sample.MgO.setThickness(x[2])
+            # sample.Au_interlayer.setThickness(x[3])
+            # sample.Co_oxide.setThickness(x[4])
+            # sample.Co_metal.setThickness(x[5])
+            # sample.C_contamination.setThickness(x[6])
+
+            self.sample.writeSesFile()
+            # Saving the objects:
+            pcklFile = os.path.join(self.workFolder, 'objs.pickle')
+            with open(pcklFile, 'wb') as f:
+                pickle.dump([self.sample], f)
+
+            # # Getting back the objects:
+            # with open(pcklFile, 'rb') as f:
+            #     obj0 = pickle.load(f)
+            self.returncode = execProjectSessionWithTimeoutControl(workDir=self.workFolder, timeOut=120)
+            self.clearWorkPlace(self.workFolder)
 
     def generateWorkPlace(self, dirPath=r'/home/yugin/VirtualboxShare/Co-CoO/out/00001'):
         # created folder and copy the files:
@@ -283,25 +344,25 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
                  os.path.join(dirPath, 'additional_commands.ses'))
 
     def setPeakRegions(self):
-        self.a.Au4f._0.experiment.data.energyRegion = [1395, 1405]
-        self.a.Au4f._0.theory.data.energyRegion = [1395, 1405]
-        self.a.Au4f._60.experiment.data.energyRegion = [1395, 1405]
-        self.a.Au4f._60.theory.data.energyRegion = [1395, 1405]
+        self.a.Au4f._0.experiment.data.energyRegion = [1393.3, 1405]
+        self.a.Au4f._0.theory.data.energyRegion = [1393.3, 1405]
+        self.a.Au4f._60.experiment.data.energyRegion = [1393.3, 1405]
+        self.a.Au4f._60.theory.data.energyRegion = [1393.3, 1405]
 
-        self.a.Co2p._0.experiment.data.energyRegion = [702, 710]
-        self.a.Co2p._0.theory.data.energyRegion = [702, 710]
-        self.a.Co2p._60.experiment.data.energyRegion = [700, 710]
-        self.a.Co2p._60.theory.data.energyRegion = [700, 710]
+        self.a.Co2p._0.experiment.data.energyRegion = [702, 712.6]
+        self.a.Co2p._0.theory.data.energyRegion = [702, 712.6]
+        self.a.Co2p._60.experiment.data.energyRegion = [702, 712.6]
+        self.a.Co2p._60.theory.data.energyRegion = [702, 712.6]
 
-        self.a.O1s._0.experiment.data.energyRegion = [950, 960]
-        self.a.O1s._0.theory.data.energyRegion = [950, 960]
-        self.a.O1s._60.experiment.data.energyRegion = [950, 960]
-        self.a.O1s._60.theory.data.energyRegion = [950, 960]
+        self.a.O1s._0.experiment.data.energyRegion = [948.7, 960]
+        self.a.O1s._0.theory.data.energyRegion = [948.7, 960]
+        self.a.O1s._60.experiment.data.energyRegion = [948.7, 960]
+        self.a.O1s._60.theory.data.energyRegion = [948.7, 960]
 
-        self.a.Mg1s._0.experiment.data.energyRegion = [179, 185]
-        self.a.Mg1s._0.theory.data.energyRegion = [179, 185]
-        self.a.Mg1s._60.experiment.data.energyRegion = [179, 185]
-        self.a.Mg1s._60.theory.data.energyRegion = [179, 185]
+        self.a.Mg1s._0.experiment.data.energyRegion = [178, 185.6]
+        self.a.Mg1s._0.theory.data.energyRegion = [178, 185.6]
+        self.a.Mg1s._60.experiment.data.energyRegion = [178, 185.6]
+        self.a.Mg1s._60.theory.data.energyRegion = [178, 185.6]
 
 
 if __name__ == '__main__':
@@ -414,7 +475,8 @@ if __name__ == '__main__':
 
     elif testCase == 3:
         b1 = Class_CoO_no_Au()
-        b1.x = [200.000, 10.000, 8.0, 0.001, 33.000, 2.000, 2.000, 4.0, 6.000]
+        #                 Au        Co    CoOx     x    CoO  Au       MgO     MgCO3  MgOH   MgCO3_y_Mg[OH]2   y       Au    C=O
+        b1.x = np.array([200.000, 15.000, 0.0001, 0.9,   7,  0.0001, 20.000, 0.0001, 0.0001,    15.000,      0.05,    3.00, 5.000])
         # calc theory and compare with experiment data:
         z = b1.compareTheoryAndExperiment()
         # b2 = Class_CoO_no_Au()

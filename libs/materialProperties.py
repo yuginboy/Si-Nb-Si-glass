@@ -164,7 +164,7 @@ class CoO_Au_mix(Material):
         self.setlayerDescription()
 
     def setlayerDescription(self):
-        self.layerDescription = '$(CoO)|_{{{0:1.3f}}}Au|_{{{1:1.3f}}}[h={2:1.3f}\AA]$'.format(self._x_amount_CoO_in_Au,
+        self.layerDescription = '$(CoO)|_{{{0:1.3f}}}\,\,Au|_{{{1:1.3f}}}[h={2:1.3f}\AA]$'.format(self._x_amount_CoO_in_Au,
                                                                                     (1-self._x_amount_CoO_in_Au),
                                                                                               self.thickness)
     def set_x_amount_CoO_in_Au(self, x):
@@ -183,6 +183,40 @@ class CoO_Au_mix(Material):
         self.density = round(19.3*y + 6.44*x, 3)
         # self.Egap = Co_Oxide.Egap*x
         self.Egap = round(2.6*x, 3)
+
+class MgCO3_MgOH_mix(Material):
+    # Carbon contamination top layer
+    def __init__(self):
+        super(MgCO3_MgOH_mix, self).__init__()
+        self.material = '/Mg[Mg-CO3]/C/O[Mg-CO3]3/Mg[Mg-OH]/O[Mg-OH]2/H2/'
+        self.layerLabel = '(MgCO3)_x(Mg[OH]2)_{1-x}'
+        self.density = 2.5  # g/cm^3
+        self.thickness = 15  # A
+        self.Egap = 6.0  # eV
+        self.DIIMFP = '/MG/O/'
+        self._x_amount_MgCO3_in_MgOH = 0.5
+        self.setlayerDescription()
+
+    def setlayerDescription(self):
+        self.layerDescription = '$(MgCO_3)|_{{{0:1.3f}}}\,\,Mg[OH]_2|_{{{1:1.3f}}}[h={2:1.3f}\AA]$'.\
+            format(self._x_amount_MgCO3_in_MgOH, (1-self._x_amount_MgCO3_in_MgOH), self.thickness)
+
+    def set_x_amount_MgCO3_in_MgOH(self, x):
+        self._x_amount_MgCO3_in_MgOH = x
+        self.updateProperties()
+        self.setlayerDescription()
+
+    def updateProperties(self):
+        if abs(self._x_amount_MgCO3_in_MgOH) > 1:
+            self._x_amount_MgCO3_in_MgOH = 0.999
+        x = abs(self._x_amount_MgCO3_in_MgOH)
+        y = 1-x
+        self.material = '(/Mg[Mg-CO3]/C/O[Mg-CO3]/){0:1.2f}(/Mg[Mg-OH]/O[Mg-OH]2/H2/){1:1.2f}'.format(x, y)
+        self.DIIMFP = '(/Mg[Mg-CO3]/C/O[Mg-CO3]/){0:1.2f}(/Mg[Mg-OH]/O[Mg-OH]2/H2/){1:1.2f}'.format(x, y)
+        # self.density = Au.density*y + Co_Oxide.density*x
+        self.density = round(2.345*y + 2.958*x, 3)
+        # self.Egap = Co_Oxide.Egap*x
+        self.Egap = round(7.6*y + 5.1*x, 3)
 
 
 if __name__ == "__main__":
