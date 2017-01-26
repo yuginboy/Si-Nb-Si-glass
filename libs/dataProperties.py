@@ -154,7 +154,7 @@ class NumericData():
         self.k_R_Mg_60 = 1
         self.total_min_R_faktor = 1000
         self.suptitle_txt = '$Fit$ $for$ $model$ $of$ $sample$ $Au/Co/CoO/Au/MgO/MgCO_3/Mg[OH]_2$'
-        self.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
+        self.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/model_with_Au/raw'
         self.theoryDataPath = r'/home/yugin/VirtualboxShare/Co-CoO/out/00001'
         # Colors for lines on a graph, length of this value and number of time-point simulations should be the same:
         self.colorsForGraph = ['darkviolet', 'dodgerblue', 'brown', 'red', 'darkviolet']

@@ -34,25 +34,25 @@
 \SAMPLE PEAK DELETE PEAK 5
 \SAMPLE PEAK DELETE PEAK 4
 
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Mg1s_[Mg-OH]_MgO_ref.txt" SUBPEAK 1 PEAK 1
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Mg1s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 2
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Mg1s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 3
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Mg1s_[Mg-OH]_MgO_ref.txt" SUBPEAK 1 PEAK 1
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Mg1s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 2
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Mg1s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 3
 
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Co2p_oxide_ref.txt" SUBPEAK 1 PEAK 4
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Co2p_metall_ref.txt" SUBPEAK 1 PEAK 5
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Co2p_oxide_ref.txt" SUBPEAK 1 PEAK 4
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Co2p_metall_ref.txt" SUBPEAK 1 PEAK 5
 
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\O1s_[O-C]_MgO_ref.txt" SUBPEAK 1 PEAK 6
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\O1s_[Mg-OH]_Mg(OH)2_ref.txt" SUBPEAK 1 PEAK 7
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\O1s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 8
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\O1s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 9
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\O1s_[Co-O]_MgO_ref.txt" SUBPEAK 1 PEAK 10
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\O1s_[O-C]_MgO_ref.txt" SUBPEAK 1 PEAK 6
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\O1s_[Mg-OH]_Mg(OH)2_ref.txt" SUBPEAK 1 PEAK 7
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\O1s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 8
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\O1s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 9
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\O1s_[Co-O]_MgO_ref.txt" SUBPEAK 1 PEAK 10
 
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Au4f5-2_ref.txt" SUBPEAK 1 PEAK 11
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Au4f7-2_ref.txt" SUBPEAK 1 PEAK 12
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Au4f5-2_ref.txt" SUBPEAK 1 PEAK 11
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Au4f7-2_ref.txt" SUBPEAK 1 PEAK 12
 
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Mg2s_[Mg-OH]_MgO_ref.txt" SUBPEAK 1 PEAK 13
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Mg2s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 14
-\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\normalized_fit\Mg2s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 15
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Mg2s_[Mg-OH]_MgO_ref.txt" SUBPEAK 1 PEAK 13
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Mg2s_[Mg-CO3]_MgCO3_ref.txt" SUBPEAK 1 PEAK 14
+\SAMPLE PEAK LOAD DATA "Z:\home\yugin\PycharmProjects\Si-Nb-Si-glass\exe\model_with_Au\normalized_fit\Mg2s_[Mg-O]_MgO_ref.txt" SUBPEAK 1 PEAK 15
 
 \MODEL SET CONVERGENCE 1.000e-004
 \PREFERENCES SET NDIIMFP 2 

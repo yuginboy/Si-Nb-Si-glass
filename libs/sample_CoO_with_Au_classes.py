@@ -96,6 +96,9 @@ class Class_CoO_with_Au(BaseClassForCalcAndMinimize):
     def __init__(self):
         self.sample = SAMPLE_CoO_with_Au()
         self.a = NumericData_CoO_with_Au()
+        # use this variable to create full path to the experimental raw spectra:
+        self.modelName = 'model_with_Au'
+
         self.projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out'
         self.case_R_factor = 'all'
         self.workFolder = self.projPath
@@ -297,7 +300,7 @@ if __name__ == '__main__':
     elif testCase == 3:
         b1 = Class_CoO_with_Au()
         #        Au        Co    CoOx  x  CoO  Au  MgO     MgCO3  MgOH   Au    C=O
-        b1.x = [200.000, 8.500, 3.0, 0.7, 0.1,   0.1, 11.000, 8.000, 3.000, 0.001, 4.000]
+        b1.x = [200.000, 8.500, 3.0, 0.7, 0.1,   0.1, 11.000, 8.000, 3.000, 0.0001, 4.000]
         # calc theory and compare with experiment data:
         z = b1.compareTheoryAndExperiment()
         # b2 = Class_CoO_no_Au()

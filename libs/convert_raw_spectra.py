@@ -12,13 +12,16 @@ import numpy as np
 
 class ConvertRawToNormRaw():
     def __init__(self):
-        self.in_path = os.path.join(runningScriptDir, 'exe', 'fit')
-        self.out_path = os.path.join(runningScriptDir, 'exe', 'normalized_fit')
+        self.in_path = os.path.join(runningScriptDir, 'exe', 'model_no_Au', 'fit')
+        self.out_path = os.path.join(runningScriptDir, 'exe', 'model_no_Au', 'normalized_fit')
         self.list_of_files_to_convert = []
         self.new_file_prefix = ''
+        # self.search_mask = 'ref'
+        self.search_mask = ''
 
     def loadFiles(self):
-        self.list_of_files_to_convert = [x for x in listOfFilesFN_with_selected_ext(self.in_path, ext='txt') if 'ref' in os.path.basename(x)]
+        self.list_of_files_to_convert = [x for x in listOfFilesFN_with_selected_ext(self.in_path, ext='txt') if
+                                         self.search_mask in os.path.basename(x)]
         for i in self.list_of_files_to_convert:
             print(i)
 

@@ -66,6 +66,8 @@ class NumericData_CoO_no_Au(NumericData):
         super(NumericData_CoO_no_Au, self).__init__()
         self.suptitle_fontsize = 22
         # self.colorsForGraph = ['darkviolet', 'dodgerblue', 'brown', 'red', 'darkviolet']
+        self.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/model_no_Au/raw'
+
         self.Au4f._0.experiment.filename = r'raw_Au4f_Mg2s_alpha=0deg_CoO_no_Au.txt'
         self.Au4f._60.experiment.filename = r'raw_Au4f_Mg2s_alpha=60deg.txt'
 
@@ -251,6 +253,11 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
     def __init__(self):
         self.sample = SAMPLE_CoO_no_Au()
         self.a = NumericData_CoO_no_Au()
+
+        # use this variable to create full path to the experimental raw spectra:
+        # self.modelName = 'model_with_Au'
+        self.modelName = 'model_no_Au'
+
         # self.a.Au4f._0.experiment.filename = r'raw_Au4f_Mg2s_alpha=0deg_CoO_no_Au.txt'
         # self.a.Au4f._60.experiment.filename = r'raw_Au4f_Mg2s_alpha=60deg.txt'
         #
@@ -277,8 +284,8 @@ class Class_CoO_no_Au(BaseClassForCalcAndMinimize):
         self.a.k_R_Mg_0 =  1
         self.a.k_R_Mg_60 = 0
 
-        #                   Au        Co    CoOx x    CoO  Au  MgO     MgCO3  MgOH   MgCO3_y_Mg[OH]2   y         Au    C=O
-        self.x = np.array([200.000, 15.000, 3.0, 0.9, 4,    4, 40.000, 5.000, 5.000,    5.000,        0.3,      0.001, 5.000])
+        #                  Au        Co    CoOx     x    CoO      Au   MgO     MgCO3  MgOH   MgCO3_y_Mg[OH]2   y     Au    C=O
+        self.x = np.array([200.000, 6.036, 0.0001, 0.9, 6.581, 0.0001, 20.779, 9.834, 4.534,       0.0001,    0.05, 3.888, 0.564])
 
     def calculateTheory(self):
         # run SESSA calculation with a new structure:
@@ -475,8 +482,8 @@ if __name__ == '__main__':
 
     elif testCase == 3:
         b1 = Class_CoO_no_Au()
-        #                 Au        Co    CoOx     x    CoO  Au       MgO     MgCO3  MgOH   MgCO3_y_Mg[OH]2   y       Au    C=O
-        b1.x = np.array([200.000, 15.000, 0.0001, 0.9,   7,  0.0001, 20.000, 0.0001, 0.0001,    15.000,      0.05,    3.00, 5.000])
+        #                 Au        Co    CoOx     x    CoO      Au       MgO     MgCO3  MgOH   MgCO3_y_Mg[OH]2   y       Au    C=O
+        b1.x = np.array([200.000, 6.036, 0.0001, 0.9,   6.581,  0.0001, 20.779,   9.834, 4.534,    0.0001,      0.05,    3.888, 0.564])
         # calc theory and compare with experiment data:
         z = b1.compareTheoryAndExperiment()
         # b2 = Class_CoO_no_Au()

@@ -30,6 +30,10 @@ class BaseClassForCalcAndMinimize():
         self.a = NumericData()
 
         self.projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out'
+        # use this variable to create full path to the experimental raw spectra:
+        self.modelName = 'model_with_Au'
+        # self.modelName = 'model_no_Au'
+
         self.case_R_factor = 'all'
         self.workFolder = self.projPath
         self.returncode = -1
@@ -222,7 +226,7 @@ class BaseClassForCalcAndMinimize():
             if self.returncode is not -1:
                 # if process has been finished properly:
                 self.a.theoryDataPath = self.workFolder
-                self.a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
+                self.a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/' + self.modelName + r'/raw'
                 self.a.loadExperimentData()
                 try:
                     self.a.loadTheoryData()
@@ -234,7 +238,7 @@ class BaseClassForCalcAndMinimize():
                     self.calculateTheory()
                     self.checkCase_R_factor()
                     self.a.theoryDataPath = self.workFolder
-                    self.a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
+                    self.a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/' + self.modelName + r'/raw'
                     self.a.loadExperimentData()
                     try:
                         self.a.loadTheoryData()
