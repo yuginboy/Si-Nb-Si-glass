@@ -372,7 +372,10 @@ class NumericData():
             pylab.ion()  # Force interactive
             plt.close('all')
             ### for 'Qt4Agg' backend maximize figure
-            # plt.switch_backend('QT5Agg')
+            plt.switch_backend('QT5Agg')
+
+            plt.rc('text', usetex=True)
+            plt.rc('font', family='serif')
 
             self.fig = plt.figure()
             # gs1 = gridspec.GridSpec(1, 2)

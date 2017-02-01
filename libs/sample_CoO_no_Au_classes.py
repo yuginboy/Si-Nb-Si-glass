@@ -64,7 +64,7 @@ class SAMPLE_CoO_no_Au(SAMPLE):
 class NumericData_CoO_no_Au(NumericData):
     def __init__(self):
         super(NumericData_CoO_no_Au, self).__init__()
-        self.suptitle_fontsize = 22
+        self.suptitle_fontsize = 18
         # self.colorsForGraph = ['darkviolet', 'dodgerblue', 'brown', 'red', 'darkviolet']
         self.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/model_no_Au/raw'
 

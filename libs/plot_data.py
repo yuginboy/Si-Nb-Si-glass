@@ -23,7 +23,7 @@ def plotData(x = np.r_[0:50], y = np.cos(np.r_[0:50]/6*np.pi), error = np.random
     pylab.ion()  # Force interactive
     plt.close('all')
     ### for 'Qt4Agg' backend maximize figure
-    plt.switch_backend('QT4Agg')
+    plt.switch_backend('QT5Agg')
 
     fig = plt.figure()
     # gs1 = gridspec.GridSpec(1, 2)
@@ -78,7 +78,7 @@ def plotData(x = np.r_[0:50], y = np.cos(np.r_[0:50]/6*np.pi), error = np.random
     # plt.draw()
     # save to the PNG file:
     out_file_name = '%s_' % (case) + "%05d.png" %(numOfIter)
-    fig.savefig( os.path.join(out_dir, out_file_name) )
+    # fig.savefig( os.path.join(out_dir, out_file_name) )
 
     # create output links on fig and axes:
     out_var = OutPlotVars()
