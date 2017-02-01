@@ -86,16 +86,30 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             # ====================================================================================================
             # # 1
             #                 Co    CoO   Au    MgO     MgCO3   MgOH    C=O
-            x0 = np.asarray([10,     3,  0.83,  8.7,     11.2,    5,     2.3])
+            # x0 = np.asarray([10,     3,  0.83,  8.7,     11.2,    5,     2.3])
+
+            # R=0.3548
+            x0 = np.array([14.699, 9.587, 23.132, 12.631, 10.032, 3.552, 1.353])
+
+            # bounds = [
+            #     (7, 25),  # Co
+            #     (1, 7),  # CoO
+            #     (1, 7),  # Au
+            #     (5, 15),  # MgO
+            #     (5, 15),  # MgCO3
+            #     (0.001, 15),  # MgOH
+            #     (0.001, 8),  # C
+            #           ]
+
             bounds = [
-                (7, 25),  # Co
-                (1, 7),  # CoO
-                (1, 7),  # Au
-                (5, 15),  # MgO
-                (5, 15),  # MgCO3
-                (0.001, 15),  # MgOH
-                (0.001, 8),  # C
-                      ]
+                (9, 15),  # Co
+                (6, 10),  # CoO
+                (20, 25),  # MgO
+                (9, 15),  # MgCO3
+                (9, 15),  # Mg[OH]2
+                (3, 4),  # Au
+                (0.5, 2),  # C
+            ]
 
             rranges = []
             # rranges = (
@@ -116,7 +130,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             def fun(x):
                 y = np.zeros(11)
                 #   Au        Co    CoOx     x   CoO    Au     MgO     MgCO3   MgOH    Au    C=O
-                y = [200.000, x[0], x[1],  x[2], 0.0001, 0.0001, x[3],    x[4],   x[5], 0.0001, x[6]]
+                y = np.array(
+                    [200.000, x[0], x[1],  x[2], 0.0001, 0.0001, x[3],    x[4],   x[5], 0.0001, x[6]])
                 print('-------------------->>>> func(x)')
                 print(y)
                 print('--------------------<<<< func(x)')
@@ -145,17 +160,30 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             # -> global minimum R-factor is: 0.7841880992402152
             # -> global minimum R-factor project folder: /home/yugin/VirtualboxShare/Co-CoO/out_genetic_CoO_with_Au/gensa__CoO_mix__R_all_lines_00001/00063
             #                 Co    CoOx     x       MgO     MgCO3   MgOH    C=O
-            x0 = np.asarray([ 16.5, 8.26, 0.75,      13.7,   9.2,     2,     2.3])
+            # x0 = np.asarray([ 16.5, 8.26, 0.75,      13.7,   9.2,     2,     2.3])
+
+            # R=0.4531
+            x0 = np.asarray([ 11.158, 8.349, 0.889,    5.04,   12.77,     0.562,     0.954])
             # ====================================================================================================
+            # bounds = [
+            #     (7, 25),  # Co
+            #     (1, 15),  # h = CoOxAu_{1-x}
+            #     (0.05, 0.95),  # x
+            #     (5, 15),  # MgO
+            #     (5, 15),  # MgCO3
+            #     (0.001, 15),  # MgOH
+            #     (0.001, 8),  # C
+            #           ]
+
             bounds = [
-                (7, 25),  # Co
-                (1, 15),  # h = CoOxAu_{1-x}
+                (10, 13),  # Co
+                (6, 10),  # h = CoOxAu_{1-x}
                 (0.05, 0.95),  # x
-                (5, 15),  # MgO
-                (5, 15),  # MgCO3
-                (0.001, 15),  # MgOH
-                (0.001, 8),  # C
-                      ]
+                (3, 7),  # MgO
+                (10, 15),  # MgCO3
+                (0.001, 2),  # MgOH
+                (0.001, 2),  # C
+            ]
             rranges = (
                 slice(0.001, 8, 0.5),  # MgOH
                 slice(7, 15, 0.5),  # MgCO3

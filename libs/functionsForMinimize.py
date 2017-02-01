@@ -101,15 +101,32 @@ def func_CoO_with_Au(x, projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out', ca
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
     print('-----------> NumericData.global_R_factor = {0}'.format(NumericData.global_R_factor))
-    x = np.array([6.036, 6.581, 20.779, 13.0, 0.05, 3.888, 0.564])
-    x = np.array([6.036, 6.581, 23.132, 22.0, 0.05, 3.552, 1.353])
-    x = np.array([9.036, 6.581, 23.132, 22.0, 0.05, 3.552, 1.353])
-    x = np.array([8.036, 7.581, 23.132, 22.0, 0.05, 3.552, 1.353])
-    #     Au        Co    CoOx  x    CoO      Au   MgO   MgCO3    MgOH   MgCO3_y_Mg[OH]2   y     Au    C=O
+
+
+    # x = np.array([6.036, 6.581, 20.779, 13.0, 0.05, 3.888, 0.564])
+    # x = np.array([6.036, 6.581, 23.132, 22.0, 0.05, 3.552, 1.353])
+    # x = np.array([9.036, 6.581, 23.132, 22.0, 0.05, 3.552, 1.353])
+    # x = np.array([8.036, 7.581, 23.132, 22.0, 0.05, 3.552, 1.353])
+    # #     Au        Co    CoOx  x    CoO      Au   MgO   MgCO3    MgOH   MgCO3_y_Mg[OH]2   y     Au    C=O
+    # y = np.array(
+    #     [200.000, x[0], 0.0001, 0.9, x[1], 0.0001, x[2], 0.0001, 0.0001, x[3], x[4], x[5], x[6]])
+    # print('Answer is: {}'.format(func_CoO_no_Au (y)))
+    # print('-----------> NumericData.global_R_factor = {0}'.format(NumericData.global_R_factor))
+
+
+
+
+    # x = np.asarray([11.158, 8.349, 0.889, 5.04, 12.77, 0.562, 0.954])
+    # #       Au    Co    CoOx     x   CoO   Au     MgO     MgCO3   MgOH    Au    C=O
+    # y = np.array(
+    #     [200.000, x[0], 0.0001, 0.7,  x[1], x[2],  x[3],    x[4],  x[5],  0.0001, x[6]])
+    # print('Answer is: {}'.format(func_CoO_with_Au (y)))
+
+
+    x = np.asarray([11.158, 8.349, 0.889, 5.04, 12.77, 0.562, 0.954])
+    #       Au    Co    CoOx     x   CoO   Au     MgO     MgCO3   MgOH    Au    C=O
     y = np.array(
-        [200.000, x[0], 0.0001, 0.9, x[1], 0.0001, x[2], 0.0001, 0.0001, x[3], x[4], x[5], x[6]])
-    print('Answer is: {}'.format(func_CoO_no_Au (y)))
-    print('-----------> NumericData.global_R_factor = {0}'.format(NumericData.global_R_factor))
-    # print('Answer is: {}'.format(func_CoO_with_Au ([200.000, 8.500, 3.0, 0.7, 0.1,   0.1, 11.000, 8.000, 3.000, 0.001, 4.000])))
+        [200.000, x[0], x[1], x[2], 0.0001, 0.0001, x[3], x[4], x[5], 0.0001, x[6]])
+    print('Answer is: {}'.format(func_CoO_with_Au (y)))
     # print('-----------> NumericData.global_R_factor = {0}'.format(NumericData.global_R_factor))
 
