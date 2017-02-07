@@ -2,12 +2,14 @@
 * Created by Zhenia Syryanyy (Yevgen Syryanyy)
 * e-mail: yuginboy@gmail.com
 * License: this code is in GPL license
-* Last modified: 2016-12-28
+* Last modified: 2017-02-07
 '''
 import os
 import datetime
 import time
 import numpy as np
+from docutils.nodes import header
+
 from libs.dataProperties import NumericData
 from libs.dir_and_file_operations import listdirs, listdirsFN, get_upper_folder_name, get_folder_name, createFolder
 import matplotlib.gridspec as gridspec
@@ -17,17 +19,9 @@ import progressbar #progressbar2
 import tkinter as tk
 from tkinter import filedialog
 import pickle
-def saveDataToColumnTxt(dataPath='~', fname='Au4f-60', xDataBE=0, xDataKE=0, yDataExperiment=0, yDataTheory=0):
-    headerTxt = 'Binding Energy [eV]\tKinetic Energy [eV]\tExperiment [a.u.]\tTheory [a.u.]'
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d__%H_%M_%S")
-    outArr = np.zeros((len(xDataBE), 4))
-    outArr[:, 0] =  xDataBE
-    outArr[:, 1] =  xDataKE
-    outArr[:, 2] =  yDataExperiment
-    outArr[:, 3] =  yDataTheory
-    np.savetxt(os.path.join(dataPath, fname + timestamp + '.txt'), outArr,
-               fmt='%1.6e', delimiter='\t', header=headerTxt)
-def main(dataPath = r'/home/yugin/VirtualboxShare/Co-CoO/test', saveFigs=True, showFigs=True, sample_case='with_Au'):
+from libs.classFuncMinimize import saveDataToColumnTxt
+
+def main(dataPath = r'/home/yugin/VirtualboxShare/Co-CoO/test', saveFigs=True, showFigs=True, sample_case='no_Au'):
     # load SESSA calculated spectra:
     # dirPathList = listdirs(dataPath)
     # sample_case='no_Au'/'with_Au'
@@ -55,6 +49,7 @@ def main(dataPath = r'/home/yugin/VirtualboxShare/Co-CoO/test', saveFigs=True, s
         print(obj[0].tabledLayersStructureInfo)
 
         # a = NumericData()
+        data.projPath = currentPath
         data.a.theoryDataPath = currentPath
 
         data.a.loadExperimentData()
@@ -84,13 +79,8 @@ def main(dataPath = r'/home/yugin/VirtualboxShare/Co-CoO/test', saveFigs=True, s
 
         arrR_factor[i, 9] = data.a.total_R_faktor
 
-        structToOut = data.a.Au4f._0
-        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
-                            fname='Au4f-00', xDataBE=structToOut.experiment.data.fit.bindingEnergy,
-                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
-                            yDataExperiment=structToOut.experiment.data.fit.intensity,
-                            yDataTheory=structToOut.theory.data.fit.intensity,
-                            )
+        data.saveToASCIIcolumnData(headerTxt=obj[0].tabledLayersStructureInfo)
+
 
         i = i + 1
         bar.update(i)

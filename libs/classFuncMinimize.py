@@ -18,6 +18,31 @@ from libs.execCommandInSESSA import execProjectSessionWithTimeoutControl
 import numpy as np
 import pickle
 
+def saveDataToColumnTxt(dataPath='~', fname='Au4f-60', xDataBE=0, xDataKE=0, yDataExperiment=0, yDataTheory=0, header=''):
+    '''
+    save ASCII column data of fitted spectra to the next Origin processing
+    :param dataPath:
+    :param fname:
+    :param xDataBE:
+    :param xDataKE:
+    :param yDataExperiment:
+    :param yDataTheory:
+    :return:
+    '''
+    if len(header)>0:
+        headerTxt = header + '\n\n\nBinding Energy [eV]\tKinetic Energy [eV]\tExperiment [a.u.]\tTheory [a.u.]'
+    else:
+        headerTxt = header + 'Binding Energy [eV]\tKinetic Energy [eV]\tExperiment [a.u.]\tTheory [a.u.]'
+
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d__%H_%M_%S")
+    outArr = np.zeros((len(xDataBE), 4))
+    outArr[:, 0] =  xDataBE
+    outArr[:, 1] =  xDataKE
+    outArr[:, 2] =  yDataExperiment
+    outArr[:, 3] =  yDataTheory
+    np.savetxt(os.path.join(dataPath, fname + '_' + timestamp + '.txt'), outArr,
+               fmt='%1.6e', delimiter='\t', header=headerTxt)
+
 runningScriptDir = os.path.dirname(os.path.abspath(__file__))
 # get root project folder name:
 runningScriptDir = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0]
@@ -342,6 +367,13 @@ class BaseClassForCalcAndMinimize():
 
             optimal_structure = self.a.get_global_min_R_factor_Structure()
 
+            # create ASCII column files for tne next processing in Origin:
+            textToHeader = '-> global minimum R-factor is: {}\n'.format(self.a.global_min_R_factor) + \
+                '-> global minimum R-factor project folder: {}\n'.format(self.a.global_min_R_factor_path) + \
+                optimal_structure.tabledLayersStructureInfo
+
+            self.saveToASCIIcolumnData(headerTxt=textToHeader)
+
             fpath = create_unique_out_data_file(self.projPath, first_part_of_file_name='min_R', ext='txt')
             textFile = open(fpath, 'a')
             # load calculated data from the best case:
@@ -360,6 +392,85 @@ class BaseClassForCalcAndMinimize():
             textFile.write('Optimal structure:\n')
             textFile.write(optimal_structure.tabledLayersStructureInfo)
             textFile.close()
+    def saveToASCIIcolumnData(self, headerTxt=''):
+        '''
+        export and save data of fitted curves to the ASCII column file:
+        :return:
+        '''
+        currentPath = self.projPath
+
+        structToOut = self.a.Au4f._0
+        structTxt = 'Au4f-00'
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname=structTxt, xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            header=headerTxt
+                            )
+        structToOut = self.a.Au4f._60
+        structTxt = 'Au4f-60'
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname=structTxt, xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            header=headerTxt
+                            )
+        structToOut = self.a.Co2p._0
+        structTxt = 'Co2p-00'
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname=structTxt, xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            header=headerTxt
+                            )
+        structToOut = self.a.Co2p._60
+        structTxt = 'Co2p-60'
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname=structTxt, xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            header=headerTxt
+                            )
+        structToOut = self.a.O1s._0
+        structTxt = 'O1s-00'
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname=structTxt, xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            header=headerTxt
+                            )
+        structToOut = self.a.O1s._60
+        structTxt = 'O1s-60'
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname=structTxt, xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            header=headerTxt
+                            )
+        structToOut = self.a.Mg1s._0
+        structTxt = 'Mg1s-00'
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname=structTxt, xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            header=headerTxt
+                            )
+        structToOut = self.a.Mg1s._60
+        structTxt = 'Mg1s-60'
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname=structTxt, xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            header=headerTxt
+                            )
 
 
 
