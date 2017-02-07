@@ -9,137 +9,89 @@ import datetime
 import time
 import numpy as np
 from libs.dataProperties import NumericData
-from libs.dir_and_file_operations import listdirs, listdirsFN
+from libs.dir_and_file_operations import listdirs, listdirsFN, get_upper_folder_name, get_folder_name, createFolder
 import matplotlib.gridspec as gridspec
 from matplotlib import pylab
 import matplotlib.pyplot as plt
 import progressbar #progressbar2
 import tkinter as tk
 from tkinter import filedialog
-
-def main(dataPath = r'/home/yugin/VirtualboxShare/Co-CoO/test', saveFigs=True, showFigs=True):
+import pickle
+def saveDataToColumnTxt(dataPath='~', fname='Au4f-60', xDataBE=0, xDataKE=0, yDataExperiment=0, yDataTheory=0):
+    headerTxt = 'Binding Energy [eV]\tKinetic Energy [eV]\tExperiment [a.u.]\tTheory [a.u.]'
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d__%H_%M_%S")
+    outArr = np.zeros((len(xDataBE), 4))
+    outArr[:, 0] =  xDataBE
+    outArr[:, 1] =  xDataKE
+    outArr[:, 2] =  yDataExperiment
+    outArr[:, 3] =  yDataTheory
+    np.savetxt(os.path.join(dataPath, fname + timestamp + '.txt'), outArr,
+               fmt='%1.6e', delimiter='\t', header=headerTxt)
+def main(dataPath = r'/home/yugin/VirtualboxShare/Co-CoO/test', saveFigs=True, showFigs=True, sample_case='with_Au'):
     # load SESSA calculated spectra:
     # dirPathList = listdirs(dataPath)
+    # sample_case='no_Au'/'with_Au'
     dirFullPathList = sorted(listdirsFN(dataPath))
-    time.sleep(60)
+    time.sleep(1)
     arrR_factor = np.zeros((len(dirFullPathList), 10))
     i = 0
     bar = progressbar.ProgressBar(maxval = len(dirFullPathList),\
                                    widgets = [progressbar.Bar('=', '[', ']'), ' ',
                                               progressbar.Percentage()])
     for currentPath in dirFullPathList:
-        a = NumericData()
-        a.theoryDataPath = currentPath
-        a.experimentDataPath = r'/home/yugin/PycharmProjects/Si-Nb-Si-glass/exe/raw'
-        a.loadExperimentData()
-        a.loadTheoryData()
-        a.Au4f._0.experiment.data.energyRegion = [1395, 1405]
-        a.Au4f._0.theory.data.energyRegion = [1395, 1405]
-        a.Au4f._60.experiment.data.energyRegion = [1395, 1405]
-        a.Au4f._60.theory.data.energyRegion = [1395, 1405]
+        if sample_case == 'no_Au':
+            from libs.sample_CoO_no_Au_classes import Class_CoO_no_Au
+            data = Class_CoO_no_Au()
 
-        a.Co2p._0.experiment.data.energyRegion = [700, 710]
-        a.Co2p._0.theory.data.energyRegion = [700, 710]
-        a.Co2p._60.experiment.data.energyRegion = [700, 710]
-        a.Co2p._60.theory.data.energyRegion = [700, 710]
-
-        a.O1s._0.experiment.data.energyRegion = [950, 960]
-        a.O1s._0.theory.data.energyRegion = [950, 960]
-        a.O1s._60.experiment.data.energyRegion = [950, 960]
-        a.O1s._60.theory.data.energyRegion = [950, 960]
-
-        a.Mg1s._0.experiment.data.energyRegion = [179, 185]
-        a.Mg1s._0.theory.data.energyRegion = [179, 185]
-        a.Mg1s._60.experiment.data.energyRegion = [179, 185]
-        a.Mg1s._60.theory.data.energyRegion = [179, 185]
-
-        # start to Global Normolize procedure:
-        a.Au4f._0.getMaxIntensityValue()
-        a.Au4f._60.getMaxIntensityValue()
-        # print('a.Au4f._0.experiment.data.fit.maxIntensity = {0}'.format(a.Au4f._0.experiment.data.fit.maxIntensity))
-        # print('a.Au4f._0.theory.data.fit.maxIntensity = {0}'.format(a.Au4f._0.theory.data.fit.maxIntensity))
-        # print('a.Au4f._60.experiment.data.fit.maxIntensity = {0}'.format(a.Au4f._60.experiment.data.fit.maxIntensity))
-        # print('a.Au4f._60.theory.data.fit.maxIntensity = {0}'.format(a.Au4f._60.theory.data.fit.maxIntensity))
-
-        a.Co2p._0.getMaxIntensityValue()
-        a.Co2p._60.getMaxIntensityValue()
-        # print('a.Co2p._0.experiment.data.fit.maxIntensity = {0}'.format(a.Co2p._0.experiment.data.fit.maxIntensity))
-        # print('a.Co2p._0.theory.data.fit.maxIntensity = {0}'.format(a.Co2p._0.theory.data.fit.maxIntensity))
-        # print('a.Co2p._60.experiment.data.fit.maxIntensity = {0}'.format(a.Co2p._60.experiment.data.fit.maxIntensity))
-        # print('a.Co2p._60.theory.data.fit.maxIntensity = {0}'.format(a.Co2p._60.theory.data.fit.maxIntensity))
-
-        a.O1s._0.getMaxIntensityValue()
-        a.O1s._60.getMaxIntensityValue()
-        # print('a.O1s._0.experiment.data.fit.maxIntensity = {0}'.format(a.O1s._0.experiment.data.fit.maxIntensity))
-        # print('a.O1s._0.theory.data.fit.maxIntensity = {0}'.format(a.O1s._0.theory.data.fit.maxIntensity))
-        # print('a.O1s._60.experiment.data.fit.maxIntensity = {0}'.format(a.O1s._60.experiment.data.fit.maxIntensity))
-        # print('a.O1s._60.theory.data.fit.maxIntensity = {0}'.format(a.O1s._60.theory.data.fit.maxIntensity))
-
-        a.Mg1s._0.getMaxIntensityValue()
-        a.Mg1s._60.getMaxIntensityValue()
-        # print('a.Mg1s._0.experiment.data.fit.maxIntensity = {0}'.format(a.Mg1s._0.experiment.data.fit.maxIntensity))
-        # print('a.Mg1s._0.theory.data.fit.maxIntensity = {0}'.format(a.Mg1s._0.theory.data.fit.maxIntensity))
-        # print('a.Mg1s._60.experiment.data.fit.maxIntensity = {0}'.format(a.Mg1s._60.experiment.data.fit.maxIntensity))
-        # print('a.Mg1s._60.theory.data.fit.maxIntensity = {0}'.format(a.Mg1s._60.theory.data.fit.maxIntensity))
-
-        maxIntensity_0_theory = np.max(
-            [a.Au4f._0.theory.data.fit.maxIntensity, a.Co2p._0.theory.data.fit.maxIntensity,
-             a.O1s._0.theory.data.fit.maxIntensity, a.Mg1s._0.theory.data.fit.maxIntensity])
-        maxIntensity_60_theory = np.max(
-            [a.Au4f._60.theory.data.fit.maxIntensity, a.Co2p._60.theory.data.fit.maxIntensity,
-             a.O1s._60.theory.data.fit.maxIntensity, a.Mg1s._60.theory.data.fit.maxIntensity])
-
-        maxIntensity_0_experiment = np.max(
-            [a.Au4f._0.experiment.data.fit.maxIntensity, a.Co2p._0.experiment.data.fit.maxIntensity,
-             a.O1s._0.experiment.data.fit.maxIntensity, a.Mg1s._0.experiment.data.fit.maxIntensity])
-        maxIntensity_60_experiment = np.max(
-            [a.Au4f._60.experiment.data.fit.maxIntensity, a.Co2p._60.experiment.data.fit.maxIntensity,
-             a.O1s._60.experiment.data.fit.maxIntensity, a.Mg1s._60.experiment.data.fit.maxIntensity])
-
-        a.Au4f._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
-        a.Au4f._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
-
-        a.Co2p._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
-        a.Co2p._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
-
-        a.O1s._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
-        a.O1s._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
-
-        a.Mg1s._0.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_0_experiment
-        a.Mg1s._0.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_0_theory
-
-        a.Au4f._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
-        a.Au4f._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
-
-        a.Co2p._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
-        a.Co2p._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
-
-        a.O1s._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
-        a.O1s._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
-
-        a.Mg1s._60.valueForNormalizingSpectraInAllRegions_experiment = maxIntensity_60_experiment
-        a.Mg1s._60.valueForNormalizingSpectraInAllRegions_theory = maxIntensity_60_theory
+        elif sample_case == 'with_Au':
+            from libs.sample_CoO_with_Au_classes import Class_CoO_with_Au
+            data = Class_CoO_with_Au()
 
 
-        a.showFigs = showFigs
-        a.setupAxes()
-        a.updatePlot(saveFigs=saveFigs)
+
+        pcklFile = os.path.join(currentPath, 'objs.pickle')
+        with open(pcklFile, 'rb') as f:
+            obj = pickle.load(f)
+        print(obj[0].tabledLayersStructureInfo)
+
+        # a = NumericData()
+        data.a.theoryDataPath = currentPath
+
+        data.a.loadExperimentData()
+        data.a.loadTheoryData()
+        data.setPeakRegions()
+        data.applyGlobalIntensityNormalization()
+        data.a.showFigs = showFigs
+        data.a.setupAxes()
+        data.a.updatePlot(saveFigs=saveFigs)
+
+
+
 
         arrR_factor[i, 0] = i+1
 
-        arrR_factor[i, 1] = a.Au4f._0.R_factor
-        arrR_factor[i, 2] = a.Au4f._60.R_factor
+        arrR_factor[i, 1] = data.a.Au4f._0.R_factor
+        arrR_factor[i, 2] = data.a.Au4f._60.R_factor
 
-        arrR_factor[i, 3] = a.Co2p._0.R_factor
-        arrR_factor[i, 4] = a.Co2p._60.R_factor
+        arrR_factor[i, 3] = data.a.Co2p._0.R_factor
+        arrR_factor[i, 4] = data.a.Co2p._60.R_factor
 
-        arrR_factor[i, 5] = a.O1s._0.R_factor
-        arrR_factor[i, 6] = a.O1s._60.R_factor
+        arrR_factor[i, 5] = data.a.O1s._0.R_factor
+        arrR_factor[i, 6] = data.a.O1s._60.R_factor
 
-        arrR_factor[i, 7] = a.Mg1s._0.R_factor
-        arrR_factor[i, 8] = a.Mg1s._60.R_factor
+        arrR_factor[i, 7] = data.a.Mg1s._0.R_factor
+        arrR_factor[i, 8] = data.a.Mg1s._60.R_factor
 
-        arrR_factor[i, 9] = a.total_R_faktor
+        arrR_factor[i, 9] = data.a.total_R_faktor
+
+        structToOut = data.a.Au4f._0
+        saveDataToColumnTxt(dataPath=createFolder(os.path.join(currentPath, 'out_coldata')),
+                            fname='Au4f-00', xDataBE=structToOut.experiment.data.fit.bindingEnergy,
+                            xDataKE=structToOut.experiment.data.fit.kineticEnergy,
+                            yDataExperiment=structToOut.experiment.data.fit.intensity,
+                            yDataTheory=structToOut.theory.data.fit.intensity,
+                            )
+
         i = i + 1
         bar.update(i)
 
@@ -198,7 +150,7 @@ if __name__ == '__main__':
     #openfile dialoge
     root = tk.Tk()
     root.withdraw()
-    file_path = filedialog.askdirectory(initialdir=r'/home/yugin/VirtualboxShare/Co-CoO/')
+    file_path = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), r'VirtualboxShare/Co-CoO/results/introductory/'))
     if len(file_path) > 0:
         print('-> you are working in directory: ', file_path)
-        main(dataPath = file_path, saveFigs=False, showFigs=False)
+        main(dataPath = file_path, saveFigs=False, showFigs=True)
