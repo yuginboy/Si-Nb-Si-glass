@@ -4,7 +4,8 @@
 * License: this code is in GPL license
 * Last modified: 2017-02-07
 '''
-
+import lmfit
+import numpy as np
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
     print('----- SYS.ARGV{}:')
