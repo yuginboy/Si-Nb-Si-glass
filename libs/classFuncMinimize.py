@@ -372,7 +372,7 @@ class BaseClassForCalcAndMinimize():
                 '-> global minimum R-factor project folder: {}\n'.format(self.a.global_min_R_factor_path) + \
                 optimal_structure.tabledLayersStructureInfo
 
-            self.saveToASCIIcolumnData(headerTxt=textToHeader)
+            self.saveToASCIIcolumnData(folder=self.a.global_min_R_factor_path, headerTxt=textToHeader)
 
             fpath = create_unique_out_data_file(self.projPath, first_part_of_file_name='min_R', ext='txt')
             textFile = open(fpath, 'a')
@@ -392,12 +392,15 @@ class BaseClassForCalcAndMinimize():
             textFile.write('Optimal structure:\n')
             textFile.write(optimal_structure.tabledLayersStructureInfo)
             textFile.close()
-    def saveToASCIIcolumnData(self, headerTxt=''):
+    def saveToASCIIcolumnData(self, folder='', headerTxt=''):
         '''
         export and save data of fitted curves to the ASCII column file:
         :return:
         '''
-        currentPath = self.projPath
+        if len(folder) > 0:
+            currentPath = folder
+        else:
+            currentPath = self.projPath
 
         structToOut = self.a.Au4f._0
         structTxt = 'Au4f-00'
