@@ -11,6 +11,7 @@ import datetime
 from io import StringIO
 from shutil import copyfile
 from libs.dir_and_file_operations import create_out_data_folder, createFolder
+from libs.math_libs import *
 
 import numpy as np
 import pickle
@@ -21,6 +22,9 @@ from scipy.optimize import minimize
 from libs.dir_and_file_operations import create_out_data_folder
 from libs.minimization_additions import SESSA_Step
 from libs.gensa import gensa
+
+import numdifftools as nd
+
 
 def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic_CoO_no_Au', case_mix_or_layers='layers'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
@@ -34,6 +38,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             'case_mix_or_layers is not correct. Its should be mix/layers but not a -> {} <-'.format(case_mix_or_layers))
         sys.exit(0)
     else:
+        result = None
 
         # case_R_factor = 'without_Co_and_Au'
         # case_R_factor = 'without_O_and_Mg'
@@ -42,7 +47,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         # case_optimize_method = 'differential evolution'
         # case_optimize_method = 'basinhopping'
         # Find the global minimum of a function using the Generalized Simulated Annealing algorithm:
-        case_optimize_method = 'gensa'
+        # case_optimize_method = 'gensa'
+        case_optimize_method = 'error_estimation'
         # case_optimize_method = 'brute force'
 
         # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
@@ -54,6 +60,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
         if case_optimize_method is 'differential evolution':
             optimize_method = 'de'
+        if case_optimize_method is 'error_estimation':
+            optimize_method = 'ee'
         if case_optimize_method is 'gensa':
             optimize_method = 'gensa'
             methodName = ''
@@ -171,17 +179,17 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
 
 
-        if case_optimize_method is 'differential evolution':
+        if case_optimize_method == 'differential evolution':
             result = differential_evolution(fun, bounds, disp=True, polish=False,
                                             mutation=(0.5, 1.3), recombination=0.8, seed=None,
                                             maxiter=3000, popsize=23, tol=0.01,
                                             )
 
-        if case_optimize_method is 'gensa':
+        if case_optimize_method == 'gensa':
             result = gensa(fun, x0, bounds, maxiter=500, initial_temp=5230., visit=2.62,
                             accept=-5.0, maxfun=1e7, args=(), seed=None, pure_sa=False)
 
-        if case_optimize_method is 'basinhopping':
+        if case_optimize_method == 'basinhopping':
             take_step = SESSA_Step()
             take_step.xmax = [x[1] for x in bounds]
             take_step.xmin = [x[0] for x in bounds]
@@ -192,12 +200,22 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             minimizer_kwargs = dict(method=minimizer_kwargs['method'], bounds=bounds)
             # res = basinhopping(f, x0, minimizer_kwargs=minimizer_kwargs)
             result = basinhopping(fun, x0, niter=200, take_step=take_step, minimizer_kwargs=minimizer_kwargs)
-        if case_optimize_method is 'brute force':
+        if case_optimize_method == 'brute force':
             take_step = SESSA_Step()
             take_step.xmax = [x[1] for x in bounds]
             take_step.xmin = [x[0] for x in bounds]
 
             result = brute(fun, ranges=rranges, full_output=True, finish=None)
+        if case_optimize_method =='error_estimation':
+            # def fun(x):
+            #     return (x[0] - 2) ** 2 + (x[1] - 3) ** 2 + (x[2] - 4) ** 2
+            # print(approx_jacobian([2,3,4], fun))
+            print(approx_jacobian(x0, fun))
+
+            Jfun = nd.Jacobian(fun)
+            print(Jfun(x0))
+
+
 
 
         print('-*'*25)

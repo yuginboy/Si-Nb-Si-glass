@@ -247,6 +247,7 @@ Simple demo with multiple subplots.
 
 import lmfit
 import numpy as np
+import numdifftools as nd
 import matplotlib
 # matplotlib.use('WXAgg')
 
@@ -261,6 +262,8 @@ p.add_many(('a1', 4.), ('a2', 4.), ('t1', 3.), ('t2', 3.))
 
 def residual(p):
    return p['a1']*np.exp(-x/p['t1']) + p['a2']*np.exp(-(x-0.1)/p['t2'])-y
+
+Jfun = nd.Jacobian(residual)
 
 # create Minimizer
 mini = lmfit.Minimizer(residual, p)
@@ -277,6 +280,7 @@ out2 = mini.minimize(method='leastsq', params=out1.params)
 
 lmfit.report_fit(out2.params, min_correl=0.5)
 
+Jfun(out2.params)
 ci, trace = lmfit.conf_interval(mini, out2, sigmas=[0.68,0.95],
                                 trace=True, verbose=False)
 lmfit.printfuncs.report_ci(ci)
