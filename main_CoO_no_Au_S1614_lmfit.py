@@ -62,6 +62,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             optimize_method = 'de'
         if case_optimize_method is 'error_estimation':
             optimize_method = 'ee'
+            methodName = ''
         if case_optimize_method is 'gensa':
             optimize_method = 'gensa'
             methodName = ''
