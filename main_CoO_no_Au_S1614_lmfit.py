@@ -165,7 +165,10 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             # x0 = np.array([6.036, 6.581, 20.779, 13.0, 0.05, 3.888, 0.564])
 
             # R=0.3089
-            x0 = np.array([9.036, 6.581, 23.132, 22.0, 0.05, 3.552, 1.353])
+            # x0 = np.array([9.036, 6.581, 23.132, 22.0, 0.05, 3.552, 1.353])
+
+            # R=0.2616
+            x0 = np.array([9.963, 7.555, 24.087, 20.162, 0.437, 3.663, 1.181])
 
             # rranges = (
             #     slice(0.001, 8, 0.2),  # MgOH
@@ -242,13 +245,16 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             #     for i, val in enumerate(x):
             #         res += (i - val)**2
             #     return res
-            #
+
 
             errors = approx_errors(fun, x0)
             print('--' * 20)
+            f_out_name = os.path.join(newProjPath, 'errors.txt')
+            f_out = open(f_out_name, 'a')
             for i, val in enumerate(x0):
-
-                print('x[{0}] = {1} +/- {2}'.format(i, x0[i], errors[i]))
+                txt = 'x[{0}] = {1} +/- {2}'.format(i, x0[i], errors[i])
+                f_out.write(txt + '\n')
+                print(txt)
             print('--'*20)
 
 
