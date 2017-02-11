@@ -47,8 +47,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         # case_optimize_method = 'differential evolution'
         # case_optimize_method = 'basinhopping'
         # Find the global minimum of a function using the Generalized Simulated Annealing algorithm:
-        # case_optimize_method = 'gensa'
-        case_optimize_method = 'error_estimation'
+        case_optimize_method = 'gensa'
+        # case_optimize_method = 'error_estimation'
         # case_optimize_method = 'brute force'
 
         # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
@@ -108,7 +108,10 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
                       ]
 
 
-            x0 = np.array([6.036, 6.581, 20.779, 9.834, 4.534, 3.888, 0.564])
+            # x0 = np.array([6.036, 6.581, 20.779, 9.834, 4.534, 3.888, 0.564])
+
+            # R=0.2606
+            x0 = np.array([3.175, 4.609, 14.829, 10.764, 10.533, 2.909, 1.499])
 
 
 
