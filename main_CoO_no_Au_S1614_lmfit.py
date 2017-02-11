@@ -26,7 +26,7 @@ from libs.gensa import gensa
 import numdifftools as nd
 
 
-def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic_CoO_no_Au', case_mix_or_layers='layers'):
+def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO_no_Au', case_mix_or_layers='layers'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
     # (does not use gradient methods) to find the minimium, and can search large areas of candidate space,
     # but often requires larger numbers of function evaluations than conventional gradient based techniques.
