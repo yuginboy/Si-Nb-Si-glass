@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class=" js no-touch rgba multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio svg svgclippaths no-ie8compat" style="" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><!--CDL Document viewer v2.0--><head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>PROC TCALIS: Gradient, Hessian, Information Matrix, and 
+Approximate Standard Errors :: SAS/STAT(R) 9.2 User's Guide, Second 
+Edition</title>
+          
+            <!-- ***** HTMLHEAD ***** -->
+            <!-- BEGIN htmlhead.inc -->
+
+<!-- Support Site Styles -->
+<script src="insight.js" async="" type="text/javascript"></script><script src="modernizr.js"></script>
+<link rel="stylesheet" type="text/css" href="footer.css" title="default">
+<link rel="stylesheet" type="text/css" href="sasbase.css" title="default">
+<link rel="stylesheet" type="text/css" href="gray-bar.css" title="default">
+<link href="support-masthead.css" type="text/css" rel="stylesheet" media="screen, print">
+<link href="support-footer.css" type="text/css" rel="stylesheet" media="screen, print">
+<link rel="stylesheet" type="text/css" href="print.css" media="print">
+<link rel="stylesheet" type="text/css" href="live-person.css">
+<link rel="stylesheet" type="text/css" href="loginwindowstyles.css">
+<style type="text/css">#peb{z-index: 50000 !important;}</style>
+
+
+<!-- Global .js references -->
+<script type="text/javascript" src="global.js"></script>
+<script type="text/javascript" src="topnav.js"></script>
+
+
+<!-- YAHOO Global Object, DOM, Event, and Loader source file -->
+<script type="text/javascript" src="yuiloader-dom-event.js"></script>
+<script type="text/javascript" src="cookie-min.js"></script>
+<script type="text/javascript" src="history-min.js"></script> 
+
+
+<script src="user-profiles-min.js" type="text/javascript"></script>
+
+ 
+<!-- Enable Modal dialogs -->
+<script src="modal.js" type="text/javascript"></script><style type="text/css">a.modalimg, a.modaldemo, a.modalyoutube {visibility:hidden}#modalbox {text-align:left}#currGalImg {opacity:1 !important;display:block !important;visibility:visible !important;}</style>
+
+
+<!-- code for Website Opitimizer -->
+<!-- Start Visual Website Optimizer Asynchronous Code -->
+
+<script type="text/javascript">
+var _vwo_code=(function(){
+var account_id=20166,
+settings_tolerance=2000,
+library_tolerance=2500,
+use_existing_jquery=false,
+
+// DO NOT EDIT BELOW THIS LINE
+f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
+
+</script><script type="text/javascript" src="statug_tcalis_sect072_data/j.js"></script>
+<!-- End Visual Website Optimizer Asynchronous Code -->
+
+<!-- Adobe DTM code, support.sas.com property for non-AEM pages.  Updated Sept 2016 -->
+<script src="satelliteLib-f7f64b77fcec042e59abbd2e346bb8e89a34cd3b.js"></script>
+
+<!-- END htmlhead.inc -->
+
+
+            
+      
+<link type="text/css" rel="stylesheet" href="statug_tcalis_sect072_data/bookpage.css"><!--Bookviewer Scripts-->
+<script src="statug_tcalis_sect072_data/bookpage.js" type="text/javascript"> </script><link href="container.css" rel="stylesheet" type="text/css" id="yui__dyn_0"><script src="animation-min.js" type="text/javascript" id="yui__dyn_1"></script>
+
+<meta name="date" content="2010-04-30">
+
+
+<meta name="docsettitle" content="SAS/STAT(R) 9.2 User's Guide, Second Edition">
+
+<meta id="pagename" name="pagename" content="statug_tcalis_sect072.htm">
+<meta id="docid" name="docid" content="1320432936557">
+
+<script language="javascript">
+
+      		loadin("statug_tcalis_sect072.htm");
+        
+</script>
+
+<meta name="spr" content="9.2qq_STATyy_9.2xx">
+
+
+<!--CDL provided CSS file:--><link type="text/css" rel="stylesheet" href="statug_tcalis_sect072_data/style.css">
+<!--CDL provided CSS file:--><link type="text/css" rel="stylesheet" href="statug_tcalis_sect072_data/statdoc.css">
+
+<!-- *** meta begin *** -->
+
+<meta name="filename" content="statug_tcalis_sect072.htm">
+
+<meta name="keywords" content="modification indices,t value,approximate standard errors,Hessian matrix,standard errors (TCALIS),TCALIS procedure,information matrix,hessian,matrix inversion,gradient,inversion (TCALIS)">
+<meta name="pagehash" content="1320432936557_statug_tcalis_sect072.htm">
+
+<!-- *** meta end *** -->
+
+<!--Begin Document level Meta Tags-->
+<meta name="locale" content="en">
+<meta name="product" content="'SAS/STAT'">
+<meta name="release" content="9.2">
+<meta name="releasesystem" content="9.2">
+<meta name="keywords" content="9.2">
+<!--Triplet Count: 1-->
+<meta name="contenttype" content="Usage and Reference">
+<meta name="date" content="2010-04-30">
+<!--End Document level Meta Tags-->
+<script src="satellite-57ed2ec564746d082c003781.js"></script><script src="satellite-57ed2ea164746d082c003748.js"></script><script src="container-min.js" type="text/javascript" id="yui__dyn_2"></script><script src="tag.js" charset="UTF-8"></script><script src="element-min.js" type="text/javascript" id="yui__dyn_3"></script><script src="swf-min.js" type="text/javascript" id="yui__dyn_4"></script><link href="modal.css" rel="stylesheet" type="text/css" id="yui__dyn_5"></head><body class="yui-skin-sam">
+<!--
+          *** Begin Body ***
+        -->
+<div id="bookpage">
+<!--stopindex--><!--googleoff: all--><div id="booknav"><ul><li><a target="_self" href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect071.htm">
+                    Previous Page
+                  </a></li><li class="divider">|</li><li><a target="_self" href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect073.htm">
+                    Next Page
+                  </a></li></ul></div><!--googleon: all--><!--startindex-->
+<!-- *** Begin Page Body Content *** -->
+<div class="sgml"><!-- stopindex -->
+<table class="navBgTop" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr><td><img src="statug_tcalis_sect072_data/spacer.gif" alt="" height="1"></td></tr>
+</tbody></table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr><td><img src="statug_tcalis_sect072_data/spacer.gif" alt="" height="3"></td></tr>
+</tbody></table>
+<table cellpadding="0" cellspacing="0">
+<tbody><tr valign="top">
+<td align="left"><a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect071.htm"><span class="nav">Previous Page</span></a>
+</td>
+<td width="24" align="center"><span class="navDivider">|</span></td>
+<td align="left"><a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect073.htm"><span class="nav">Next Page</span></a>
+</td>
+</tr>
+</tbody></table>
+<br>
+<table id="topofpage" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr valign="middle">
+<td class="runninghead">The TCALIS Procedure</td>
+</tr>
+</tbody></table>
+<!-- startindex -->
+<div class="doccontents"><div>
+<table cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr valign="bottom"><td><hr></td></tr>
+<tr valign="top">
+<td class="title2">
+<a id="statug.tcalis.tcalisappstderr"></a><span>Gradient, Hessian, Information Matrix, and Approximate Standard Errors</span>
+</td>
+</tr>
+</tbody></table>
+<p> <a id="statug.tcalis.a0000000624" class="subjectindex"> </a><a id="statug.tcalis.a0000000625" class="subjectindex"> </a><a id="statug.tcalis.a0000000626" class="subjectindex"> </a><a id="statug.tcalis.a0000000627" class="subjectindex"> </a><a id="statug.tcalis.a0000000628" class="subjectindex"> </a></p><p>For a single-sample setting with a discrepancy function <img src="statug_tcalis_sect072_data/statug_tcalis0478.png" alt="" style="vertical-align:-4px;                                       width:149px;                                       height:15px" class="math gen">, the gradient is defined as the first partial derivatives of the discrepancy function with respect to the model parameters <img src="statug_tcalis_sect072_data/statug_tcalis0108.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:11px" class="math gen">: </p><table id="a0000001083" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0479.png" alt="" style="width:106px;                              height:31px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> The Hessian is defined as the second partial derivatives of the discrepancy function with respect to the model parameters <img src="statug_tcalis_sect072_data/statug_tcalis0108.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:11px" class="math gen">: </p><table id="a0000001084" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0480.png" alt="" style="width:136px;                              height:34px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p><br>Suppose that the mean and covariance structures fit perfectly with <img src="statug_tcalis_sect072_data/statug_tcalis0481.png" alt="" style="vertical-align:-2px;                                       width:46px;                                       height:13px" class="math gen"> in the population. The information matrix is defined as: </p><table id="a0000001085" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0482.png" alt="" style="width:129px;                              height:31px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> where the expectation <img src="statug_tcalis_sect072_data/statug_tcalis0483.png" alt="" style="vertical-align:-4px;                                       width:25px;                                       height:15px" class="math gen"> is taken over the sampling space of <img src="statug_tcalis_sect072_data/statug_tcalis0484.png" alt="" style="vertical-align:-3px;                                       width:21px;                                       height:13px" class="math gen">. </p><p>The
+ information matrix plays a significant role in statistical theory. 
+Under certain regularity conditions, the inverse of the information 
+matrix <span style="width:" class="mbox"><img src="statug_tcalis_sect072_data/statug_tcalis0485.png" alt="" style="vertical-align:-4px;                                       width:49px;                                       height:17px" class="math gen"></span> is the asymptotic covariance matrix for <span style="width:" class="mbox"><img src="statug_tcalis_sect072_data/statug_tcalis0486.png" alt="" style="vertical-align:-4px;                                       width:78px;                                       height:18px" class="math gen"></span>, where <img src="statug_tcalis_sect072_data/statug_tcalis0023.png" alt="" style="vertical-align:0px;                                       width:12px;                                       height:9px" class="math gen"> denotes the sample size and <img src="statug_tcalis_sect072_data/statug_tcalis0487.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:14px" class="math gen"> is an estimator. </p><p>In practice, <img src="statug_tcalis_sect072_data/statug_tcalis0488.png" alt="" style="vertical-align:-2px;                                       width:16px;                                       height:13px" class="math gen">
+ is never known and can only be estimated. The information matrix is 
+therefore estimated by the so-called empirical information matrix: </p><table id="a0000001086" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0489.png" alt="" style="width:93px;                              height:31px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> which is evaluated at the values of the sample estimates <img src="statug_tcalis_sect072_data/statug_tcalis0487.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:14px" class="math gen">. Notice that this empirical information matrix, rather than the unknown <img src="statug_tcalis_sect072_data/statug_tcalis0490.png" alt="" style="vertical-align:-4px;                                       width:34px;                                       height:15px" class="math gen">, is the "information matrix" displayed in PROC TCALIS output. </p><p>Taking
+ the inverse of the empirical information matrix with sample size 
+adjustment, PROC TCALIS approximates the estimated covariance matrix of <img src="statug_tcalis_sect072_data/statug_tcalis0487.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:14px" class="math gen"> by: </p><table id="a0000001087" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0491.png" alt="" style="width:345px;                              height:31px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> Approximate standard errors for <img src="statug_tcalis_sect072_data/statug_tcalis0487.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:14px" class="math gen">
+ can then be computed as the square roots of the diagonal elements of 
+the estimated covariance matrix. The theory about the empirical 
+information matrix, the approximate covariance matrix of the parameter 
+estimates, and the approximate standard errors applies to all but the 
+ULS and DWLS estimation methods. Standard errors are therefore not 
+computed with the ULS and DWLS estimation methods. </p><p>If a given 
+Hessian or information matrix is singular, PROC TCALIS offers two ways 
+to compute a generalized inverse of the matrix and, therefore, two ways 
+to compute approximate standard errors of implicitly constrained 
+parameter estimates, <em>t</em> values, <a id="statug.tcalis.a0000000629" class="subjectindex"> </a> <a id="statug.tcalis.a0000000630" class="subjectindex"> </a> and modification <a id="statug.tcalis.a0000000631" class="subjectindex"> </a> indices. Depending on the <a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect021.htm#statug.tcalis.tcalisg4">G4=</a>
+ specification, either a Moore-Penrose inverse or a G2 inverse is 
+computed. The expensive Moore-Penrose inverse computes an estimate of 
+the null space by using an eigenvalue decomposition. The cheaper G2 
+inverse is produced by sweeping the linearly independent rows and 
+columns and zeroing out the dependent ones. </p><div>
+<h3 id="a0000001088">Multiple-Group Extensions</h3>
+<p> In the section <a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect070.htm#statug.tcalis.tcalisestcritmult">Multiple-Group Discrepancy Function</a>,
+ the overall discrepancy function for multiple-group analysis is 
+defined. The same notation is applied here. To begin with, the overall 
+discrepancy function <img src="statug_tcalis_sect072_data/statug_tcalis0464.png" alt="" style="vertical-align:-4px;                                       width:32px;                                       height:15px" class="math gen"> is expressed as a weighted sum of individual discrepancy functions <img src="statug_tcalis_sect072_data/statug_tcalis0465.png" alt="" style="vertical-align:-2px;                                       width:11px;                                       height:11px" class="math gen">’s for the groups as follows: </p><table id="a0000001089" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0466.png" alt="" style="width:113px;                              height:40px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> where </p><table id="a0000001090" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0467.png" alt="" style="width:65px;                              height:31px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> is the weight for group <img src="statug_tcalis_sect072_data/statug_tcalis0025.png" alt="" style="vertical-align:0px;                                       width:3px;                                       height:9px" class="math gen">, </p><table id="a0000001091" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0468.png" alt="" style="width:63px;                              height:40px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> is the total sample size, and <img src="statug_tcalis_sect072_data/statug_tcalis0038.png" alt="" style="vertical-align:-2px;                                       width:14px;                                       height:11px" class="math gen"> is the sample size for group <img src="statug_tcalis_sect072_data/statug_tcalis0025.png" alt="" style="vertical-align:0px;                                       width:3px;                                       height:9px" class="math gen">. </p><p>The gradient <img src="statug_tcalis_sect072_data/statug_tcalis0492.png" alt="" style="vertical-align:-4px;                                       width:29px;                                       height:15px" class="math gen"> and the Hessian <img src="statug_tcalis_sect072_data/statug_tcalis0493.png" alt="" style="vertical-align:-4px;                                       width:33px;                                       height:15px" class="math gen"> are now defined as weighted sum of individual functions. That is, </p><table id="a0000001092" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0494.png" alt="" style="width:216px;                              height:40px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> and </p><table id="a0000001093" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0495.png" alt="" style="width:248px;                              height:40px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> Suppose that the mean and covariance structures fit perfectly with <img src="statug_tcalis_sect072_data/statug_tcalis0481.png" alt="" style="vertical-align:-2px;                                       width:46px;                                       height:13px" class="math gen"> in the population. If each <img src="statug_tcalis_sect072_data/statug_tcalis0496.png" alt="" style="vertical-align:-2px;                                       width:8px;                                       height:10px" class="math gen"> converges to a fixed constant <img src="statug_tcalis_sect072_data/statug_tcalis0497.png" alt="" style="vertical-align:-2px;                                       width:9px;                                       height:10px" class="math gen"> (<img src="statug_tcalis_sect072_data/statug_tcalis0498.png" alt="" style="vertical-align:-2px;                                       width:35px;                                       height:12px" class="math gen">) with increasing total sample size, the information matrix can be written as: </p><table id="a0000001094" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0499.png" alt="" style="width:163px;                              height:40px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> To approximate this information matrix, an empirical counterpart is used: </p><table id="a0000001095" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0500.png" alt="" style="width:124px;                              height:40px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> which is evaluated at the values of the sample estimates <img src="statug_tcalis_sect072_data/statug_tcalis0487.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:14px" class="math gen">. Again, this empirical information matrix, rather than the unknown <img src="statug_tcalis_sect072_data/statug_tcalis0490.png" alt="" style="vertical-align:-4px;                                       width:34px;                                       height:15px" class="math gen">, is the "information matrix" output in PROC TCALIS results. </p><p>Taking
+ the inverse of the empirical information matrix with sample size 
+adjustment, PROC TCALIS approximates the estimated covariance matrix of <img src="statug_tcalis_sect072_data/statug_tcalis0487.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:14px" class="math gen"> in multiple-group analysis by: </p><table id="a0000001096" class="equation" cellpadding="7" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="fleqn">&nbsp;</td>
+<td><img src="statug_tcalis_sect072_data/statug_tcalis0501.png" alt="" style="width:372px;                              height:40px" class="math gen"></td>
+<td style="width:80%">&nbsp;</td>
+<td class="eqnnum" style="width:20%">&nbsp;</td>
+</tr>
+</tbody></table><p> Approximate standard errors for <img src="statug_tcalis_sect072_data/statug_tcalis0487.png" alt="" style="vertical-align:0px;                                       width:11px;                                       height:14px" class="math gen">
+ can then be computed as the square roots of the diagonal elements of 
+the estimated covariance matrix. Again, for ULS and DWLS estimation, the
+ theory does not apply and so there are no standard errors computed in 
+these cases. </p>
+</div><div>
+<h3 id="a0000001097">Testing Rank Deficiency in the Approximate Covariance Matrix for Parameter Estimates</h3>
+<p><a id="statug.tcalis.a0000000632" class="subjectindex"> </a><a id="statug.tcalis.a0000000633" class="subjectindex"> </a><a id="statug.tcalis.a0000000634" class="subjectindex"> </a></p><p>When
+ computing the approximate covariance matrix and hence the standard 
+errors for the parameter estimates, inversion of the scaled information 
+matrix or Hessian matrix is involved. The numerical condition of the 
+information matrix can be very poor in many practical applications, 
+especially for the analysis of unscaled covariance data. The following 
+four-step strategy is used for the inversion of the information matrix. </p><ol class="enumerate">
+<li><p>The inversion (usually of a normalized matrix <img src="statug_tcalis_sect072_data/statug_tcalis0020.png" alt="" style="vertical-align:0px;                                       width:62px;                                       height:13px" class="math gen">)
+ is tried using a modified form of the Bunch and Kaufman (1977) 
+algorithm, which allows the specification of a different singularity 
+criterion for each pivot. The following three criteria for the detection
+ of rank loss in the information matrix are used to specify thresholds: </p><ul class="itemize">
+<li><p><em>ASING</em> specifies absolute singularity. </p></li><li><p><em>MSING</em> specifies relative singularity depending on the whole matrix norm. </p></li><li><p><em>VSING</em> specifies relative singularity depending on the column matrix norm. </p></li>
+</ul><p>If no rank loss is detected, the inverse of the information 
+matrix is used for the covariance matrix of parameter estimates, and the
+ next two steps are skipped. </p></li><li><p>The linear dependencies among the parameter subsets are displayed based on the singularity criteria. </p></li><li><p>If the number of parameters <img src="statug_tcalis_sect072_data/statug_tcalis0047.png" alt="" style="vertical-align:0px;                                       width:5px;                                       height:8px" class="math gen"> is smaller than the value specified by the <a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect021.htm#statug.tcalis.tcalisg4">G4=</a>
+ option (the default value is 60), the Moore-Penrose inverse is computed
+ based on the eigenvalue decomposition of the information matrix. If you
+ do not specify the <a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect021.htm#statug.tcalis.tcalisnoprint">NOPRINT</a>
+ option, the distribution of eigenvalues is displayed, and those 
+eigenvalues that are set to zero in the Moore-Penrose inverse are 
+indicated. You should inspect this eigenvalue distribution carefully. </p></li><li><p>If PROC TCALIS did not set the right subset of eigenvalues to zero, you can specify the <a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect021.htm#statug.tcalis.tcaliscovsing">COVSING=</a> option to set a larger or smaller subset of eigenvalues to zero in a further run of PROC TCALIS. </p></li>
+</ol>
+</div>
+</div></div>
+<!-- stopindex -->
+<div id="footnotes" class="smallnote">
+<hr><p>Note: This procedure is <a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/experimental.htm">experimental</a>.</p>
+</div>
+<table class="navBg" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr><td><img src="statug_tcalis_sect072_data/spacer.gif" alt="" height="1"></td></tr>
+</tbody></table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr><td><img src="statug_tcalis_sect072_data/spacer.gif" alt="" height="3"></td></tr>
+</tbody></table>
+<table cellpadding="0" cellspacing="0">
+<tbody><tr valign="top">
+<td align="left"><a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect071.htm"><span class="nav">Previous Page</span></a>
+</td>
+<td width="24" align="center">
+<span class="navDivider">|</span></td>
+<td align="left"><a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect073.htm"><span class="nav">Next Page</span></a>
+</td>
+<td width="24" align="center">
+<span class="navDivider">|</span></td>
+<td align="left"><a href="#topofpage"><span class="nav">Top of Page</span></a></td>
+</tr>
+</tbody></table>
+<p class="copyright">
+<a href="https://support.sas.com/documentation/cdl/en/common/62850/HTML/default/images/copyrite.htm">Copyright
+        © 2009 by SAS Institute Inc., Cary, NC, USA. All
+        rights reserved.</a>
+</p>
+</div>
+<script language="javascript" src="statug_tcalis_sect072_data/imgadjust.js" type="text/javascript"></script>
+
+<!-- ***** End Page Body Content *****-->
+<!--stopindex--><!--googleoff: all--><div id="booknav_bottom"><ul><li><a target="_self" href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect071.htm">
+                    Previous Page
+                  </a></li><li class="divider">|</li><li><a target="_self" href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_tcalis_sect073.htm">
+                    Next Page
+                  </a></li><li class="divider">|</li><li><a target="_self" href="#bookpage">Top of Page</a></li></ul></div><!--googleon: all--><!--startindex--></div>
+<iframe src="docsetNav_data/satellite-57ed2ea164746d082c003765.html" style="display: none;"></iframe><iframe src="docsetNav_data/satellite-57ed2ea164746d082c003747.html" style="display: none;"></iframe></body></html>

@@ -1,0 +1,405 @@
+/*
+-----------------------------------------------
+support.sas.com template bookviewer
+author:   ginny matsey
+version:  29DEC08
+
+Updated for Bookviewer V2
+author:  pjt
+version 2009-12-01
+----------------------------------------------- */
+.latestVersionLinkWrapper { 
+   margin-bottom: -15px;
+   font-size: 13px;
+}
+/*star rating*/
+#cust-feedback {
+   padding-top: 3px;
+   padding-right: 10px;
+   cursor:pointer;
+}
+.cust-feedback-btn {
+	font-size: 1em;
+    font-weight: bolder;
+    color: #013a75;
+    text-align: center;
+    border: 1px solid #A5ACB2;
+    cursor: pointer;
+    padding: 1px;
+    background: #deebff no-repeat;
+    text-shadow: none;
+    margin: 0px 0px 0px 0px;
+	padding: 4px;
+}
+.feedback-link {
+  margin-top: -18px;
+}
+.feedback-wrapper {
+    padding: 10px 0px 10px 0px;
+}
+#feedback_textbox {
+    float: left;
+    width: 100%;
+	font-size: 1.3em;
+}
+.hide {
+    display: none!important;
+}
+.inline {
+	display: inline!important;
+}
+.m-r-md {
+   margin-right: 10px;
+}
+#overlay {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+	 background: rgba(0,0,0,.4);
+}
+#overlay .wrapper {
+     width:300px;
+     margin: 100px auto;
+     background-color: #fff;
+     border:1px solid #000;
+     padding:15px;
+     text-align:center;
+}
+.pull-right {
+  float: right !important;
+}
+
+.table {
+    display:table;
+}
+
+.rating {
+    float:left;
+}
+.rating-description {
+    padding-left: 10px;
+    margin-top: 1.6em;
+}
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+
+.rating {
+    border: none;
+}
+.star-display {
+    border: none;
+    margin: -4px 0px 0px 0px;
+    padding: 0px;
+}
+.success {
+    padding: 10px;
+    text-align: center;
+    background-color: #A0DCA1;
+}
+.error {
+    padding: 10px;
+    text-align: center;
+    background-color: #FFE190;
+}
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+.star-display:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+.star-display:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.star-display:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
+/*---------end star rating------------*/
+
+/* -------------------------------------------- */
+/* book title banner					        */
+/* -------------------------------------------- */
+#docpeb {
+        background: #c6cfe7 url(/images/bookviewer/tbar_doc.jpg) center center repeat; 
+        /*border-bottom: 1px dotted #ccc;*/
+        font-size: .825em;
+        height: 51px;
+}
+
+#docpeb h1.booktitle	{
+	font-family:helvetica, arial, sans-serif;
+	font-weight: 600;
+	font-size: 1.7em;
+	color: #6a6a6c;
+	padding: 0px 0px .2em 15px;
+	margin:0;
+	text-align: left;
+	display: inline!important;
+}
+
+#docpeb ul {
+        margin: 0;
+        padding: 5px 2px 4px 0px;
+        text-align: right;
+        border: 0px solid green; 
+}
+
+#docpeb ul.siteBreadcrumb	{
+	margin: 0;
+	padding: 5px 0px 4px 15px;
+	text-align: left;
+}
+
+#docpeb li {
+    margin:0px 0px 0px 0px;
+    padding: 0px 2px 0px 2px;
+    list-style-type:none;
+    display: inline;
+}
+
+#docpeb ul.peb li {  /* mod for peb block with share */
+    padding: 0px 2px 0px 22px;
+    white-space: nowrap;
+    position: relative;
+	float: left;
+}
+
+#docpeb a:link {text-decoration: none;}
+#docpeb a:visited {text-decoration: none;}
+#docpeb a:active {text-decoration: none;}
+#docpeb a:hover {text-decoration: underline;}
+
+/* -------------------------------------------- */
+/* inactive breadcrumbs for context only        */
+/* -------------------------------------------- */
+#breadcrumb	{
+	margin-bottom: 2.5em;	
+}
+
+/* for IE 6 */ 
+* html #breadcrumb {
+	float:right;
+	margin-bottom: 0; /* NEW: removes extra vertical whitespace */
+}
+
+
+/* NEW: for IE 7 */
+* + html #breadcrumb {
+	float: right; /* removes extra vertical whitespace */
+	margin-bottom: 0; /* removes extra vertical whitespace */  
+}
+
+
+#breadcrumb ul	{
+        margin: 0;
+        padding-left: .2em;
+        text-align: left;
+}
+	
+#breadcrumb li	{
+        margin:0px 0px 0px 0px;
+        padding-right: .2em;
+	font-size: .7em;
+        list-style-type:none;
+        display: inline;
+        white-space: nowrap;
+		float:left;
+}
+
+/* for IE 6 */ 
+* html #breadcrumb li {
+	white-space: normal;
+}
+
+#breadcrumb .divider	{
+	padding-left: .3em;
+}
+
+
+/* ------------------------------------------------------ */
+/* ------------------------------------------------------ */
+/* Search Box (within document search)                    */
+/* ------------------------------------------------------ */
+/* ------------------------------------------------------ */
+#breadcrumb #searchBox {
+        float: right;
+        padding: 0;
+        margin: 0px 5px 0px 0px;
+        white-space: nowrap;
+}
+
+/* for IE 6 */ 
+* html #breadcrumb #searchBox {
+	margin:0;
+	white-space: normal;
+}
+
+#breadcrumb #searchBox fieldset {
+        border: 1px solid #ccc;
+        padding: 0px 5px 10px 10px;       
+        margin: 0px 0px 0px 0px;
+}
+
+
+
+#breadcrumb #searchBox fieldset.search {
+        border: 0px solid #ffffff;
+        text-align: right;
+}
+
+#breadcrumb #searchBox label {
+        font-size: .8em;
+        color: #fff;
+        background-color: inherit;
+        
+}
+
+#breadcrumb #searchBox input.searchField  {
+        font-size: .8em;
+        background: url(/images/bg_searchbox.gif) top left repeat-x;
+        border: 1px solid #A5ACB2;
+        height: 15px;
+        padding: 1px;
+        float: none;
+
+}
+
+
+#breadcrumb #searchBox input.searchButton  {
+        font-size: .7em;
+        font-weight: bolder;
+        color: #013a75;
+        text-align: center;
+        border: 1px solid #A5ACB2;
+        cursor: pointer;
+        padding: 1px;
+        background: #deebff no-repeat;
+        text-shadow: none;
+        margin: 0px 0px 0px 0px;
+
+}
+
+
+
+
+
+/* ------------------------------------------------------ */	
+/* ------------------------------------------------------ */	
+/* left column										      */
+/* ------------------------------------------------------ */	
+/* ------------------------------------------------------ */
+#docleftcolumn	{
+        width: 209px;
+        margin: 0;
+        padding: 0;
+        float: left; 
+        left: 0;
+       /*  position: relative;  */
+}
+
+/* -------------------------------------------- */	
+/* top links									*/
+/* -------------------------------------------- */
+.tocLinks {
+        margin: 0px 0px 0px 0px;
+        padding: .2em 0px .2em 10px;
+		font-weight: normal;
+        text-align: left;
+		white-space:nowrap;
+}
+
+.tocLinks .divider	{
+	color: #6A6A6C;
+	padding-left: .5em;
+	padding-right: .5em;
+}
+
+.tocLinks a	{
+	font-weight:normal;
+	font-size: .825em;
+}
+
+
+/* -------------------------------------------- */	
+/* CONTENT									*/
+/* -------------------------------------------- */
+#content2	{
+	font-size: medium;
+	/*overflow: scroll; */
+	/* added 2008/01/14 ashreve(pjt) fix ie6 formatting bug */
+	/* display: inline-block; */
+
+}
+/* moved to IE specific hack 2008/07/17 pjt fix firefox 3 formatting bug */
+/* NEW: for IE 6 */ 
+* html #content2 {
+	display:inline-block;
+	
+	
+}
+
+#bv_page {
+   
+}

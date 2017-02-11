@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class=" js no-touch rgba multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio svg svgclippaths no-ie8compat" style="" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><!--CDL Document viewer v2.0--><head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>PROC TCALIS: Gradient, Hessian, Information Matrix, and 
+Approximate Standard Errors :: SAS/STAT(R) 9.2 User's Guide, Second 
+Edition</title>
+<link type="text/css" rel="stylesheet" href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/bookviewer.css">          
+            <!-- ***** HTMLHEAD ***** -->
+            <!-- BEGIN htmlhead.inc -->
+
+<!-- Support Site Styles -->
+<script a="681cceba2200012815576dcc" id="ob-tag-boot" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/1486769318471.js" async="" type="text/javascript"></script><script a="681cceba2200012815576dcc" id="ob-script" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/ot-min.js" async="" type="text/javascript"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/insight.js" async="" type="text/javascript"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/analytics.js" async=""></script><script a="681cceba2200012815576dcc" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/ot_boot-min.js" async="" id="ob-script-async" type="text/javascript"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/modernizr.js"></script>
+<link rel="stylesheet" type="text/css" href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/footer.css" title="default">
+<link rel="stylesheet" type="text/css" href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/sasbase.css" title="default">
+<link rel="stylesheet" type="text/css" href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/gray-bar.css" title="default">
+<link href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/support-masthead.css" type="text/css" rel="stylesheet" media="screen, print">
+<link href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/support-footer.css" type="text/css" rel="stylesheet" media="screen, print">
+<link rel="stylesheet" type="text/css" href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/print.css" media="print">
+<link rel="stylesheet" type="text/css" href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/live-person.css">
+<link rel="stylesheet" type="text/css" href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/loginwindowstyles.css">
+<style type="text/css">#peb{z-index: 50000 !important;}</style>
+
+
+<!-- Global .js references -->
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/global.js"></script>
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/topnav.js"></script>
+
+
+<!-- YAHOO Global Object, DOM, Event, and Loader source file -->
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/yuiloader-dom-event.js"></script>
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/cookie-min.js"></script>
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/history-min.js"></script> 
+
+
+<script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/user-profiles-min.js" type="text/javascript"></script>
+
+ 
+<!-- Enable Modal dialogs -->
+<script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/modal.js" type="text/javascript"></script><style type="text/css">a.modalimg, a.modaldemo, a.modalyoutube {visibility:hidden}#modalbox {text-align:left}#currGalImg {opacity:1 !important;display:block !important;visibility:visible !important;}</style>
+
+
+<!-- code for Website Opitimizer -->
+<!-- Start Visual Website Optimizer Asynchronous Code -->
+
+<script type="text/javascript">
+var _vwo_code=(function(){
+var account_id=20166,
+settings_tolerance=2000,
+library_tolerance=2500,
+use_existing_jquery=false,
+
+// DO NOT EDIT BELOW THIS LINE
+f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
+
+</script><script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/j.js"></script>
+<!-- End Visual Website Optimizer Asynchronous Code -->
+
+<!-- Adobe DTM code, support.sas.com property for non-AEM pages.  Updated Sept 2016 -->
+<script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/satelliteLib-f7f64b77fcec042e59abbd2e346bb8e89a34cd3b.js"></script>
+
+<!-- END htmlhead.inc -->
+
+
+            
+      
+<!-- *** meta begin *** --><meta content="first" name="display">
+<meta id="docid" name="docid" content="1320432936557">
+<!--Docset metatags-->          
+            <!-- ***** document meta area ***** -->
+            
+
+<!--Begin Document level Meta Tags-->
+<meta name="docsettitle" content="SAS/STAT(R) 9.2 User's Guide, Second Edition">
+<meta name="docsetdescription" content="Provides detailed reference material for using SAS/STAT software to perform statistical analyses, including analysis of variance, regression, categorical data analysis, multivariate analysis, survival analysis, psychometric analysis, cluster analysis, nonparametric analysis, mixed-models analysis, and survey data analysis, with numerous examples in addition to syntax and usage information. This document also provides information about the Power and Sample Size Application. New for SAS 9.2 are procedures for additional statistical analyses, including generalized linear mixed models, quantile regression, and model selection, as well as extensive information about using ODS Statistical Graphics.">
+<meta name="locale" content="en">
+<meta name="alias" content="statug">
+<meta name="pubrelease" content="63033">
+<meta name="documenttype" content="HTML">
+<meta name="extension" content="default">
+<meta name="product" content="'SAS/STAT'">
+<meta name="release" content="9.2">
+<meta name="releasesystem" content="9.2">
+<meta name="keywords" content="9.2">
+
+<!--Triplet Count: 1-->
+<meta name="spr" content="9.2qq_STATyy_9.2xx">
+
+<meta name="subject" content="analytics">
+<meta name="subject" content="analysisofvariance_1">
+<meta name="subject" content="bayesiananalysis_1">
+<meta name="subject" content="categoricaldataanalysis_1">
+<meta name="subject" content="clusteranalysis_1">
+<meta name="subject" content="datamining_1">
+<meta name="subject" content="descriptivestatistics_2">
+<meta name="subject" content="designofexperiments_1">
+<meta name="subject" content="discriminantanalysis_1">
+<meta name="subject" content="distributionanalysis_1">
+<meta name="subject" content="exactmethods_1">
+<meta name="subject" content="longitudinalanalysis_1">
+<meta name="subject" content="marketresearch_1">
+<meta name="subject" content="missingvalueimputation_1">
+<meta name="subject" content="mixedmodels_1">
+<meta name="subject" content="multivariateanalysis_1">
+<meta name="subject" content="nonparametricanalysis_1">
+<meta name="subject" content="powerandsamplesize_1">
+<meta name="subject" content="psychometrics_1">
+<meta name="subject" content="regression_1">
+<meta name="subject" content="simulation_1">
+<meta name="subject" content="spatialanalysis_1">
+<meta name="subject" content="statisticalgraphics_1">
+<meta name="subject" content="structuralequations_1">
+<meta name="subject" content="surveysamplingandanalysis_1">
+<meta name="subject" content="survivalanalysis_1">
+<meta name="subject" content="transformations_1">
+<meta name="contenttype" content="Usage and Reference">
+
+<meta name="pdflink" content="/documentation/cdl/en/statug/63033/PDF/default/statug.pdf">
+<meta name="creationdate" content="2009-09-29">
+<meta name="date" content="2010-04-30">
+
+<meta name="documenthash" content="1320432936557">
+<!--End Document level Meta Tags-->
+<script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/trackingCode.js" async="" type="text/javascript"></script><link href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/container.css" rel="stylesheet" type="text/css" id="yui__dyn_0"><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/animation-min.js" type="text/javascript" id="yui__dyn_1"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/container-min.js" type="text/javascript" id="yui__dyn_2"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/satellite-57ed2ec564746d082c003781.js"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/satellite-57ed2ea164746d082c003748.js"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/tag.js" charset="UTF-8"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/element-min.js" type="text/javascript" id="yui__dyn_3"></script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/swf-min.js" type="text/javascript" id="yui__dyn_4"></script><link href="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/modal.css" rel="stylesheet" type="text/css" id="yui__dyn_5"></head><body class="yui-skin-sam">
+            
+      
+<meta id="dpagename" name="dpagename" content="titlepage.htm">
+<!-- *** meta end *** -->
+<script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/bookframe.js" type="text/javascript"><!--Comment--></script>
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/feedback.js"></script>
+
+<!--Begin Document level Meta Tags-->
+<meta name="locale" content="en">
+<meta name="product" content="'SAS/STAT'">
+<meta name="release" content="9.2">
+<meta name="releasesystem" content="9.2">
+<meta name="keywords" content="9.2">
+<!--Triplet Count: 1-->
+<meta name="contenttype" content="Usage and Reference">
+<meta name="date" content="2010-04-30">
+<!--End Document level Meta Tags-->
+
+<!--
+          *** Begin Body ***
+        --><div id="container">  
+            <!-- ***** MASTHEAD COLUMN ***** -->
+            
+<div id="masthead-container"> 
+<div id="masthead"> 
+
+<!--stopindex--> 
+
+<!--googleoff: all-->
+
+
+  <div id="sas_logo"><a href="http://www.sas.com/index.html"><img src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/SAS_TPTK_logo.gif" alt="SAS Institute. The Power to Know"></a></div>
+
+
+
+<div id="searchBox"> 
+
+
+
+<ul id="login_area">
+<li id="login" class="first" style="display: block;"><a class="profhref" onclick="showLoginScreen()" style="padding:0 0 0 15px;">Sign in</a> <a href="http://support.sas.com/misc/profilehelp.html" title="Get profile help" style="padding:0 15px 0 5px;"><img src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/question-mark.png" alt="Get profile help"></a></li>
+<li id="login2" class="logpanel" style="display: block;"><a class="profhref" onclick="handleCreateProfile()">Create Profile</a></li>
+<li id="logout" class="logpanel" style="padding-left: 15px; border:none; display:none;">Welcome <div id="loginDisplayName"></div><a class="profhref" onclick="processLogoutRequest()">[Sign out]</a></li>
+<li id="logout3" class="logpanel" style="display:none;"><a href="https://support.sas.com/profile/user/contact.htm">Edit Profile</a></li>
+<li id="logout4" class="logpanel" style="display:none;"><a class="profhref" href="https://support.sas.com/mysas">My SAS</a></li>
+</ul>
+ 
+
+ <form method="get" action="http://support.sas.com/dsearch">
+
+ <fieldset class="search">
+
+ 	  <span>
+
+      <input class="searchButton" name="Find" value="Search" type="submit">
+
+	  </span> 
+
+
+     <input name="ct" value="" type="hidden">
+
+	<input class="searchField" title="Enter your search term" name="qt" size="30" tabindex="1" accesskey="s" onfocus="clearField(this)" type="text">
+
+	    <input id="searchCollection" name="col" value="suppprd" type="hidden"> 
+
+      <input name="nh" value="25" type="hidden">
+
+      <input name="qp" value="" type="hidden">
+
+      <input name="qc" value="suppsas" type="hidden">
+
+      <input name="ws" value="1" type="hidden">
+
+      <input name="qm" value="1" type="hidden">
+
+      <input name="st" value="1" type="hidden">
+
+      <input name="lk" value="1" type="hidden">
+
+      <input name="rf" value="0" type="hidden">
+
+      <input name="oq" value="" type="hidden">
+
+      <input name="rq" value="0" type="hidden">
+
+      </fieldset> 
+
+    </form>
+
+  
+
+  </div>
+
+
+
+</div>
+
+
+</div>
+
+
+<!--googleon: all-->
+
+<!--startindex-->
+
+            <!-- ***** NAVIGATION ***** -->
+            <div style="border-bottom:1px solid #007dc3;">
+<div id="mastheadnav">
+
+<!--stopindex--> 
+
+<!--googleoff: all-->
+
+<ul>
+<li><p class="homeon"><a href="http://support.sas.com/en/support-home.html" accesskey="h">Home</a></p></li>
+<li><p class="current" id="nav_1"><a href="http://support.sas.com/en/product-resources.html">Resources</a></p></li>
+<li><p id="nav_2"><a href="http://support.sas.com/en/technical-support.html">Support</a></p></li>
+<li><p id="nav_3"><a href="http://support.sas.com/en/learn-sas.html">Learn</a></p></li>
+<li><p id="nav_4"><a href="http://support.sas.com/en/connect.html">Connect</a></p></li>
+<!--
+<li><a href="#content" title="begin main content" name="content">&nbsp;</a></li>
+-->
+</ul>
+
+<!--googleon: all-->
+
+<!--startindex-->
+
+</div>
+</div>
+
+<div class="clear">
+<!-- -->
+</div>
+
+
+
+
+            
+      
+<div id="docpeb"><!--stopindex--><!--googleoff: all-->
+<div style="display:none" id="sectionTitlediv">SAS CUSTOMER SUPPORT / </div><div style="float: left;"><ul class="siteBreadcrumb"><li><a href="https://support.sas.com/documentation">Go to Documentation Home</a></li></ul></div>
+<div style="float: right;"><ul class="docpeb"><li><a title="Print" onclick="PrintBookPage(); return false;" href="#">Print</a> |
+          </li><li><a title="Email Page" onclick="mailThisUrl(); return false;" href="#">E-mail</a> |
+          </li><li><a title="Bookmark" onclick="CreateBookmarkLink(); return false;" href="#">Bookmark</a> |
+          </li><li><a title="Feedback" href="https://support.sas.com/documentation/onlinedoc/feedback.html">Feedback</a></li></ul></div><!--googleon: all--><!--startindex--><div class="clear"><h1 class="booktitle">SAS/STAT(R) 9.2 User's Guide, Second Edition</h1>
+<a id="cust-feedback" class="pull-right inline">Tell us....How satisfied are you with SAS documentation?</a>
+<span class="pull-right inline"><fieldset class="star-display"><input id="star-label" name="rating" value="5" type="radio"><label for="star-label"></label></fieldset></span>
+<div id="overlay">
+<div class="wrapper">
+  <p id="thankyou" class="success hide">Thank you for your feedback.</p>
+  <p id="feedback_error" class="error hide">Please choose a rating.</p>
+  <p>How satisfied are you with SAS documentation overall?</p>
+  <div>
+     <div class="table">
+        <fieldset class="rating">
+
+           <input id="star5" name="rating" value="5" type="radio"><label onmouseover="showTitle('star5-title')" onmouseout="hideTitle('star5-title')" for="star5"></label>
+           <input id="star4" name="rating" value="4" type="radio"><label onmouseover="showTitle('star4-title')" onmouseout="hideTitle('star4-title')" for="star4"></label>
+           <input id="star3" name="rating" value="3" type="radio"><label onmouseover="showTitle('star3-title')" onmouseout="hideTitle('star3-title')" for="star3"></label>
+           <input id="star2" name="rating" value="2" type="radio"><label onmouseover="showTitle('star2-title')" onmouseout="hideTitle('star2-title')" for="star2"></label>
+           <input id="star1" name="rating" value="1" type="radio"><label onmouseover="showTitle('star1-title')" onmouseout="hideTitle('star1-title')" for="star1"></label>
+        </fieldset>
+        <p id="star1-title" class="hide">Very Dissatisfied</p>
+        <p id="star2-title" class="hide">Dissatisfied</p>
+        <p id="star3-title" class="hide">Neither dissatisfied or satisfied (OR neutral)</p>
+        <p id="star4-title" class="hide">Satisfied</p>
+        <p id="star5-title" class="hide">Very satisfied</p>
+     </div>
+     <div>
+
+     </div>
+
+     <p>
+        Do you have any additional comments or suggestions regarding SAS
+ documentation in general that will help us better serve you?
+     </p>
+     <div class="table feedback-wrapper">
+        <textarea id="feedback_textbox" rows="4" cols="50"></textarea>
+     </div>
+     <p>
+        <input onclick="saveFeedback()" value="Submit" name="submitBtn" class="cust-feedback-btn m-r-md" type="submit">
+        <input onclick="showFeedbackOverlay()" value="Cancel" name="cancelBtn" class="cust-feedback-btn" type="submit">
+        <input onclick="showFeedbackOverlay()" value="Close" name="closeBtn" class="cust-feedback-btn hide" type="submit">
+     </p>
+  </div>
+</div>
+</div>
+</div></div><!--BEGIN BODY-->
+<div id="docleftcolumn">
+<!--stopindex--><!--googleoff: all-->
+
+          
+            <!-- ***** Link AREA ***** -->
+            
+
+
+<div class="tocLinks"><a href="https://support.sas.com/documentation/cdl/en/statug/63033/PDF/default/statug.pdf">
+            PDF
+          </a>
+
+</div>
+
+            
+      
+<iframe src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/docsetNav.html" id="bv_lnav" scrolling="no" style="width:100%;  " frameborder="0" height="2284">
+	        This content is presented in an iframe, which your browser does not support.
+		</iframe>
+<!--googleon: all--><!--startindex-->
+</div>
+<div id="content2"><a id="content">
+</a>
+<div id="latestVersionLinkWrapper" class="latestVersionLinkWrapper"><a id="latestVersionLink" href="http://support.sas.com/documentation/onlinedoc/stat/index.html">Newer Documentation</a></div><div id="breadcrumb">
+<div id="searchBox">
+<form action="/cdlsearch" accept-charset="iso-8859-1" method="GET" name="docsetsearch"><fieldset class="search"><input onblur="defaultifclear(this, 'Search this document');" onfocus="clearifdefault(this, 'Search this document');" value="Search this document" maxlength="1991" size="30" name="qt" title="Search this document" id="search" class="searchField" type="text"> <input value="Search" name="Find" class="searchButton" type="submit"><input name="qp" value="url:/documentation/cdl/en/statug/63033/HTML/default" type="hidden"></fieldset></form></div></div>
+<!-- *** Begin Page Body Content *** -->
+<!--stopindex--><!--googleoff: all-->
+<iframe onload="setFrameHeight(getContentHeight(this));" id="bv_page" scrolling="no" style="width:100%; min-height: 500px;  " name="bv_page" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/statug_tcalis_sect072.html" frameborder="0" height="2284">
+       		This content is presented in an iframe, which your browser does not support.
+       
+      	
+</iframe>
+<!--googleon: all--><!--startindex-->
+<!-- ***** End Page Body Content *****-->
+
+</div>
+          
+            <!-- ***** FOOTER AREA ***** -->
+            <!-- START: footer.inc -->
+<div class="clear">
+  <!-- -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</div>
+
+<div id="footer">
+
+<!-- Footer navigation -->
+<!--stopindex--> 
+
+<!--googleoff: all-->
+<div>
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/support-nav-footer-aem.html"></script></div><div class="footer"><footer id="footer-wrapper">
+		<div class="par parsys"><div class="parsys_column cq-colctrl-lt3"><div class="parsys_column cq-colctrl-lt3-c0"><div class="parbase section text"><p><span class="txt-large">Resources</span></p>
+
+
+</div>
+<div class="parbase section text"><ul><li><a href="http://support.sas.com/software/">All Products &amp; Solutions</a></li><li><a href="http://support.sas.com/documentation/index.html">Documentation</a></li><li><a href="http://support.sas.com/rnd/index.html">Focus Areas</a></li><li><a href="http://support.sas.com/documentation/installcenter/index.html">Install Center</a></li><li><a href="http://support.sas.com/resources/sysreq/index.html">System Requirements</a></li><li><a href="http://support.sas.com/resources/papers/index.html">Technical Papers</a></li><li><a href="http://support.sas.com/resources/thirdpartysupport/index.html">Third-Party Software Reference</a></li></ul>
+
+
+</div>
+</div><div class="parsys_column cq-colctrl-lt3-c1"><div class="parbase section text"><p><span class="txt-large">Support</span></p>
+
+
+</div>
+<div class="parbase section text"><ul><li><a href="http://support.sas.com/downloads/index.htm">Get Downloads &amp; Hot Fixes</a></li><li><a href="http://support.sas.com/adminservices/contact.html">Get Contract Support</a></li><li><a href="https://support.sas.com/techsup/license/index.html">Get License Assistance</a></li><li><a href="http://www.sas.com/en_us/company-information/accessibility.html">Learn About Accessibility at SAS</a></li><li><a href="https://support.sas.com/adminservices/index.html">Manage Software Account</a></li><li><a href="http://support.sas.com/techsup/trackintro.html">Manage Tracks</a></li><li><a href="http://support.sas.com/notes/index.html">Search Samples &amp; SAS Notes</a></li><li><a href="https://support.sas.com/security/alerts.html">View Security Bulletins</a></li><li><a href="http://support.sas.com/feedback/form?http://support.sas.com/contact/">Give Website Feedback</a></li></ul>
+
+
+</div>
+</div><div class="parsys_column cq-colctrl-lt3-c2"><div class="parbase section text"><p><span class="txt-large">Learn </span></p>
+
+
+</div>
+<div class="parbase section text"><ul><li><a href="http://support.sas.com/publishing/index.html">Buy a Book</a></li><li><a href="http://support.sas.com/certify/index.html">Get Certified</a></li><li><a href="http://support.sas.com/training/index.html">Sign Up for Training</a></li><li><a href="http://www.sas.com/en_us/learn/academic-programs.html">View SAS Academic Programs</a></li></ul>
+
+
+</div>
+</div></div><div style="clear:both"></div></div>
+<div id="subfooter">
+				<div class="par parsys"><div class="parsys_column cq-colctrl-lt0"><div class="parsys_column cq-colctrl-lt0-c0"><div class="parbase section sociallinks"><div class="hlist null">
+<h2>Follow Us</h2><ul>
+        <li class="facebook"><a href="https://www.facebook.com/SASsoftware"></a></li>
+        <li class="twitter"><a href="https://www.twitter.com/SASsoftware"></a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/sas"></a></li>
+        <li class="youtube"><a href="http://www.youtube.com/SASsoftware"></a></li>
+        <li class="google"><a href="https://plus.google.com/+sassoftware"></a></li>
+        <li class="rss"><a href="http://www.sas.com/rss"></a></li>
+        </ul>
+</div></div>
+</div><div class="parsys_column cq-colctrl-lt0-c1"><div class="parbase section text"><p><a href="http://www.sas.com/en_us/legal/privacy.html">Privacy Statement</a> | <a href="http://www.sas.com/en_us/legal/copyright.html">Terms of Use</a> | <a href="http://www.sas.com/en_us/legal/copyright.html">© SAS Institute Inc. All Rights Reserved</a><br>
+</p>
+
+
+</div>
+</div></div><div style="clear:both"></div></div>
+</div>
+		</footer>
+	</div>
+
+</div>
+
+  <!--googleon: all-->
+
+  <!--startindex-->
+<!-- End Footer navigation -->
+
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/topnav_set.js"></script>
+<script type="text/javascript" src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/sectiontitle.js"></script>
+<script type="text/javascript">
+  try {
+  selectSearchCollection();
+      }
+  catch(err) {
+  //search collection failed
+      }
+</script>
+
+<!-- CI360 (synchronous/sequential javascript) Added Sept 2016, Updated 1/20/2017 -->
+<script>
+	var ot = document.createElement('script');
+	ot.type = 'text/javascript'; ot.id = 'ob-script-async'; ot.async = true;
+	ot.src = 'https://execution-use.ci360.sas.com:443/js/ot_boot-min.js';
+
+	var a = document.createAttribute('a');
+	a.nodeValue = '681cceba2200012815576dcc'; 
+	ot.attributes.setNamedItem(a);
+
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(ot, s);
+</script>
+<!-- End CI360 -->
+
+
+<!-- Google Analytics Traditional -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/ga.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1022528-1");
+pageTracker._setDomainName("sas.com");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+<!-- END Google Analytics Traditional -->
+
+<!-- GA Universal Analytics.  Added Sept 2016 -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1022528-23', 'auto');
+  ga('send', 'pageview');
+</script>    
+<!-- END GA Universal Analytics -->
+         
+<!-- DTM page bottom code -->
+<script type="text/javascript">_satellite.pageBottom();</script>
+<!-- End DTM page bottom ->
+
+</div>
+
+<!-- END: footer.inc -->
+
+            
+      
+</div><script type="text/javascript"></script><script type="text/javascript">
+ var MTIProjectId='342fc023-4fd6-4e3b-8b21-a503bea1f8e0';
+ (function()
+{ var mtiTracking = document.createElement('script'); mtiTracking.type='text/javascript'; mtiTracking.async='true'; mtiTracking.src=('https:'==document.location.protocol?'https:':'http:')+'//fast.fonts.net/t/trackingCode.js'; (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild( mtiTracking ); } 
+)();
+</script><iframe src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/satellite-57ed2ea164746d082c003765.html" style="display: none;"></iframe><iframe src="PROC%20TCALIS:%20Gradient,%20Hessian,%20Information%20Matrix,%20and%20Approximate%20Standard%20Errors%20::%20SAS_STAT%28R%29%209.2%20User%27s%20Guide,%20Second%20Edition_files/satellite-57ed2ea164746d082c003747.html" style="display: none;"></iframe>
+
+
+</body></html>

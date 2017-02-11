@@ -1,0 +1,3024 @@
+/* <!-- */
+
+/* Style sheet for SAS Documentation.               */
+/* NextGen -- old style                             */
+/* with modifications for new DTD.                  */
+/* Added in support for JavaHelp.                   */
+
+/* Last updated 29SEP08, Ginny Matsey               */
+
+/* ******************************************************************************************** */
+/* ******************************************************************************************** */
+/* ***************************** MERGED STYLE SHEET ******************************************* */
+/* ******************************************************************************************** */
+/* ******************************************************************************************** */
+/* 08JUN, Ginny Matsey                                                                          */
+/* this is a copy of the merged CSS -- holding on to this until everything is deemed okay.      */
+/* ******************************************************************************************** */
+/* ******************************************************************************************** */
+/* ******************************************************************************************** */
+
+/* 29SEP, Ginny Matsey          */
+/* new design for titlePage*/
+
+/* 19AUG, Ginny Matsey          */
+/* self-closing <a name="xxxxx"/> causes text to turn blue (the link color) */
+/* added [href] to link styles as needed    */
+
+/* 23JUN, Ginny Matsey                          */
+/* fixed misspelling of volume                  */
+
+/* 03JUN, Ginny Matsey                          */
+/* added titlePage and its elements             */
+
+/* 16JUN, Ginny Matsey                          */
+/* new additions to language element list       */
+
+/* 03JUN, Ginny Mstsey                          */
+/* added styles for elements in argumentDescription; added style for feature (when not part of featureGroup)    */
+
+/* 29MAY, Ginny Mstsey                          */
+/* updated summary style, added argOption, updated seeAlso -- bookTitle and xrefBookTitle   */
+
+/* 02MAY, Ginny Mstsey                          */
+/* fixed inconsistency for refDictEntryCollection   */
+
+/* 01MAY, Ginny Mstsey                          */
+/* changed the calloutExplanation number format in everything except figure */
+
+/* 25APR, Ginny Mstsey                          */
+/* fix for paragraphs/notes in dd in JavaHelp   */
+
+
+/* 11APR, Ginny Mstsey                          */
+/* fixed nested listSteps in listUnordered for JavaHelp (the numbers were being replaced with the graphic bullet)   */
+
+/* 07APR, Ginny Mstsey                          */
+/* finished up adding refDictEntryCollection elements   */
+
+/* 03APR, Ginny Mstsey                          */
+/* fix space below tables in for JavaHelp   */
+/* format listHierarchy (using blockquote for first level, ul for nested levels)    */
+
+/* 25MAR, Ginny Mstsey                          */
+/* took out special "li p" formatting for JavaHelp lists as the transform has changed */
+/* fixed nesting list spacing problem for JavaHelp  */
+/* added TT to replace CODE in JavaHelp */
+/* added recommendedReading */
+
+/* 14MAR, Ginny Matsey                          */
+/* added listMessages                           */
+/* fixed spacing problems in resolution         */
+/* added appendix elements                      */
+
+/* 22FEB, Ginny Matsey                          */
+/* xrefBookTitle                                */
+/* 22FEB, Ginny Matsey                          */
+/* xrefBookTitle                                */
+
+/* 15FEB, Ginny Matsey                          */
+/* fixed listColumnar in paraTable              */
+
+/* 14FEB, Ginny Matsey                          */
+/* fixed listValueDescription in paraTable      */
+/* added definedTerm and outputFocus            */
+
+/* 17JAN, Ginny Matsey                          */
+/* fixed listHierarchy: first level should have no bullet */
+
+/* 04JAN, Ginny Matsey                          */
+/* took out styles for syntaxSimple in term */
+/* added outputFragment */
+
+/* 28NOV07, Ginny Matsey                            */
+/* added styles for language elements listing table. Firt to be used in CDL. */
+
+/* 16NOV07, Ginny Matsey                            */
+/* updated navigation for XIS and SGML              */
+
+/* 30-31OCT07, Ginny Matsey                         */
+/* fixed font size problems -- were not resolved for SGML */
+/* TOCs in the doc: setting the links back to underline for 9.2C, per request from Pubs UI Team */
+/* Update navigation colors (disabled links and breadcrumbs to pass 508 compliance */
+
+/* 05OCT07, Ginny Matsey                            */
+/* removed listUnorderedBlock and listPrecedenceBlock   */
+
+/* 21SEP07, Ginny Matsey                            */
+/* added listUnorderedBlock and listPrecedenceBlock */
+/* made related changes                             */
+
+/* 05SEP07, Ginny Matsey                            */
+/* Revising calloutExplanation generated number     */
+
+/* 31AUG07, Ginny Matsey                            */
+/* Added refDictEntry elements                      */
+
+/* 02AUG07, Ginny Matsey                            */
+/* Added fileContentBlock.                          */
+/* Updated whatsNew elements per S0451318           */
+/* Updated font-family (sans-serif) to ensure fuller character sets for language support on the PC and Mac  */
+/* Added "Arial Unicode MS" (for PC) and "Lucida Grande" (for Mac)  */
+/* Deleted verdana, helvetica, and helv */
+
+/* 18JUL07, Ginny Matsey                            */
+/* Removing positioning attributes. Caused a problem in the HTML produced from SGMLtoHTML: ordered lists were positioned    */
+/* above their intended position, overwriting other text. Occured with ordered lists. Taking out the position attribute     */
+/* fixes the problem.   */
+/* Changed class names:                             */
+/* menuSelection = selection                        */
+/* menuSelectionPath = selectionPath                */
+/* listMenu = listHierarchy                         */
+/* itemMenu = itemHierarchy                         */
+/* menuDescription = itemDescription                */
+/* Deleted itemMenu1-4 and subMenu1-4, using itemHierarchy and listHierarchy recursively for different menu levels  */
+
+/* 25APR07, Ginny Matsey                            */
+/* Fixing font size problems between Firefox and IE */
+/* Code will display larger than before in IE. The design team decided this was a better compromise than having code too small  */
+/* to read in Firefox.  */
+/* Added whatsNew element   */
+
+/* 21MAR07, Ginny Matsey                            */
+/* Adding in CHAPTER elements                       */
+/* To be HTML 3.2 compliant for JavaHelp, taking out all references to .java and any other classes only assoicated with JavaHelp. */
+/* Adding in jhstyle.css for JavaHelp. All HTML tags will be formatted for JavaHelp. HTML tags with classes are for XIS and SGML  */
+/* output (HTML 4.0)                                                                                                              */
+
+
+/* 19FEB06, Ginny Matsey                            */
+/* JavaHelp                                         */
+/* Named anchor tags add space before elments.      */
+/* Padding only works in block elements.            */
+/* Vertical-algin does not work                     */
+/* SPAN tag is not supported                        */
+/* Does not support the negative margin in dd.      */
+
+/* 16FEB06, Ginny Matsey                            */
+/* Note: all tags with EID attribute get an anchor tag. */
+
+/* 01SEP06, Ginny Matsey                            */
+/* changed name to style.css                                    */
+/* combined SGML2HTML, XIS, and JavaHelp style sheets into one. */
+/* Marking differneces for SGML and JavaHelp only               */
+
+/* 22AUG2006 - Daniel Aluoch, Ed Summers                */
+/* Import a stylesheet that will hide navigation features that are embbed by the SGML tools or XIS. */
+
+/* 07JUN06, Ginny Matsey                            */
+/* Revising whole CSS structure. Using DIV and SPAN tags for most elements.     */
+/* child selectors: only works in Netscape, not supported in IE                 */
+/* :before, :after, CONTENT only works in Netscape would use for generated text */
+
+@IMPORT url("hidenav.css");
+
+/* this is just for comps   */
+.extra {
+    font-family : arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    margin-top : 48px;
+    font-size : 84%;
+}
+
+/* Body: The <BODY> background color and margins  */
+/* current jhstyle.css has font-size set to 100%  */
+
+/* 30OCT07 changed font-size from "small" to 100% */
+/* Checked it in the JavaHelp viewer and did not  */
+/* the size of the fonts. This fixes the SGML     */
+/* font size problem in FireFox.                  */
+body {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 100%;
+    color: #000000;
+    background-color: #FFFFFF;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* font size is different for XIS (WebDoc, MVADoc...) */
+.eDocBody {
+    font-size: 84%;
+}
+
+.sgml   {
+    font-size: 84%;
+}
+
+div {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+}
+
+
+/* SGML2HTML: Not sure what this is, was put in by someone else */
+layer {font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+   color: #000000;
+   background-color: #FFFFFF;
+   padding-left: 10px;
+   padding-top: 10px}
+
+/* ************************************************************ */
+/* ************************** LINKS *************************** */
+/* ************************************************************ */
+
+/* SAS WWW Link colors (does not use a hover color),    */
+/* but added hover color here.              */
+a[href]  {
+    color : #0000CC;
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+}
+
+a[href]:hover   {
+    color : #0063BE;
+    text-decoration : none;
+}
+
+a[href]:visited {
+    color : #000066;
+}
+
+a[href]:active  {
+    color : #0063BE;
+}
+
+.navigation a[href],
+.topNav a[href],
+.copyright a[href],
+.breadcrumb a[href]  {
+    color : #275E94;
+    font-family : "Trebuchet MS", arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    text-decoration: none;
+}
+
+.navigation a:hover,
+.topNav a:hover,
+.copyright a:hover,
+.breadcrumb a:hover  {
+    color : #275E94;
+    font-family : "Trebuchet MS", arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    text-decoration: underline;
+}
+
+/* disabling the non-underlined toc links for 9.2C
+   Will revisit after final CSS is done for 9.2C */
+
+.toc1 a,
+.toc_1 a,
+.toc2 a,
+.toc_2 a,
+.toc_refDict a,
+.toc_refDictFirst a,
+h4 a,
+.sub a,
+.subFirst a,
+.subSub a   {
+    text-decoration: none;
+}
+
+.toc1 a:hover,
+.toc_1 a:hover,
+.toc2 a:hover,
+.toc_2 a:hover,
+.toc_refDict a:hover,
+.toc_refDictFirst a:hover,
+h4 a[href]:hover,
+.sub a:hover,
+.subFirst a:hover,
+.subSub a:hover     {
+    text-decoration: underline;
+}
+
+
+/* ************************************************************ */
+/* ********************* BASIC HTML TAGS ********************** */
+/* ************************************************************ */
+/* These will be used for HTML 3.2 output, i.e. JavaHelp        */
+
+p {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    margin-top: 5px;
+}
+
+dd p    {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+
+blockquote  {
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+/* topic title */
+h1  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #003399;
+    font-weight: bold;
+    font-size: 130%;
+    margin-bottom: 8px;
+
+}
+/* sub-title within a topic */
+h2  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+    font-size: 110%;
+    margin-bottom: 0px;
+}
+
+/* sub-sub-title within a topic */
+h3  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    font-weight: bold;
+    font-size: 100%;
+    margin-bottom: 0px;
+}
+
+/* ***************** LISTS ***************** */
+
+li {
+    margin-bottom: 4px;
+}
+
+dl {
+}
+
+dl dl {
+}
+
+dd  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    margin-bottom: 4px;
+}
+
+ol  {
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
+ol ol   {
+    list-style-type: lower-alpha;
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
+ol ol ol    {
+    list-style-type: lower-roman;
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
+ul  {
+    font-family : arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    list-style-image: url(../images/listbullet.gif);
+    margin-left: 24px;
+    margin-bottom: 0px;
+}
+
+ul ul   {
+    list-style-image: url(../images/listbullet.gif);
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
+ul ul ul    {
+    list-style-image: url(../images/listbullet.gif);
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
+ul ol   {
+    margin-top: 4px;
+    list-style-image:none;
+}
+
+/* ***************** TABLES ***************** */
+table   {
+    font-family : arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 100%;
+    margin-top : 0px;
+    margin-bottom: 2px;
+}
+
+li table    {
+    margin-top: 5px;
+}
+
+dd table    {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+th  {
+    font-family : arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    background: #E6E6E6;
+    text-align: left;
+}
+
+td  {
+    font-family : arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+}
+
+caption {
+    font-weight: bold;
+    font-style: italic;
+    text-align: left;
+}
+
+/* ************* INLINE ELEMENTS ************ */
+/* used to be font class=emphMono, now      */
+/* should map to kbd. Will produce italic   */
+/* monospace in a red color (not standard)  */
+kbd {
+    font-style: italic;
+    color: #990000;
+}
+
+/* used to be font class=strongEmph         */
+/* now should map to em. Will produce       */
+/* bold italic text                         */
+em  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* used to be font class=strongMono         */
+/* now should map to code. Will produce     */
+/* bold monospaced font                     */
+code    {
+    font-size: 100%;
+    font-weight: bold;
+}
+/* JavaHelp used for font class=strongMono  (SGML)      */
+/* in XIS: caseSensitiveKeyword, directedUserInput, directoryPath,
+   emailAddress, inlineCode, inlineMessage,systemSuppliedValue, uri,
+   variableValue    */
+tt  {
+    /*font-size: 100%;*/
+    font-weight: bold;
+}
+
+sup {
+    font-size: 84%;
+}
+
+sub {
+    font-size: 84%;
+}
+
+
+/* ************************************************************ */
+/* ************************* TOPICS *************************** */
+/* ************************************************************ */
+
+/* These are classes for DIVs that contain      */
+/* entire elements                  */
+.infoModule,
+.topic,
+.topicCollection,
+.topicContent,
+.subSubTopic,
+.whatsNew,
+.whatsNewSubTopic,
+/*refProc topics*/
+#procOverview,
+#procConcepts,
+#procSyntax,
+#procStatement,
+#procUsing,
+#procResults,
+#procReferences {
+}
+
+.subTopic,
+.whatsNewOverview,
+.whatsNewTopic,
+#syntax,
+#details,
+#comparisons,
+#exampleBlock,
+#statementExampleGroup  {
+    border-top : 2px solid #DCDCDC;
+    margin-top : 2.5em;
+}
+
+#comparisons .subTopic,
+#details .subTopic,
+#exampleDetails .subTopic,
+#refDictEntry #exampleDetails   {
+    border-top: 0;
+    margin: 0px;
+}
+
+/* ************************ TOPIC TOC ************************* */
+.topicTOC   {
+}
+
+.subFirst   {
+    margin-top : 1em;
+    margin-left : 1em;
+    text-indent: -1em;
+    font-weight : bold;
+}
+
+.sub    {
+    margin-top : .3em;
+    margin-left : 1em;
+    text-indent: -1em;
+    font-weight : bold;
+}
+
+.subSub {
+    margin-top : .3em;
+    margin-left : 2em;
+    text-indent: -1em;
+}
+
+/* ************************************************************ */
+/* ************************** TITLES ************************** */
+/* ************************************************************ */
+
+/* *************** title at first level *************** */
+/* ********************* in topic ********************* */
+h1.title    {
+    font-size: 150%;
+    margin-top: 1em;
+}
+
+/*SGML*/
+.sgml h1    {
+    font-size: 150%;
+}
+/*SGML*/
+.title0 {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #003399;
+    font-weight: bold;
+    font-size: 150%;
+    margin-top: 1em;
+}
+
+h1 a[href]  {
+    color: #003399;
+}
+
+/* *************** title at second level ************** */
+/* ******************** in subTopic ******************* */
+h2.title    {
+    font-size: 120%;
+    margin-top : .5em;
+}
+
+/*SGML*/
+.sgml h2    {
+    font-size: 120%;
+}
+
+/*SGML*/
+.title2 {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    font-weight: bold;
+    font-size: 120%;
+    margin-top: 1.4em;
+}
+.title2 a[href] {
+    color: #000000;
+}
+
+h2 a[href]  {
+    color: #000000;
+}
+
+/* *************** title at third level *************** */
+/* ****************** in subSubTopic ****************** */
+h3.title    {
+    font-size: 120%;
+    margin-top: 2.2em;
+}
+
+/*SGML*/
+.sgml h3    {
+    font-size: 120%;
+    margin-bottom: 0pt;
+}
+h3 a[href]  {
+    color: #000000;
+}
+/*SGML*/
+.title3 {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    font-size: 120%;
+}
+.title3 a[href] {
+    color: #000000;
+}
+
+/* ******************** title at fourth level ********************* */
+/* ********** statementExampleGroup lower level titles ************ */
+h4.title    {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    font-weight: bold;
+    font-size: 110%;
+}
+
+h4 a[href]  {
+    color: #000000;
+}
+
+/* ******************** SGML2HTML ********************* */
+.sgml h4    {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+    font-size: 100%;
+}
+
+.titleBook  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    font-weight: bold;
+    background-color: #A6CAF0;
+}
+
+/* ************ titles in reference aids ************** */
+/* **************************************************** */
+.figure .title,
+.outputBlock .title,
+.screenCapture .title,
+.table .title   {
+    color: #000000;
+    font-size: 100%;
+    font-weight : bold;
+    font-style : italic;
+    margin-top: 1.4em;
+    margin-bottom : .75em;
+}
+
+.codeBlock .title,
+.logBlock .title,
+.inputDataBlock .title,
+.fileContentBlock .title    {
+    color: #000000;
+    font-size: 100%;
+    font-weight : bold;
+    font-style : italic;
+    margin-top: 1.4em;
+    margin-bottom : 1.4em;
+}
+
+.topicContent .errorMessageBlock .title,
+.infoModule .errorMessageBlock .title,
+.topicContent .quickHelp .title,
+.infoModule .quickHelp .title,
+.eDocBody .quickHelp .title,
+.topicContent .troubleshootingBlock .title,
+.infoModule .troubleshootingBlock .title{
+    color: #666666;
+    border-top: 1px solid #DCDCDC;
+    border-bottom: 1px solid #DCDCDC;
+    padding-top: .2em;
+    padding-bottom: .2em;
+    font-size: 100%;
+    font-weight : bold;
+    margin-top: 2.4em;
+    margin-bottom : 0px;
+}
+
+/*SGML*/
+.titleRefaid    {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 18px;
+    margin-bottom: 6px;
+}
+.titleRefaid a  {
+    color: #000000;
+}
+/*end SGML*/
+
+/* ************************************************************ */
+/* ************************ PARAGRAPHS ************************ */
+/* ************************************************************ */
+/*SGML*/
+.sgml p {
+    margin-top: 1.4em;
+}
+
+.paragraph,
+.paraRestricted,
+.paraSimple {
+    margin-top : 1.4em;
+}
+
+.resolution .paraSimple {
+    margin-top: .7em;
+}
+
+.sgml td p  {
+    margin-top: 0px;
+    margin-bottom: .7em;
+}
+
+.paragraphTechreview    {
+    border: 3px solid #CC3333;
+    padding: .5em;
+    background-color: #F3F0E2;
+    margin-top: 1.4em;
+    }
+
+.techReviewGenText  {
+    font-weight: bold;
+    color: #CC3333;
+    padding-right: .5em;
+    font-size: 120%;
+    }
+
+/*SGML*/
+.techreview {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #CC0000;
+}
+
+/* makes the spacing in tables tighter  */
+.table .item .paraSimple,
+.table .itemNest1 .paraSimple,
+.table .itemNest2 .paraSimple,
+.table .termDefPair .paraSimple {
+    margin-top: .7em;
+}
+
+.sgml table li p    {
+    margin-top: 0px;
+    margin-bottom: .7em;
+}
+
+/* for first paraSimple in definition and argumentDescription   */
+.paraSimpleFirst    {
+    margin-top : 0px;
+}
+
+.caution .paraSimple    {
+    margin-top : 0px;
+    margin-left: 1.5em;
+}
+
+td.summaryValue .paraSimple {
+    margin-left: 0px;
+}
+
+.paragraphFirst {
+    margin-top: 0px;
+}
+
+.explanation .paragraphFirst,
+.systemAction .paragraphFirst,
+.userResponse .paragraphFirst   {
+    margin-left: 1.5em;
+}
+
+.explanation .paragraph,
+.systemAction .paragraph,
+.userResponse .paragraph    {
+    margin-left: 1.5em;
+    margin-top: .7em;
+}
+
+/* ************************************************************ */
+/* ************************** LISTS *************************** */
+/* ************************************************************ */
+
+/* **************************************************** */
+/* ****************** calloutList ********************* */
+.calloutList    {
+}
+
+.codeBlock .calloutList,
+.fileContentBlock .calloutList  {
+    margin-left: 1.5em;
+}
+
+.calloutExplanation {
+}
+
+.calloutExplanation .paragraphFirst {
+    margin-left: 1.5em;
+    text-indent: -1.5em;
+    margin-top: 1.4em;
+}
+
+.calloutExplanation .paragraph  {
+    margin-left: 1.5em;
+}
+
+/* changed callout explanation numbers -- no more blue squares around the number */
+/*.calloutExplanationNumber {
+    font-weight: bold;
+    font-size: 90%;
+    background-color: #bbe0f5;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-right: 1px solid #6495ED;
+    border-bottom: 1px solid #6495ED;
+    margin-right: .5em;
+}*/
+/*.calloutExplanationNumber {
+    font-weight: bold;
+    font-size: 110%;
+    padding-right: .8em;
+}*/
+/* changed calloutExplanation numbers to monospaced, everywhere except figure */
+.calloutExplanationNumber   {
+    font-family: Courier, monospace, mono;
+    font-weight: bold;
+    padding-right: 1em;
+}
+.figure .calloutExplanationNumber   {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+}
+
+
+/* **************************************************** */
+/* ****************** listColumnar ******************** */
+/* **************************************************** */
+.listColumnar   {
+    margin-top : .75em;
+}
+
+.resolution .listColumnar   {
+    margin-top:.4em;
+}
+
+.listColumnar td    {
+    padding-right : 3em;
+    padding-top : .2em;
+    padding-bottom : .2em;
+    white-space: nowrap;
+}
+
+.listColumnar table {
+    font-size:100%;
+    border : none;
+}
+
+.paraTable .listColumnar table,
+.paraTableFirst .listColumnar table,
+.paraTable .listColumnar td,
+.paraTableFirst .listColumnar td    {
+    border: 0px;
+}
+
+/* **************************************************** */
+/* ******************** listHierachy ********************** */
+/* **************************************************** */
+ul.listHierarchy    {
+    margin-top: 1.4em;
+    margin-left: 0px;
+    padding-left: 2.5em;
+    list-style-image: none;
+}
+
+.resolution ul.listHierarchy    {
+    margin-top: .7em;
+}
+
+ul.listHierarchy ul.listHierarchy   {
+    margin-top: 0px;
+    margin-left: 0px;
+    padding-left: 2em;
+    list-style-image: url(../images/listmenuarrow.gif);
+}
+
+li.itemHierarchy    {
+    margin-top: .7em;
+    list-style-type: none;
+}
+
+.itemHierarchy .itemHierarchy   {
+    margin-top: .7em;
+}
+
+.selection  {
+    font-weight: bold;
+}
+
+.itemDescription    {
+    font-weight: normal;
+    color: #555555;
+    padding-left: .5em;
+}
+
+/* **************************************************** */
+/* ***************** listMessages ********************* */
+/* **************************************************** */
+ul.listMessages {
+    margin-top: .7em;
+    margin-left: 0px;
+    padding-left: 1.5em;
+    list-style-type: none;
+    list-style-image:none;
+}
+
+/* inlineMessage maps to LI and CODE */
+li code {
+    margin-top: .7em;
+    list-style-type:none;
+}
+
+
+/* **************************************************** */
+/* ***************** listPrecedence ******************* */
+/* **************************************************** */
+
+/* listPrecedence maps to OL ************************** */
+.listPrecedence,
+.listPrecedenceBlock    {
+}
+
+.itemPrecedence {
+    margin-top : 1.4em;
+}
+
+.resolution .itemPrecedence,
+.resolution ol,
+.table .itemPrecedence  {
+    margin-top: .7em;
+}
+
+/* Nested Ordered List:                 */
+/*SGML*/
+.olnest1    {
+    list-style-type: lower-alpha;
+}
+
+.olnest2    {
+    list-style-type: lower-roman;
+}
+
+/* ************************************************************ */
+/* ********************* ListSteps ************************ */
+/* ************************************************************ */
+.listSteps,
+.stepGroup,
+.step,
+.subStepGroup,
+.subStep    {
+}
+
+.resolution .listSteps ol,
+.resolution li .step    {
+    margin-top: .7em;
+}
+
+.groupName  {
+    font-family : arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 100%;
+    font-weight : bold;
+    color: #000000;
+    margin-top : 1.9em;
+}
+
+.subStepGroup .groupName    {
+    color: #505050;
+    margin-top : 1.4em;
+}
+
+/* **************************************************** */
+/* ****************** listTermDef ********************* */
+/* **************************************************** */
+
+.listTermDef,
+.listTermDefNested  {
+}
+
+.termDefPair,
+.termDefPairNested  {
+    margin-top : 1.4em;
+}
+
+.resolution .termDefPair,
+.resolution .termDefPairNested,
+.table .termDefPair,
+.table .termDefPairNested   {
+    margin-top : .7em;
+}
+
+.term      {
+    margin-top : 0px;
+}
+
+.definition,
+.definitionNested     {
+    margin-left : 3em;
+    margin-top : 0px;
+}
+
+/*SGML*/
+.sgml dl    {
+    margin-top: 1.4em;
+}
+
+.sgml dd    {
+    margin-bottom: 1.4em;
+}
+
+.sgml dd p  {
+    margin-top: 0px;
+    margin-bottom: 1.4em;
+}
+/*end SGML*/
+
+/* **************************************************** */
+/* ****************** listUnordered ******************* */
+/* **************************************************** */
+
+/*listUnordered maps to ul **************************** */
+ul.listUnordered,
+.sgml ul    {
+    list-style-image: none;
+    list-style-type: disc;
+    margin-top : 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    padding-left: 2.5em;
+}
+
+ul ul.listUnordered,
+.sgml ul ul {
+    list-style-image: none;
+    list-style-type: disc;
+}
+
+ul ul ul.listUnordered,
+.sgml ul ul ul  {
+    list-style-image: none;
+    list-style-type: disc;
+}
+
+.leadinText {
+    font-weight : bold;
+    padding-right : .3em;
+}
+
+
+/* listUnordered nested in a definition (listTermDef)   */
+.definition ul  {
+    list-style-type: disc;
+    margin-top : 0px;
+}
+
+/* ******************************************************** */
+/* listUnordered nested in a note if we decide to indent it */
+/*.note ul  {
+    margin-left: -1.5em;
+    text-indent: 0px;
+}
+
+.note ul ul,
+.note ul ul ul  {
+    margin-left: 0px;
+    text-indent: 0px;
+}
+*/
+/* ******************************************************** */
+
+/* List Items ***************************************** */
+/* item maps to li with a DIV ************************* */
+/* DIV class for items                  */
+.item   {
+    margin-top : 1.4em;
+}
+
+li.item {
+    margin-top: 0px;
+}
+
+.sgml li p  {
+    margin-bottom: 0px;
+}
+
+.itemNested1,
+.itemNested2    {
+    margin-top : 1.4em;
+}
+
+.resolution .item,
+.resolution .itemNested1,
+.resolution .itemNested2,
+.table .item,
+.table .itemNested1,
+.table .itemNested2 {
+    margin-top: .7em;
+}
+
+/* **************************************************** */
+/* ************** listValueDescripiton **************** */
+/* **************************************************** */
+.listValueDescription table {
+    font-size: 100%;
+    border: none;
+}
+
+.listValueDescription td    {
+    text-align : left;
+    padding-top : .75em;
+}
+
+td.value    {
+    text-align : left;
+    padding-right : 1em;
+}
+
+.paraTable .listValueDescription table,
+.paraTableFirst .listValueDescription table {
+    border: none;
+    margin-top: .5em;
+}
+.paraTable .listValueDescription td,
+.paraTableFirst .listValueDescription td    {
+    border: 0px;
+}
+
+
+/* ************************************************************ */
+/* ********************** BLOCK ELEMENTS ********************** */
+/* ************************************************************ */
+
+/* **************************************************** */
+/* ************** bibliographicCitation *************** */
+/* **************************************************** */
+.bibliographicCitation  {
+    margin-top: 1.4em;
+    margin-left: 1.5em;
+    text-indent: -1.5em;
+}
+
+.footnote .bibliographicCitation,
+.footnoteFirst .bibliographicCitation   {
+    margin-top: .7em;
+    margin-left: 1.5em;
+    text-indent: -1.5em;
+}
+
+.books,
+.cdrom,
+.computerSoftware,
+.conferenceProceeding,
+.discussionListMessage,
+.emailMessage,
+.journalArticle,
+.manuscript,
+.numberOfVolumes,
+.volumeNumber,
+.webSite    {
+}
+
+.authorName,
+.bibAnnotation,
+.bibChapterTitle,
+.bibEssayTitle,
+.bookTitle,
+.cdrom .publisher,
+.cdromGenText,
+.citationSubject,
+.companyLocation,
+.companyName,
+.conferenceArticleTitle,
+.conferenceLocation,
+.corporateAuthor,
+.country,
+.date,
+.day,
+.docTitle,
+.documentType,
+.editionNumber,
+.editorName,
+.emailSubject,
+.infoSource,
+.journalArticleTitle,
+.journalIssueNumber,
+.journalVolumeNumber,
+.manuscriptTitle,
+.messageDescription,
+.messageHeading,
+.month,
+.pageNumberOrRange,
+.placeOfPublication,
+.publisher,
+.recipientName,
+.recipientsEmailAddress,
+.sectionTitle,
+.senderEmailAddress,
+.senderName,
+.softwareProductName,
+.softwareRelease,
+.sponsoringOrganization,
+.technicalReportNumber,
+.volume,
+.webSite .date,
+.webSite .uri,
+.webSiteArticleTitle,
+.webSiteName,
+.year,
+.yearOfPublication  {
+}
+
+.originalPub,
+.reprintPub,
+.titleOfJournal,
+.titleOfProceedings {
+    font-style: italic;
+}
+.reprintPubGenText  {
+    font-style: normal;
+}
+
+/* **************************************************** */
+/* ********************** caution ********************* */
+/* **************************************************** */
+.caution    {
+    margin-top : 1.4em;
+}
+
+td.summaryValue .caution    {
+    margin-top: 0px;
+}
+
+
+/* caution generated text ***************************** */
+.cautionGenText {
+    font-weight : bold;
+    color : #CC0000;
+}
+
+.sgml .caution  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+    color: #CC0000;
+}
+
+/* caution lead in text ******************************* */
+.cautionLeadin  {
+    font-weight : bold;
+    margin-left : 1.5em;
+}
+
+td.summaryValue .cautionLeadin  {
+    margin-left: 0px;
+}
+
+/* **************************************************** */
+/* ******** code, log, output, & fileContent ********** */
+/* **************************************************** */
+
+/* Code Block: codeBlock ****************************** */
+pre {
+    font-size: 100%;
+    color: #333333;
+    margin-left: 12pt;
+}
+
+.sgml blockquote    {
+    color: #333333;
+    margin-left: 12pt;
+}
+
+.codeBlock pre,
+.logBlock pre,
+.fileContentBlock pre   {
+    margin-top : 0px;
+    padding:0px;
+    margin-left: 1.5em;
+}
+
+.columnRuler    {
+    color: #777777;
+}
+
+.paraTableFirst pre.code    {
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.codeBlock,
+.logBlock,
+.fileContentBlock   {
+    margin-top : 1.4em;
+}
+
+.step .codeBlock,
+.step .logBlock,
+.step .fileContentBlock {
+    margin-top : .75em;
+}
+
+.codeFocus  {
+    font-weight: normal;
+    color: #333333;
+    background-color : #dcdcdc;
+}
+
+/* codeFragment maps to PRE / class=codeFragment    */
+/* outputFragment maps to PRE / class=outputFragment    */
+.codeFragment,
+.outputFragment {
+    font-size: 100%;
+    color : #333333;
+}
+
+.note pre.codeFragment,
+.note pre.outputFragment,
+.tip pre.codeFragment,
+.tip pre.outputFragment,
+.hostSpecificBehavior pre.codeFragment
+.hostSpecificBehaviour pre.outputFragment   {
+    margin-left: 1.5em;
+}
+
+/* codeFragment in paragraph, paraSimple, and paraTable     */
+/* maps to PRE, class=code                                  */
+/* inputData maps to PRE, class=inputData                   */
+
+.paragraph pre.code,
+.paragraph pre.outputFragment,
+.paraSimple pre.code,
+.paraSimple pre.outputFragment,
+pre.inputData   {
+    margin-top : 1.4em;
+    margin-left: 1.5em;
+    color: #333333;
+}
+
+.paraTable pre.codeFragment,
+.paraTable pre.outputFragment   {
+    margin-top: .7em;
+    margin-left: 0px;
+}
+
+
+/* Output Block: outputBlock ************************** */
+.outputBlock    {
+    margin-top : 1.4em;
+}
+
+.output {
+}
+
+pre.outputPage  {
+    display : block;
+    background-color : #FAFAFA;
+    border: 1px solid #C0C0C0;
+    margin-left: 0px;
+    padding : 1em;
+}
+
+.outputFocus    {
+    font-weight: normal;
+    color: #333333;
+    background-color : #dcdcdc;
+}
+
+/* **************************************************** */
+/* ********************* equation ********************* */
+/* **************************************************** */
+.equation   {
+    margin-top : 1.4em;
+    margin-left: 1.5em;
+}
+
+/* **************************************************** */
+/* ******************* error message ****************** */
+/* **************************************************** */
+.errorMessageBlock  {
+    margin-top: 1.4em;
+}
+
+.errorMessage   {
+    margin-top: 1.4em;
+}
+
+/* errorMessageText maps to CODE, class=errorMessageText    */
+.errorMessageText code,
+.errorNumber code   {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.errorNumber    {
+    float: left;
+    padding-right: .5em;
+}
+
+.errorSeverityLevel,
+.mnemonic,
+.issuingModule  {
+    font-weight: normal;
+    margin-top: .35em;
+    margin-bottom: .35em;
+    margin-left: 1.5em;
+}
+
+.errorGenText   {
+    font-style : normal;
+    font-weight : bold;
+    color : #000000;
+    padding-right : 1em;
+}
+
+.explanation,
+.systemAction,
+.userResponse   {
+}
+
+.errorMessage .note,
+.errorMessage .tip,
+.errorMessage .hostSpecificBehavior {
+    margin-left: 1.5em;
+    margin-top: .7em;
+}
+
+/* **************************************************** */
+/* ******************* exampleBlock ******************* */
+/* **************************************************** */
+.exampleBlock,
+.example    {
+}
+
+/* **************************************************** */
+/* ********************** figure ********************** */
+/* **************************************************** */
+.figure {
+    margin-top : 1.4em;
+}
+
+.graphicAndDescription  {
+}
+
+/* **************************************************** */
+/* ********************* footnote ********************* */
+/* **************************************************** */
+.footnoteAnchor,
+.footnoteReturn {
+    font-size : 84%;
+    padding-left: .2em;
+    font-weight: normal;
+}
+
+/*SGML*/
+/* footnote links, tablenote links, tdmk (some) */
+.smallNote  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 100%;
+    color: #000000;
+}
+/*end SGML*/
+
+.footnoteFirst  {
+    font-size: 84%;
+    margin-top : 2.8em;
+    border-top : 1px solid #DCDCDC;
+    padding-top: .5em;
+}
+
+.footnote   {
+    font-size: 84%;
+    margin-top: .75em;
+}
+
+.sgml .footnote {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+}
+
+.footnoteNumber {
+    padding-right: 1em;
+}
+
+/* **************************************************** */
+/* ************** hostSpecificBehavior **************** */
+/* **************************************************** */
+.hostSpecificBehavior   {
+    margin-top: 1.4em;
+}
+
+/* Generated Text (use on SPAN tag) for note ********** */
+.hostGenText           {
+    font-style : normal;
+    font-weight : bold;
+    color : #000000;
+    padding-right : .5em;
+}
+
+/* **************************************************** */
+/* *********************** note *********************** */
+/* **************************************************** */
+.note   {
+    margin-top : 1.4em;
+}
+/* *************************** */
+/* note if we decide to indent */
+/*.note {
+    margin-top : 1.4em;
+    margin-left: 1.5em;
+    text-indent: -1.5em;
+}*/
+
+/* Generated Text (use on SPAN tag) for note ********** */
+.noteGenText           {
+    font-style : normal;
+    font-weight : bold;
+    color : #000000;
+    padding-right : .5em;
+}
+
+
+/* **************************************************** */
+/* ****************** screenCapture ******************* */
+/* **************************************************** */
+.screenCapture  {
+    margin-top : 1.4em;
+}
+
+/* **************************************************** */
+/* ******************* seeAlsoBlock ******************* */
+/* **************************************************** */
+.seeAlso,
+.seeAlsoGroup   {
+}
+
+h2.seeAlsoGenTitle {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    font-weight: bold;
+    font-size: 120%;
+    padding-top : .5em;
+    border-top : 2px solid #DCDCDC;
+    margin-top : 2em;
+    margin-bottom: .7em;
+}
+
+h3.seeAlsoGenTitle {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    font-weight: bold;
+    font-size: 120%;
+    margin-top: 2.2em;
+    margin-bottom: .5em;
+}
+
+h4.seeAlsoGenTitle  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    font-weight: bold;
+    font-size: 110%;
+}
+
+.seeAlso .groupName {
+    font-family : arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color : #505050;
+    margin-top : 1.4em;
+}
+
+.seeAlso .groupNameFirst    {
+    font-family : arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color : #505050;
+    font-weight: bold;
+    margin-top : .9em;
+}
+.seeAlso .xref,
+.seeAlso .xrefSee,
+.seeAlso .xrefBookTitle,
+.seeAlso .bookTitle {
+    margin-left : .5em;
+    text-indent : -.5em;
+    margin-top : .3em;
+}
+
+.xrefText   {
+    font-style: normal;
+}
+
+/* **************************************************** */
+/* ******************* syntaxSimple ******************* */
+/* **************************************************** */
+.syntaxSimple   {
+    margin-top: 1.4em;
+}
+
+#procSyntax .syntaxSimple   {
+    border-top: 2px solid #dcdcdc;
+    margin-top: .7em;
+    padding-top: 1.4em;
+}
+
+.table .syntaxSimple    {
+    margin-top: .7em;
+}
+
+.tableElementList .syntaxSimple {
+    margin-top: 0px;
+}
+
+.syntaxLevel    {
+    margin-top: .6em;
+    white-space: nowrap;
+}
+
+.table .syntaxLevel {
+    margin-top: .3em;
+}
+
+.syntaxLevel .syntaxLevel   {
+    margin-left: 3em;
+}
+
+.keyword,
+.keywordOption  {
+    font-weight: bold;
+}
+
+.userSuppliedSyntaxValue    {
+    font-style: italic;
+}
+
+.argNonTerminal,
+.argOptional,
+.argRequired,
+.choice,
+.symbolHEllipsis
+    {
+}
+
+/* **************************************************** */
+/* ********************** TABLES ********************** */
+/* **************************************************** */
+/* This is a basic table style -- (see sasStyle.css for */
+/* alternating row colors.              */
+table.tgroup,
+.sgml table {
+    font-size: 100%
+}
+
+.sgml th    {
+    text-align: left;
+    color: #000000;
+}
+
+.sgml td    {
+    color: #000000;
+}
+
+.table,
+.tableElementList   {
+    margin-top : 1.4em;
+}
+
+/* tgroup maps to TABLE class="tgroup"  */
+.table table    {
+    border: 1px solid #D8D8C5;
+}
+
+.tableElementList table {
+    table-layout: inherit;
+    width: 90%;
+}
+
+/* row maps to TR   */
+/* javaHelp does not recognize "vertial-align", must be done in the HTML    */
+tr  {
+    vertical-align : top;
+}
+
+/* entry in thead maps to TH        */
+/* Table heads are light gray       */
+/* RGB: 220, 220, 220)              */
+.table th   {
+    font-weight : bold;
+    border: 1px solid #D8D8C5;
+    padding-left: .5em;
+    padding-right: .5em;
+    padding-top: .2em;
+    padding-bottom: .2em;
+}
+
+/* entry in tbody maps to TD    */
+.table td   {
+    text-align : left;
+    border: 1px solid #E7E7E5;
+    padding-left: .5em;
+    padding-right: .5em;
+    padding-top: .2em;
+    padding-bottom: .2em;
+}
+
+/* **************************************************** */
+/* ********** LANGUAGE ELEMENT LIST TABLES ************ */
+/* **************************************************** */
+.tableElementList h2.title  {
+    font-size: 120%;
+    padding: .5em 0px .5em 0px;
+}
+
+.tableElementList th    {
+    font-weight : bold;
+    border-top: 1px solid #D8D8C5;
+    border-bottom: 1px solid #D8D8C5;
+    padding-left: .5em;
+    padding-right: 1em;
+    padding-top: .2em;
+    padding-bottom: .5em;
+}
+
+.tableElementList td.first      {
+    text-align : left;
+    padding-left: .5em;
+    padding-right: 1em;
+    padding-top: .5em;
+    padding-bottom: .8em;
+}
+
+.tableElementList td    {
+    text-align : left;
+    border-top: 1px solid #E7E7E5;
+    padding-left: .5em;
+    padding-right: 1em;
+    padding-top: .5em;
+    padding-bottom: .8em;
+}
+
+.tableElementList td.alt    {
+    text-align : left;
+    border-top: 1px solid #E7E7E5;
+    background: #F5F5F5;
+    padding-left: .5em;
+    padding-right: 1em;
+    padding-top: .5em;
+    padding-bottom: .8em;
+}
+
+.tableElementList td.last   {
+    text-align : left;
+    border-top: 1px solid #E7E7E5;
+    border-bottom: 1px solid #D8D8C5;
+    padding-left: .5em;
+    padding-right: 1em;
+    padding-top: .5em;
+    padding-bottom: .8em;
+}
+
+.tableElementList td.lastAlt    {
+    text-align : left;
+    border-top: 1px solid #E7E7E5;
+    border-bottom: 1px solid #D8D8C5;
+    background: #F5F5F5;
+    padding-left: .5em;
+    padding-right: 1em;
+    padding-top: .5em;
+    padding-bottom: .8em;
+}
+
+/* **************************************************** */
+/* **************************************************** */
+/* **************************************************** */
+
+
+/* paragraph in entry   */
+td .paraTableFirst  {
+    font-weight : normal;
+    margin-top : 0px;
+}
+
+td .paraTable   {
+    font-weight : normal;
+    margin-top : .7em;
+}
+
+th .paraTableFirst  {
+    font-weight : bold;
+    margin-top : 0px;
+}
+
+th .paraTable   {
+    font-weight : bold;
+    margin-top : .7em;
+}
+
+/* legend   */
+td.legend   {
+    background-color: #FFFFE0;
+    font-size: 84%;
+}
+
+.legendRef  {
+    font-size: 84%;
+    padding-left: .5em;
+    font-weight: bold;
+}
+
+.legendRefSymbol    {
+    font-weight: bold;
+    padding-right: 1em;
+}
+
+caption a[href] {
+    color: #000000;
+}
+
+/* **************************************************** */
+/* *********************** tip ************************ */
+/* **************************************************** */
+.tip    {
+    margin-top : 1.4em;
+    padding-top : .3em;
+    padding-left : 2em;
+    padding-right : .3em;
+    padding-bottom : .5em;
+    border : solid;
+    border-color : #A6CAF0;
+    border-width : 1px;
+}
+
+/* Generated Text for tip *******   */
+.tipGenText {
+    font-style : italic;
+    font-weight : bold;
+    color : #003399;
+    text-indent : -1.5em;
+}
+
+/* **************************************************** */
+/* *************** troubleshootingBlock *************** */
+/* **************************************************** */
+.troubleshootingBlock   {
+}
+
+.issueResolutionPair    {
+    margin-top: 2.2em;
+}
+
+.issueResolutionPairFirst   {
+    margin-top: 1.4em;
+}
+
+.issue  {
+    font-weight: bold;
+}
+
+.resolution .paragraph  {
+    margin-top: .7em;
+}
+
+/* ************************************************************ */
+/* ********************** QUICKHELP *************************** */
+/* ************************************************************ */
+.quickHelp  {
+}
+
+.quickHelpContent   {
+    margin-top: 1.4em;
+}
+
+/* ************************************************************ */
+/* ********************** INLINE ELEMENTS ********************* */
+/* ************************************************************ */
+/* These should be set up in SPAN tags, */
+/* except where noted.                  */
+
+.bookTitle,
+.definedTerm,
+.userSuppliedValue,
+.xrefBookTitle  {
+    font-style: italic;
+}
+
+.calloutAnchor  {
+    font-weight: bold;
+    color: #000000;
+    background: #BBE0F5;
+    margin-left: 1em;
+    margin-right:1em;
+}
+
+/*SGML*/
+.callout {
+    font-size: 90%;
+    font-weight: bold;
+    color: #000000;
+    background-color: #BBE0F5;
+}
+/* end SGML*/
+
+/* NO SPAN tag:                                         */
+/* caseSensitiveKeyword,                                */
+/* directedUserInput, directoryPath, inlineCode,        */
+/* inlineMessage, systemSuppliedValue, variableValue    */
+/* map to CODE                                          */
+/* emailAddress and uri map to CODE except in context   */
+/* of address and webSite                               */
+
+.codeDescription code,
+.errorMessageText code,
+.glossaryDefinition code,
+.hostSpecificBehavior code,
+.issue code,
+.leadIn code,
+.menuDescription code,
+.note code,
+.paraRestricted code,
+.paraSimple code,
+.paraTable code,
+.paragraph code,
+.quickHelpContent code,
+.shortDescription code,
+.term code,
+.tip code,
+.xrefText code  {
+    font-size: 100%;
+}
+
+/* inline graphic elements                              */
+.inlineEquation img {
+    display: inline;
+    vertical-align: baseline;
+}
+
+.inlineEquation {
+    font-weight: bold;
+}
+
+.inlineGraphic img  {
+    vertical-align: bottom;
+    display: inline;
+    padding-left: .2em;
+    padding-right: .2em;
+}
+
+/* when systemSuppliedValue is in errorMessageText      */
+/* map to SPAN                                          */
+.systemSuppliedValue    {
+    font-style: italic;
+}
+
+.windowItem {
+    font-weight: bold;
+}
+
+.windowName,
+.xref,
+.xrefGlossary,
+.xrefSee,
+.xrefText   {
+}
+
+/*SGML -- formatting for most inline elements*/
+/* elements that format bold text */
+.strong {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* elements that format italic text */
+.emph   {
+    font-style: italic;
+}
+
+/* elements that format italic monospaced text: user-sup-val in code    */
+.emphMono   {
+    font-family: monospace, "courier new", courier, fixed;
+    font-style: italic;
+    color: #333333;
+}
+
+/* elements that format bold italic text */
+.strongEmph {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* elements that format bold monospaced text */
+.strongMono {
+    font-family: monospace, "courier new", courier, fixed;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* ************* selectionPath *************    */
+.selectionPath .selection   {
+    white-space: nowrap;
+}
+
+.selectionArrow {
+    display: inline;
+    padding-left: .5em;
+    padding-right: .5em;
+}
+
+/*SGML*/
+.button {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+    color: #000000;
+    background-color: #DCDCDC;
+}
+
+.sgml sub   {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 70%;
+}
+
+.sgml sup   {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 70%;
+}
+
+.superScript    {
+    font-size : 70%;
+    vertical-align: .25em;
+}
+
+.subTopic .title .superScript   {
+    font-size : 76%;
+    vertical-align: .25em;
+}
+
+/*SGML*/
+/* tdmk in everything except H1 and H2 */
+.tdmk   {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 70%;
+}
+/*end SGML*/
+
+/* ************************************************************ */
+/* ******************* REFERENCE ELEMENTS ********************* */
+/* ************************************************************ */
+
+#refDictEntry,
+#refProc    {
+}
+
+.shortDescription   {
+    font-weight: bold;
+    border-top: 2px solid #DCDCDC;
+    padding-top: .7em;
+}
+
+#refDictEntry .topicTOC {
+    border-top: 2px solid #DCDCDC;
+    margin-top: .7em;
+}
+
+/* titles --------------------------------*/
+#input h2,
+#logSection h2,
+#outputSection h2,
+#program h2,
+#statementExample h2    {
+    font-size: 120%;
+    padding-top: .5em;
+    border-top: 2px solid #dcdcdc;
+    margin-top: 2.5em;
+}
+
+#procSyntax h1.title    {
+    border-bottom: 2xp solid #dcdcdc;
+    padding-bottom:.5em;
+}
+
+
+/* summary and procSummary -------------------------------*/
+#summary,
+#procSummary    {
+    margin: .7em 0px 0px 0px;
+    padding:0;
+}
+
+table#summary,
+table#procSummary   {
+    font-size: 100%;
+    border: none;
+}
+
+td.validIn,
+td.usedBy,
+td.operatingState,
+td.resultState,
+td.category,
+td.dbmsSupport,
+td.procOptionsGroup,
+td.type,
+td.length,
+td.alignment,
+td.alias,
+td.summaryDefault,
+td.summaryRange,
+td.varUpdated,
+td.varWrittenOut,
+td.appliesTo,
+td.style,
+td.restriction,
+td.requirement,
+td.summaryInteraction,
+td.engine,
+td.odsDestination,
+td.osSpecific,
+td.supports,
+td.summaryNote,
+td.summaryTip,
+td.summarySee,
+td.summaryExample,
+td.featuredIn,
+td.caution  {
+    font-weight: bold;
+    margin-top: .7em;
+    background-color: #F5F5F5;
+    padding: .5em;
+    text-align:right;
+    vertical-align: top;
+}
+
+td.summaryValue {
+    margin-top: .7em;
+    background-color: #E7E7E5;
+    padding: .5em;
+    vertical-align: top;
+}
+
+td.summaryValue p   {
+    margin-top: .7em;
+    margin-bottom: 0px;
+}
+
+/* summary in argumentDescription -----------------------------------*/
+.argumentDescription #summary   {
+    margin-left: 2em;
+    text-indent: -2em;
+}
+
+.argumentDescription .argumentDescription #summary  {
+    margin-top: .4em;
+}
+
+.argumentDescription #summary div   {
+    margin-top: .7em;
+}
+
+.argumentDescription .argumentDescription #summary div  {
+    margin-top: .4em;
+}
+
+.argumentDescription .validIn,
+.argumentDescription .usedBy,
+.argumentDescription .operatingState,
+.argumentDescription .resultState,
+.argumentDescription .category,
+.argumentDescription .dbmsSupport,
+.argumentDescription .procOptionsGroup,
+.argumentDescription .type,
+.argumentDescription .length,
+.argumentDescription .alignment,
+.argumentDescription .alias,
+.argumentDescription .summaryDefault,
+.argumentDescription .summaryRange,
+.argumentDescription .varUpdated,
+.argumentDescription .varWrittenOut,
+.argumentDescription .appliesTo,
+.argumentDescription .style,
+.argumentDescription .restriction,
+.argumentDescription .requirement,
+.argumentDescription .summaryInteraction,
+.argumentDescription .engine,
+.argumentDescription .odsDestination,
+.argumentDescription .osSpecific,
+.argumentDescription .supports,
+.argumentDescription .summaryNote,
+.argumentDescription .summaryTip,
+.argumentDescription .summarySee,
+.argumentDescription .summaryExample,
+.argumentDescription .featuredIn    {
+    font-weight: bold;
+    font-size: .9em;
+    padding-right: 1em;
+}
+
+.argumentDescription #summary .caution .cautionLeadIn,
+.argumentDescription #summary .caution .paraSimple  {
+    margin: 0px;
+    text-indent: 0px;
+}
+
+/* spacing for elements in argumentDescription */
+dd.argumentDescription .listColumnar    {
+    margin-top: .35em;
+}
+
+dd.argumentDescription pre.codeFragment,
+dd.argumentDescription pre.outputFragment   {
+    margin: .7em 0px 0px 1.5em;
+}
+
+dd.argumentDescription .itemPrecedence,
+dd.argumentDescription li .step .paragraph,
+dd.argumentDescription .item,
+dd.argumentDescription .itemNested1,
+dd.argumentDescription .itemNested2,
+dd.argumentDescription .table,
+dd.argumentDescription .table .title,
+dd.argumentDescription .figure,
+dd.argumentDescription .figure .title,
+dd.argumentDescription .equation    {
+    margin-top: .7em;
+}
+
+dd.argumentDescription .listValueDescription table  {
+    margin-top: 0px;
+}
+dd.argumentDescription .listValueDescription td {
+    padding-top: .7em;
+}
+
+
+/*.resolution .listSteps ol,
+.resolution li .step    {
+    margin-top: .7em;
+}*/
+
+/* ------------------------------------------- */
+
+p.summaryExample code   {
+    font-size: 100%;
+}
+
+/* multiple summary elements */
+.argumentDescription p.validIn,
+.argumentDescription p.usedBy,
+.argumentDescription p.operatingState,
+.argumentDescription p.resultState,
+.argumentDescription p.category,
+.argumentDescription p.dbmsSupport,
+.argumentDescription p.procOptionsGroup,
+.argumentDescription p.type,
+.argumentDescription p.length,
+.argumentDescription p.alignment,
+.argumentDescription p.alias,
+.argumentDescription p.summaryDefault,
+.argumentDescription p.summaryRange,
+.argumentDescription p.varUpdated,
+.argumentDescription p.varWrittenOut,
+.argumentDescription p.appliesTo,
+.argumentDescription p.style,
+.argumentDescription p.restriction,
+.argumentDescription p.requirement,
+.argumentDescription p.summaryInteraction,
+.argumentDescription p.engine,
+.argumentDescription p.odsDestination,
+.argumentDescription p.osSpecific,
+.argumentDescription p.supports,
+.argumentDescription p.summaryNote,
+.argumentDescription p.summaryTip,
+.argumentDescription p.summarySee,
+.argumentDescription p.summaryExample,
+.argumentDescription p.featuredIn   {
+    font-weight: normal;
+    font-size: 100%;
+    text-indent: 0px;
+    margin-top: .7em;
+    margin-bottom: 0px;
+}
+.argumentDescription .argumentDescription p.validIn,
+.argumentDescription .argumentDescription p.usedBy,
+.argumentDescription .argumentDescription p.operatingState,
+.argumentDescription .argumentDescription p.resultState,
+.argumentDescription .argumentDescription p.category,
+.argumentDescription .argumentDescription p.dbmsSupport,
+.argumentDescription .argumentDescription p.procOptionsGroup,
+.argumentDescription .argumentDescription p.type,
+.argumentDescription .argumentDescription p.length,
+.argumentDescription .argumentDescription p.alignment,
+.argumentDescription .argumentDescription p.alias,
+.argumentDescription .argumentDescription p.summaryDefault,
+.argumentDescription .argumentDescription p.summaryRange,
+.argumentDescription .argumentDescription p.varUpdated,
+.argumentDescription .argumentDescription p.varWrittenOut,
+.argumentDescription .argumentDescription p.appliesTo,
+.argumentDescription .argumentDescription p.style,
+.argumentDescription .argumentDescription p.restriction,
+.argumentDescription .argumentDescription p.requirement,
+.argumentDescription .argumentDescription p.summaryInteraction,
+.argumentDescription .argumentDescription p.engine,
+.argumentDescription .argumentDescription p.odsDestination,
+.argumentDescription .argumentDescription p.osSpecific,
+.argumentDescription .argumentDescription p.supports,
+.argumentDescription .argumentDescription p.summaryNote,
+.argumentDescription .argumentDescription p.summaryTip,
+.argumentDescription .argumentDescription p.summarySee,
+.argumentDescription .argumentDescription p.summaryExample,
+.argumentDescription .argumentDescription p.featuredIn  {
+    font-weight: normal;
+    font-size: 100%;
+    text-indent: 0px;
+    margin-top: .4em;
+    margin-bottom: 0px;
+}
+
+/* **************** SYNTAX **************** */
+#syntax,
+#syntaxDescription  {
+}
+
+#procStatementSyntax    {
+    border-top : 2px solid #DCDCDC;
+    margin-top : 1em;
+}
+
+.requiredArgGroup,
+.noArgs,
+.optionalArgGroup,
+.otherArgGroup  {
+}
+
+#procStatementSyntax .requiredArgGroup,
+#procStatementSyntax .noArgs,
+#procStatementSyntax .optionalArgGroup,
+#procStatementSyntax .otherArgGroup {
+    border-top : 2px solid #DCDCDC;
+    margin-top : 2.5em;
+}
+
+/* inline element, span, generated < > surrounds element */
+.argOption  {
+}
+
+dl.argDescriptionPair   {
+    margin-top: 1.4em;
+}
+
+dd dl.argDescriptionPair    {
+    margin-top: .7em;
+}
+
+.argumentDescription .paraSimple    {
+    margin-top: .7em;
+}
+
+dt.argument {
+    margin-top: 0px;
+    font-weight: bold;
+}
+
+dd dt.argument  {
+    font-weight: normal;
+}
+
+dd.argumentDescription  {
+    margin-left : 2em;
+}
+
+p.leadIn    {
+    margin-top: 1.4em;
+}
+
+/* --------------------- PROC SYNTAX: statementUsageTable --------------------- */
+/* ----------------- PROC STATEMENT SYNTAX: optionUsageTable ------------------ */
+tr.statementCategoryGroup,
+tr.optionCategoryGroup  {
+    background-color: #f3f3f3;
+}
+
+.statementUsageTable,
+.optionUsageTable   {
+    border: none;
+    margin-top: 2.1em;
+}
+
+table.statementUsageTable th,
+table.optionUsageTable th   {
+    border-top: 1px solid #d8d8c5;
+    border-bottom: 1px solid #d8d8c5;
+    padding: .2em .5em .3em .5em;
+}
+
+table.statementUsageTable td,
+table.optionUsageTable td   {
+    border-bottom: 1px solid #e7e7e5;
+    padding: .2em .5em .3em .5em;
+}
+
+table.statementUsageTable td.statementTask,
+table.optionUsageTable td.optionTask    {
+    border-bottom: 1px solid #e7e7e5;
+    padding: .2em .5em .3em 1.4em;
+}
+
+/* --------------------- EXAMPLE BLOCK --------------------- */
+#exampleBlock,
+#example    {
+}
+
+/* --------------------- STATEMENT EXAMPLE --------------------- */
+/* ----------------------- PROC EXAMPLE ------------------------ */
+#statementExample,
+#procExample,
+#input,
+#logSection,
+#outputSection  {
+}
+
+/* -- SUMMARY -- */
+#statementExampleSummary,
+#exampleSummary {
+    margin-bottom: 2.1em;
+}
+
+.procedureFeatures,
+.odsFeatures,
+.statementFeatures,
+.otherFeatures,
+.dataSet,
+.tableName,
+.format,
+.informat,
+#exampleSummary .odsDestination
+#statementExampleSummary .odsDestination,
+.sampleLibraryMember    {
+    margin-top: 1.4em;
+}
+
+#statementExampleSummary h4.generatedTitle,
+#exampleSummary h4.generatedTitle   {
+    margin:0;
+    font-size: 110%;
+    font-weight:bold;
+}
+
+dl.featureGroup {
+    margin: 1em 0px 0px 0px;
+    padding: 0px;
+}
+
+#statementExampleSummary dt.groupName,
+#exampleSummary dt.groupName    {
+    margin: 0px 0px 0px 1.4em;
+    padding:0px;
+    font-weight: bold;
+}
+
+/* feature maps to dd */
+#statementExampleSummary dd,
+#exampleSummary dd  {
+    margin: .3em 0px 0px 2.8em;
+    padding: 0px;
+}
+
+.dataSet div,
+.tableName div,
+.format div,
+.informat div,
+#exampleSummary .odsDestination div,
+#statementExampleSummary .odsDestination div,
+.odsFeatures div,
+.otherFeatures div,
+.sampleLibraryMember div,
+.statementFeatures div,
+.procedureFeatures div  {
+    margin: .3em 0px 0px 1.4em;
+    padding:0px;
+}
+
+
+/* -- format like summary and procSummary -- */
+table#exampleSummary {
+    font-size: 100%;
+    border: none;
+    margin-top: 1.4em;
+}
+
+#exampleSummary td  {
+    margin-top: .7em;
+    background-color: #E7E7E5;
+    padding: .5em;
+    vertical-align: top;
+}
+
+#exampleSummary td.procedureFeatures,
+#exampleSummary td.otherFeatures,
+#exampleSummary td.dataSet,
+#exampleSummary td.tableName,
+#exampleSummary td.odsDestination,
+#exampleSummary td.format,
+#exampleSummary td.informat,
+#exampleSummary td.sampleLibraryMember  {
+    font-weight:bold;
+    background-color: #F5F5F5;
+    text-align: right;
+}
+
+#exampleSummary td p    {
+    margin-top: .7em;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+#exampleSummary td dl.featureGroup  {
+    margin: 0px;
+    padding: 0px;
+}
+
+#exampleSummary td dt.groupName {
+    margin: 0px;
+    padding:0px;
+    font-weight: bold;
+}
+
+#exampleSummary td dd   {
+    margin: .3em 0px 0px 1.4em;
+    padding: 0px;
+}
+/* -- end: format like summary and procSummary -- */
+
+/* -- PROGRAM -- */
+#program    {
+}
+
+#program .codeDescriptionBlock  {
+    margin-top: 1.4em;
+}
+
+#program .codeDescriptionBlock hr   {
+    width: 25%;
+    text-align:left;
+    border: 1px solid #e6e6e6;
+}
+
+#program .codeDescription   {
+    font-weight:normal;
+}
+
+/*.copyCode {
+    margin-top: 3em;
+    background-image:url(../images/for_comps/Code.gif);
+    background-repeat:no-repeat;
+    background-position: left;
+    font-size: 84%;
+    font-style: italic;
+    padding-left: 20px;
+}*/
+
+.copyCode   {
+    margin-top: .7em;
+    font-size: 84%;
+    font-style: italic;
+}
+
+.copyCode img   {
+    margin-right: 4px;
+    border:none;
+    vertical-align:middle;
+}
+
+/*.copyCode a img   {
+    border: none;
+}*/
+
+/*SGML*/
+.label  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+    color: #000000;
+    background-color: #F5F5F5;
+}
+
+.shortDesc  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+    font-size: 100%;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+hr  {
+    color: #CCCCCC;
+}
+
+/* TOC in a dict-entry 1st level */
+.toc1   {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+}
+
+/*TOC in a dict-entry 2nd level */
+.toc2   {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+}
+/*----- end SGML -----*/
+
+/* ************************************************************ */
+/* ************** MISC SGML FORMATTING CLASSES **************** */
+/* ************************************************************ */
+/* ***************** BACKGROUND color changes ***************** */
+.bgBlockLight   {
+    background-color: #F5F5F5;
+}
+
+.bgBlockDark    {
+    background-color: #E7E7E5;
+}
+
+/* Web Applications Yellow Standard */
+.bgBlockYellow  {
+    background-color: #FFFFE0;
+}
+
+/* ***************** SPACING changes ***************** */
+.largeSpace {
+    margin-top: 18px;
+    padding-top: 18px;
+}
+
+.smallSpace {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+}
+
+.linkList   {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+}
+
+/* ************************************************************ */
+/* *********************** GLOSSARY *************************** */
+/* ************************************************************ */
+/* starts a new file/page */
+.glossary   {
+    }
+
+dl.glossaryTermDefPair  {
+    margin-top: 1.4em;
+}
+
+dd .glossaryDefinition  {
+    margin-left: -1em;
+}
+
+dd .glossaryDefinitionPlus  {
+    margin-top: .7em;
+    margin-left: -1em;
+}
+
+dt.glossaryTerm {
+    font-weight: bold;
+}
+
+/* ************************************************************ */
+/* *********************** COPYRIGHT ************************** */
+/* ************************************************************ */
+/* DIV containers   */
+.copyrightPage,
+.legalBlock,
+.outsideTrademarks  {
+    }
+
+/* SPAN elements -- no format   */
+.addressee,
+.city,
+.faxNumber,
+.phoneNumber,
+.state,
+.streetAddress,
+.zipCode    {
+}
+
+.address .emailAddress,
+.address .uri   {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+}
+
+.copyrightPage .bibliographicCitation   {
+    margin-left: 0px;
+    text-indent: 0px;
+}
+
+.copyrightPage .bookTitle   {
+    font-weight: bold;
+    }
+
+.copyrightPage .title   {
+    font-size: 100%;
+    font-weight : bold;
+    margin-top: 1.4em;
+    }
+
+.concatenationInfo,
+.copyrightNotice,
+.isbn,
+.reservedRights,
+.restrictedRightsLegend,
+.address,
+.printDate  {
+    margin-top: 1.4em;
+    }
+
+.restrictedRightsLegendGenText  {
+    font-weight: bold;
+    }
+
+/* ************************************************************ */
+/* ********************** TITLE PAGE ************************** */
+/* ************************************************************ */
+/* ******************  USE FOR SGML AND XIS ******************* */
+
+.titlePage  {
+    margin: 1.5em 0px 10em 0px;
+}
+
+.titlePage .artSquareTop    {
+    margin: 3em 0px 1.5em 15px;
+}
+
+.titlePage h1.title {
+    font-size: 200%;
+    color: #000000;
+    margin: .1em 0px .1em 19px;
+}
+
+.titlePage h1.title .superScript    {
+    font-size : 40%;
+    vertical-align: 1em;
+    font-weight: normal;
+}
+
+h2.leadinTitle,
+h2.subTitle {
+    font-size: 165%;
+    margin: 0px 0px 0px 19px;
+    padding: 0px;
+    font-weight: normal;
+    color: #6a6a6c;
+}
+
+h3.edition,
+h3.volumeNumberOnly {
+    color: #6a6a6c;
+    font-size: 140%;
+    margin: 3em 0px 0px 19px;
+    font-weight:normal;
+}
+
+h3.volumeNumber {
+    color: #6a6a6c;
+    font-size: 140%;
+    margin: .2em 0px 0px 19px;
+    font-weight: normal;
+}
+
+.titleDisclaimer h3.title   {
+    color: #000000;
+    font-size: 120%;
+    margin: 5em 0px 0px 0px;
+    padding: 0px;
+}
+
+.titleDisclaimer    {
+    margin: 3em 20px 0px 19px;
+}
+
+
+/* ************************************************************ */
+/* **************** GENERATED BOOK ELEMENTS ******************* */
+/* ************************************************************ */
+/*SGML*/
+/* book toc parts sections */
+.partBg {
+    background-color: #003399;
+}
+
+.partTitle  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.part   {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #FFFFFF;
+    font-weight: normal;
+    font-size: 70%;
+}
+/*----- end SGML -----*/
+
+/* ************************************************************ */
+/* ******************* CHAPTER + APPENDIX ********************* */
+/* ************************************************************ */
+.appendix,
+.chapter,
+#refDictEntryCollection,
+#procExampleGroup   {
+    }
+
+.appendix h1.title,
+.chapter h1.title,
+#refProc h1.title   {
+    margin-bottom: 0px;
+    margin-top: 1.5em;
+}
+
+#refDictEntryCollection h1.onlineTOCTitle   {
+    font-size: 150%;
+    margin-bottom: 0px;
+    margin-top: 1.5em;
+}
+
+.chapterRule    {
+    border-top: 4px solid #DCDCDC;
+    width: 300px;
+    margin-top: .3em;
+}
+
+.toc    {
+    margin-top: 1.4em;
+    margin-bottom: 1.4em;
+}
+
+.toc_1  {
+    font-weight: bold;
+    margin-top: 1.4em;
+}
+#refProc .toc_1 {
+    font-weight: bold;
+    margin-top: .7em;
+}
+
+.toc_2  {
+    font-weight: normal;
+    margin-top: .3em;
+    margin-left: 1.4em;
+}
+
+.toc_refDict    {
+    font-weight: bold;
+    margin-bottom: .5em;
+}
+
+.toc_refDictFirst   {
+    font-weight: bold;
+    margin-top: 1.4em;
+    margin-bottom: .5em;
+}
+
+/* ************************************************************ */
+/* ****************** RECOMMENDED READING ********************* */
+/* ************************************************************ */
+.recommendedReading {
+}
+
+.recommendedReading li  {
+    padding: 0px;
+    margin-top: .7em;
+}
+
+/* ************************************************************ */
+/* *********************** NAVIGATION ************************* */
+/* ************************************************************ */
+
+/* **************************************************** */
+/* ****************** running head ******************** */
+/* **************************************************** */
+.runninghead    {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 84%;
+    font-weight: bold;
+    color: #000000;
+}
+
+td.runninghead  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size: 100%;
+    color: #A9A9A9;
+}
+
+/* **************************************************** */
+/* ********************* links ************************ */
+/* **************************************************** */
+
+/* Enabled Links    */
+.navOn,
+.nav    {
+    font-size: 84%;
+    white-space: nowrap;
+}
+
+
+/* Disabled Link: Next or Previous          */
+.navOff {
+    font-size: 84%;
+    color : #6A6A6C;
+    white-space: nowrap;
+}
+
+.orBar,
+.navDivider {
+    color: #999999;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+
+/* **************************************************** */
+/* ***************** TOP NAVIGATION ******************* */
+/* **************************************************** */
+/* key for hiding navigation */
+.navBgTop   {
+}
+/* --- */
+
+.shortTitle {
+    font-family : "Trebuchet MS", arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    color: #000000;
+}
+
+.divider    {
+    padding-left: .3em;
+    padding-right: .3em;
+    font-size: 84%;
+}
+
+.topNav {
+    font-family : "Trebuchet MS", arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    border-top: 1px solid #DCDCDC;
+    background-color: #F8F8F8;
+    margin-top: 2px;
+    padding-left: .4em;
+    padding-bottom: .3em;
+}
+
+/* **************************************************** */
+/* **************** BOTTOM NAVIGATION ***************** */
+/* **************************************************** */
+/* key for hiding navigation */
+.navBg  {
+}
+/* --- */
+
+/* Ruleline above nav                       */
+.navLine    {
+    border-top : 1px solid #DCDCDC;
+    margin-top : 2.2em;
+}
+table.navBg  {
+        background-color : #DCDCDC;
+        margin-top : 1em;
+}
+
+.navigation {
+    font-family : "Trebuchet MS", arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    margin-top: 0px;
+}
+
+.copyright  {
+    font-family : "Trebuchet MS", arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-size : 84%;
+    margin-top : 2.5em;
+}
+
+/* ************************************************************ */
+/* ********************* MASTER INDEX ************************* */
+/* ************************************************************ */
+/*SGML*/
+.bannerTitle    {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    font-weight: bold;
+    color: #999999;
+}
+
+body.popup  {
+    background-color: #FFFFE0;
+}
+
+.indexBold  {
+    font-weight: bold;
+}
+
+.mainEntry  {
+    font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+    margin-bottom: 8px;
+}
+
+/* trying out something for sgml index*/
+#dd *   {
+    margin-bottom: 0px;
+}
+/*----- end SGML -----*/
+
+/* --> */

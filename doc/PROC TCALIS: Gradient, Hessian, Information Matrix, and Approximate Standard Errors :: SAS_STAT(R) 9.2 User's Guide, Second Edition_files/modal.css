@@ -1,0 +1,95 @@
+/* Styles for modal.js */
+/* BEGIN YUI STYLE OVERRIDES */
+/* These override elements styled by YUI build/container/assets/skins/sam/container.css */
+#modalbox_mask {
+    opacity:.70;
+    filter:alpha(opacity=70);
+    z-index:200000 !important;
+}
+#modalbox_c {
+    z-index:200005 !important;
+}
+#modalbox {
+    border:0 !important;
+    font-size:12pt;
+}
+#modalbox .hd {
+    color:#fff !important;
+    font-family:Arial, Helvetica, sans-serif !important;
+    font-weight:normal !important;
+    background:none !important;
+    font-size:100% !important;
+    padding:0 !important;
+    border:0 !important;
+    visibility:hidden;
+    overflow:hidden !important;
+}
+#modalbox .bd {
+    background-color:#ccc !important;
+    border:0 !important;
+    margin:0 !important;
+    height:200px;
+}
+#modalbox .ft {
+    font-family:Arial, Helvetica, sans-serif !important;
+    font-size:100% !important;
+    color:#666;
+    line-height:25px;
+    border:0;
+    margin:0 !important;
+    background:none !important;
+    padding:0 !important;
+}
+#modalbox .bd {
+    width:auto !important;
+}
+#modalbox .container-close{
+    background:url(http://www.sas.com/images/lightwindow/2.0/lightbox_panel_close.png) no-repeat 0 0;
+    height:30px !important;
+    width:31px !important;
+    outline:0 !important;
+    top:16px;
+    right:-10px;
+    z-index:10;
+}
+/* END YUI OVERRIDES */
+/* hide sifr during modal state */
+body.masked .sIFR-flash {
+    visibility:hidden !important;
+}
+#ftWrap {
+    background-color:#fff;
+    padding:10px;
+}
+#galleryposition {
+    font-size:.7em;
+}
+/* PHOTO GALLERY NAVIGATION */
+#currGalImg {
+    filter:alpha(opacity=0);
+    opacity:0;
+}
+#gallery_previous, #gallery_next {
+    width:49%;
+    height:100%;
+    background:transparent url(http://www.sas.com/images/spacer.gif) no-repeat; /* Trick IE into showing hover */
+    display:block;
+    outline:none;
+    z-index:100;
+}
+#gallery_previous {
+    position:absolute;
+    float:left;
+    left:-6px;
+}
+#gallery_next {
+    float:right;
+    position:absolute;
+    right:-6px;
+}
+#gallery_previous:hover, #gallery_previous:active {
+    background:url(http://www.sas.com/images/lightwindow/2.0/prev.png) left 15% no-repeat;
+}
+#gallery_next:hover, #gallery_next:active {
+    background:url(http://www.sas.com/images/lightwindow/2.0/next.png) right 15% no-repeat;
+}

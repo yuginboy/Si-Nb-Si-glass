@@ -1,0 +1,273 @@
+#rightcolumn .nextsteps {
+	width: 197px;
+	display: block;
+	padding: 0;
+	position: relative;
+	background: url(../images/chat/ns_box_bg.gif) no-repeat left bottom;
+	text-align: left;
+}
+#rightcolumn .nextsteps #agent {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	_display: none;
+}
+#rightcolumn .nextsteps #agent_IE {
+	display: none;
+	_display: block;
+	position: absolute;
+	right: -1px;
+	bottom: -1px;
+	height: 96px;
+	width: 78px;
+ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader (src=../images/chat/agent.png, sizingMethod='scale');
+}
+
+#rightcolumn .nextsteps h3 {
+	font-family: Arial, Helvetica, sans-serif !important;
+	color: #fff;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0px;
+	padding: 8px 0 0 6px;
+	background: url(../images/chat/ns_top.gif) no-repeat;
+	width: 197px;
+	height: 30px;
+	text-transform: none;
+}
+#rightcolumn .nextsteps ul {
+	margin: 0 0 5px 10px;
+	_margin-top: 5px;
+	_margin-bottom: 0;
+	padding: 0 0 5px 0;
+	list-style-image:none;
+	list-style-position:none;
+	list-style-type:none;
+}
+#rightcolumn .nextsteps ul li {
+	font-weight: bold;
+	padding: 5px 0 0 0;
+	margin: 0 50px 5px 0;
+	_margin: 0 50px 0 0;
+	_height: 24px;
+}
+#rightcolumn .nextsteps ul li a.contact_chat {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 0;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 0;
+}
+#rightcolumn .nextsteps ul li a.contact_chat:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px 0;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px 0;
+}
+#rightcolumn .nextsteps ul li a.contact_phone {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 -48px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 -48px;
+}
+#rightcolumn .nextsteps ul li a.contact_phone:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -48px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -48px;
+}
+#rightcolumn .nextsteps ul li a.contact_form {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 -96px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 -96px;
+}
+#rightcolumn .nextsteps ul li a.contact_form:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -96px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -96px;
+}
+#rightcolumn .nextsteps ul li a.contact_email {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 -96px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 -96px;
+}
+#rightcolumn .nextsteps ul li a.contact_email:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -96px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -96px;
+}
+#rightcolumn .nextsteps ul li a.buy {
+	background: url(../images/chat/contact_box/nextsteps_icons.png) no-repeat 0 -192px;
+	_background: url(../images/chat/contact_box/nextsteps_icons.gif) no-repeat 0 -192px;
+}
+#rightcolumn .nextsteps ul li a.buy:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -192px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -192px;
+}
+#rightcolumn .nextsteps ul li a.faq {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 -144px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 -144px;
+}
+#rightcolumn .nextsteps ul li a.faq:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -144px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -144px;
+}
+#rightcolumn .nextsteps ul li a {
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #0066CC;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0 5px 23px;
+}
+#rightcolumn .nextsteps ul li a:hover {
+	text-decoration: underline;
+}
+#rightcolumn .nextsteps ul li.buy a {
+	color: #0066CC;
+}
+#lpButtonDiv span{
+	background:transparent url(../images/chat/nextsteps_icons.png) no-repeat scroll 0 0;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #0066CC;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0 5px 23px;
+}
+#lpButtonDiv7 span{
+	background:transparent url(../images/chat/nextsteps_icons.png) no-repeat scroll 0 0;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #0066CC;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0 5px 23px;
+}
+
+
+
+
+
+/*--- jsp sytels ---*/
+
+#rightnav .nextsteps {
+	width: 197px;
+	display: block;
+	padding: 0;
+	position: relative;
+	background: url(../images/chat/ns_box_bg.gif) no-repeat left bottom;
+	text-align: left;
+}
+#rightnav .nextsteps #agent {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	_display: none;
+}
+#rightnav .nextsteps #agent_IE {
+	display: none;
+	_display: block;
+	position: absolute;
+	right: -1px;
+	bottom: -1px;
+	height: 96px;
+	width: 78px;
+ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader (src=../images/chat/agent.png, sizingMethod='scale');
+}
+
+#rightnav .nextsteps h3 {
+	font-family: Arial, Helvetica, sans-serif !important;
+	color: #fff;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0px;
+	padding: 8px 0 0 6px;
+	background: url(../images/chat/ns_top.gif) no-repeat;
+	width: 197px;
+	height: 30px;
+	text-transform: none;
+}
+#rightnav .nextsteps ul {
+	margin: 0 0 5px 10px;
+	_margin-top: 5px;
+	_margin-bottom: 0;
+	padding: 0 0 5px 0;
+	list-style-image:none;
+	list-style-position:none;
+	list-style-type:none;
+}
+#rightnav .nextsteps ul li {
+	font-weight: bold;
+	padding: 5px 0 0 0;
+	margin: 0 50px 5px 0;
+	_margin: 0 50px 0 0;
+	_height: 24px;
+}
+#rightnav .nextsteps ul li a.contact_chat {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 0;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 0;
+}
+#rightnav .nextsteps ul li a.contact_chat:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px 0;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px 0;
+}
+#rightnav .nextsteps ul li a.contact_phone {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 -48px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 -48px;
+}
+#rightnav .nextsteps ul li a.contact_phone:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -48px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -48px;
+}
+#rightnav .nextsteps ul li a.contact_form {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 -96px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 -96px;
+}
+#rightnav .nextsteps ul li a.contact_form:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -96px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -96px;
+}
+#rightnav .nextsteps ul li a.contact_email {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 -96px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 -96px;
+}
+#rightnav .nextsteps ul li a.contact_email:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -96px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -96px;
+}
+#rightnav .nextsteps ul li a.buy {
+	background: url(../images/chat/contact_box/nextsteps_icons.png) no-repeat 0 -192px;
+	_background: url(../images/chat/contact_box/nextsteps_icons.gif) no-repeat 0 -192px;
+}
+#rightnav .nextsteps ul li a.buy:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -192px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -192px;
+}
+#rightnav .nextsteps ul li a.faq {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat 0 -144px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat 0 -144px;
+}
+#rightnav .nextsteps ul li a.faq:hover {
+	background: url(../images/chat/nextsteps_icons.png) no-repeat -216px -144px;
+	_background: url(../images/chat/nextsteps_icons.gif) no-repeat -216px -144px;
+}
+#rightnav .nextsteps ul li a {
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #0066CC;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0 5px 23px;
+}
+#rightnav .nextsteps ul li a:hover {
+	text-decoration: underline;
+}
+#rightnav .nextsteps ul li.buy a {
+	color: #0066CC;
+}
+#lpButtonDiv span{
+	background:transparent url(../images/chat/nextsteps_icons.png) no-repeat scroll 0 0;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #0066CC;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0 5px 23px;
+}
+#lpButtonDiv7 span{
+	background:transparent url(../images/chat/nextsteps_icons.png) no-repeat scroll 0 0;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #0066CC;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0 5px 23px;
+}

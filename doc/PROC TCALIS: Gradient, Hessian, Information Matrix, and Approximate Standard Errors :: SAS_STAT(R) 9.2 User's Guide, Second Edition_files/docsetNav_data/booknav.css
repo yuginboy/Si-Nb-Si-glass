@@ -1,0 +1,236 @@
+/*
+-----------------------------------------------
+support.sas.com template booknav.css  
+Product A_Z pages
+author:   eric morales
+version:  14Jul09
+
+
+Updated for Bookviewer V2
+author:  pjt
+version: 2009-12-01
+----------------------------------------------- */
+
+body {
+	width: 100%;
+	min-width: 0px;
+}
+
+#tabs {
+	margin: 0;
+	padding: 5px 0 0 0;
+	width: 100%;
+	border-bottom: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #999999;
+	min-width: 100%;
+}
+#tabs ul {
+	margin: 0;
+	padding: 0;
+	height: 18px;
+	list-style-type: none;
+	display: block;
+}
+#tabs li {
+	margin: 0;
+	float: left;
+}
+	
+a.btab {
+	background-image:url(/images/tabs/white_right_alt.gif);
+	background-position:right top;
+	background-repeat:no-repeat;
+	cursor:pointer;
+	display:inline-block;
+	margin:0;
+	padding:0 2px 0 0;
+	text-decoration:none;
+}
+a.btab span {
+	background-image:url(/images/tabs/white_left_alt.gif);
+	background-repeat:no-repeat;
+	border:0 none;
+	color: #666666;
+	cursor:pointer;
+	font-family:Arial, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	display:block;
+	line-height:19px;
+	margin:0;
+	padding:0 4px 0 6px;
+	text-decoration:none;
+}
+a.wtab {
+	background-image:url(/images/tabs/blue_right_alt.gif);
+	background-position:right top;
+	background-repeat:no-repeat;
+	display:inline-block;
+	margin:0;
+	padding:0 2px 0 0;
+	text-decoration:none;
+}
+a.wtab span {
+	background-image:url(/images/tabs/blue_left_alt.gif);
+	background-repeat:no-repeat;
+	border:0 none;
+	color: #000000;
+	font-family:Arial, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	display:block;
+	line-height:19px;
+	margin:0;
+	padding:0 4px 0 6px;
+	text-decoration:none;
+}
+
+
+div.tabblock {
+    display:none;
+    min-height:500px;
+	/*background-color:#F5F9FF;*/
+	clear:both;
+	margin:0;
+	overflow:auto;
+	padding-right:8px;
+	height: 100%;
+}
+
+#tab_contentblocks {
+    min-height:500px;
+	overflow:auto;
+	background-color:#EFF8FF;
+	clear:both;
+}
+
+#toc a {
+	font-size: 80%; 
+	color: #06c;
+	font-weight: normal;
+	text-decoration: none;
+	padding: 0px;
+	margin: 0;
+}
+#toc a:hover {
+	color: #f60;
+}
+
+#toc ul {
+    list-style-image: none;
+	list-style-type: none;
+	padding: 0px; 
+	margin: 0 0 0 8px; 
+}  
+#toc ul ul,
+#toc ul ul ul	
+{
+    list-style-image: none;
+	list-style-type: none;
+	margin-left: 16px;
+} 
+#toc .nolink	{
+  	padding:12px 0px 0px 16px;
+	margin: 0;
+	list-style-type:none;
+}
+span.toc	{
+	font-size: 80%;
+}
+
+#toc li.leaf	{
+	background: url(/images/bookviewer/dash.gif) left .6em no-repeat;
+	padding: 2px 0px 0px 16px;
+	margin:0;
+	list-style-type:none; 
+}
+
+#toc li.node {
+	padding: 2px 0px 0px 0px;
+	margin:0;
+	list-style-type:none; 
+    line-height:13pt;
+}
+
+
+
+
+#toc li a	{
+	display:inline;
+}
+
+#toc img	{
+	float:left;
+	margin-top: .5em;
+	margin-right: .5em;
+	margin-left: 0;
+}
+
+
+#toc li a.leftnavon { 
+	color: #f60; 
+}
+
+
+/* -------------------------------------------- */	
+/* ABOUT										*/
+/* -------------------------------------------- */
+#about	{
+	font-size: .825em;
+}
+
+/* PRODUCT TABLE								*/
+#about table	{
+	margin: 12px 8px 0 8px;
+	border: 1px solid #e1e1e1;
+}
+#about th	{
+	text-align: left;
+	padding: .2em .5em .2em .5em;
+}
+#about td	{
+	text-align: left;
+	padding: .2em .5em .2em .5em;
+	border-top: 1px solid #e1e1e1;
+}
+#about td.noborder	{
+	border-top: 0;
+}
+
+/* MISC ABOUT INFORMATION						*/
+#about dl	{
+	margin: 0px;
+}
+#about dt	{
+	margin:0;
+	padding: 1em 0 0 8px;
+	font-weight: bold;
+}
+#about dd	{
+	margin:0;
+	padding: 0 0 0 2em;
+}
+/* TOPICS										*/
+#aboutTopics	{
+	margin-top: 1em;
+	background: url(/images/elements/dotrule_h.gif) repeat-x top;
+}
+#aboutTopics h3	{
+	margin:0;
+	padding: 1.5em 0 0 8px;
+	font-weight:bold;
+}
+#aboutTopics ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0 0 0 8px;
+}
+#aboutTopics li 	{
+        margin:0px 0px 0px 0px;
+        padding-right: .2em;
+        display: inline;
+        white-space: nowrap;
+		float:left;
+}
+

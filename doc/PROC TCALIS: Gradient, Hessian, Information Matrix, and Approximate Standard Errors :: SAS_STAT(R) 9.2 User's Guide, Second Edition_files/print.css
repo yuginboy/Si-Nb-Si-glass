@@ -1,0 +1,68 @@
+/*
+-----------------------------------------------
+support.sas.com template second level print style
+author:   rebecca hemstad
+version:  01 June 2007
+----------------------------------------------- */
+
+
+body, html {
+margin: 0;
+padding: 0;
+}
+
+#masthead {
+
+}
+
+#searchBox {
+display: none;
+}
+
+#mastheadnav {
+display: none;
+}
+
+#peb {
+display: none;
+}
+
+#leftcolumn {
+display: none;
+}
+
+#rightcolumn {
+display: none;
+}
+
+#footer {
+
+}
+
+
+
+
+#content1, #content2, #content3 {
+margin-left: 20pt;
+margin-right: 20pt;
+}
+
+
+/* Added per Rebecca to fix Samples printing issues  */
+
+#tab_about, #tab_code, #tab_output, #tab_results, #tab_downloads, #tab_hotfix, #tab_details {
+display: block !important;
+
+}/* Added 20081106 to fix Education catalog printing issues  */
+
+#tab_over, #tab_prereq, #tab_outline, #tab_materials, #tab_sysreqs {
+display: block !important;
+}
+
+/* Added below at request of Rebecca Wade  */
+.tabhead { display: block !important; } 
+
+
+
+
+

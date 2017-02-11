@@ -1,0 +1,173 @@
+#toolbar {
+    background: url(/images/tool-bar-bg.gif) repeat-x scroll left top transparent;
+    border-bottom: 1px solid #CCCCCC;
+    height: 35px;
+	min-width:960px;
+}
+#toolbar .title {
+    background: url(/images/toolbar_start_arrow.png) no-repeat scroll 0 0 transparent;
+    color: #444444;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 15px 0 10px;
+    width: 200px;
+}
+#toolbar .global {
+    background: url(/images/globe-icon.gif) no-repeat scroll right 10px transparent;
+    color: #444444;
+    float: right;
+    height: 35px;
+    margin-right: 10px;
+    padding: 0 20px 0 0;
+}
+#toolbar a {
+    color: #0E66BA;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 38px;
+    text-decoration: none;
+}
+#toolbar a:active {
+    color: #0E66BA;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 38px;
+    text-decoration: none;
+}
+#toolbar a:visited {
+    color: #0E66BA;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 38px;
+    text-decoration: none;
+}
+#toolbar a:hover {
+    color: #0E66BA;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 38px;
+    text-decoration: underline;
+}
+#toolbar .mytraining {
+    color: #444444;
+    float: left;
+    height: 35px;
+    padding: 0 10px;
+}
+#toolbar .mytraining-space {
+    color: #666666;
+    float: left;
+    font-size: 20px;
+    height: 20px;
+    margin-left: 10px;
+    padding: 9px 0 0;
+}
+#toolbar .contact {
+    background: url(/images/toolbar_contact.png) no-repeat scroll left 6px transparent;
+    color: #444444;
+    float: right;
+    height: 35px;
+    margin-right: 10px;
+    padding: 0 0 0 25px;
+}
+#toolbar .contact-cart {
+    background: url(/images/toolbar_contact.png) no-repeat scroll left 6px transparent;
+    color: #444444;
+    float: left;
+    height: 35px;
+    margin-right: 10px;
+    padding: 0 0 0 25px;
+}
+#toolbar .phone {
+    background: url(/images/phone.png) no-repeat scroll left 7px transparent;
+    color: #0E66BA;
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 38px;
+    margin-right: 10px;
+    padding: 0 0 0 30px;
+}
+#toolbar .chat-cart {
+    background: url(/images/elements/chat-icon.png) no-repeat scroll left 9px transparent;
+    color: #0E66BA;
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 38px;
+    margin-right: 20px;
+    padding: 0 0 0 23px;
+}
+#toolbar .email-cart {
+    background: url(/images/elements/email-icon.png) no-repeat scroll left 8px transparent;
+    color: #444444;
+    float: left;
+    height: 35px;
+    margin-left: 15px;
+    padding: 0 0 0 25px;
+}
+#toolbar .cart {
+    float: right;
+    height: 24px;
+    margin-right: 8px;
+    margin-top: 6px;
+}
+#toolbar #searchfor .tool-search {
+    float: left;
+    padding: 8px 0 0;
+}
+#toolbar #searchfor {
+    margin: 0;
+    padding: 0;
+}
+#toolbar #searchfor .search_field {
+    display: inline-block;
+    height: 22px;
+}
+#toolbar label{
+	width:auto !important;
+}
+#toolbar #searchfor .search_field input {
+    background-color: #FFFFFF;
+    border: medium none;
+    float: left;
+    font-size: 11px;
+    height: 20px;
+    padding: 0 5px;
+	line-height:20px;
+}
+#toolbar #searchfor .search_field button {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+}
+#toolbar #searchfor .header {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+}
+#toolbar #searchfor .pubsfind form {
+    margin: 0;
+    padding: 0;
+}
+#toolbar #searchfor .pubsfind input {
+    border: 1px solid #A5ACB2;
+    font-size: 0.8em;
+    margin: 0;
+    padding: 2px;
+}
+#toolbar #searchfor .pubsfind select {
+    border: 1px solid #A5ACB2;
+    font-size: 0.8em;
+    margin: 0;
+    padding: 1px;
+}
+#toolbar .submit {
+}

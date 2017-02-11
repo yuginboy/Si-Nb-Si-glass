@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.2//EN">
+<!--Converted with LaTeX2HTML 96.1-h (September 30, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>Estimating the Error on a Datapoint</title>
+<meta name="description" content="Estimating the Error on a Datapoint">
+<meta name="keywords" content="rd_bhatt_cvonline">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<link rel="STYLESHEET" href="Estimating%20the%20Error%20on%20a%20Datapoint_files/rd_bhatt_cvonline.css">
+</head>
+<body bgcolor="#ffffff" lang="EN">
+<br> <p>
+</p><h2><a name="SECTION00041000000000000000">Estimating the Error on a Datapoint</a></h2>
+<p>
+Assuming the errors have a Gaussian distribution, the inverse Hessian 
+matrix of a chi-square distribution of function parameters, sufficiently
+ close to the minimum, is the estimated covariance matrix of standard 
+errors of these parameters.
+</p><p>
+If we are close enough to the minimum, <img alt="tex2html_wrap_inline450" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img16.gif" width="16" align="MIDDLE" height="28">, the <img alt="tex2html_wrap_inline438" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img7.gif" width="16" align="MIDDLE" height="30"> distribution of the parameters can be approximated by a quadratic form (Taylor series expansion):
+</p><p>
+<br><img alt="equation60" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img17.gif" width="500" align="BOTTOM" height="46"><br>
+</p><p>
+as there is no gradient at the minimum, the second term will disappear.
+</p><p>
+The gradient of the Chi-square distribution wrt to an element of <img alt="tex2html_wrap_inline428" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img3.gif" width="22" align="MIDDLE" height="24"> is:
+</p><p>
+<br><img alt="equation74" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img18.gif" width="500" align="BOTTOM" height="47"><br>
+</p><p>
+Taking another partial derivative:
+</p><p>
+<br><img alt="equation83" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img19.gif" width="539" align="BOTTOM" height="47"><br>
+</p><p>
+As <img alt="tex2html_wrap_inline456" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img20.gif" width="107" align="MIDDLE" height="24"> is a random measurement error that can have either sign, summing over them will cause the second term will disappear.
+</p><p>
+Now the Hessian is:
+</p><p>
+<br><img alt="equation98" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img21.gif" width="500" align="BOTTOM" height="47"><br>
+</p><p>
+Once we have the value for <i>H</i>, we can invert it and use it as an estimate of the error covariance of the parameters.
+</p><p>
+<br><img alt="equation108" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img22.gif" width="500" align="BOTTOM" height="19"><br>
+</p><p>
+By using the gradient of each datapoint wrt to each parameter, we can use error propagation (see appendix <a href="http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/DAVIES1/rd_bhatt_cvonline/node12.html#appx">A</a>) to estimate the errors:
+</p><p>
+<br><img alt="equation113" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img23.gif" width="500" align="BOTTOM" height="44"><br>
+</p><p>
+The diagonal elements of this covariance matrix give the probable error at each datapoint.
+</p><p>
+We put this method to the test for fitting a polynomial <img alt="tex2html_wrap_inline460" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img24.gif" width="149" align="MIDDLE" height="28"> with a data measurement accuracy (standard error) of 0.08 on each element. Figure <a href="http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/DAVIES1/rd_bhatt_cvonline/node9.html#figerror_estimate">4</a>
+ shows a comparison of the predicted error on each datapoint against the
+ true error (averaged over 1000 fits), as found by a least-squares fit. 
+The script <tt>error_estimation.m</tt> demonstrates this.
+</p><p>
+</p><p><a name="132">&nbsp;</a><a name="figerror_estimate">&nbsp;</a><img alt="figure127" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img27.gif" width="269" align="BOTTOM" height="226"><br>
+<strong>Figure 4:</strong>  Error prediction on <img alt="tex2html_wrap_inline462" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img25.gif" width="136" align="MIDDLE" height="30"> with an error of <img alt="tex2html_wrap_inline464" src="Estimating%20the%20Error%20on%20a%20Datapoint_files/img26.gif" width="37" align="BOTTOM" height="12"> on each point <br>
+
+
+
+</p></body></html>

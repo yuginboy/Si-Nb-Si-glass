@@ -18,7 +18,7 @@ import pickle
 from libs.functionsForMinimize import func_CoO_no_Au
 from scipy.optimize import  differential_evolution
 from scipy.optimize import basinhopping, brute
-from scipy.optimize import minimize
+from scipy.optimize import minimize, leastsq, fmin
 from libs.dir_and_file_operations import create_out_data_folder
 from libs.minimization_additions import SESSA_Step
 from libs.gensa import gensa
@@ -207,13 +207,40 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
             result = brute(fun, ranges=rranges, full_output=True, finish=None)
         if case_optimize_method =='error_estimation':
+            # test:
+            # x0 = np.array([0, 0, 1])
             # def fun(x):
-            #     return (x[0] - 2) ** 2 + (x[1] - 3) ** 2 + (x[2] - 4) ** 2
+            #     return np.array([(x[0] - 2) ** 2 + (x[1] - 3) ** 2 + (x[2] - 4) ** 2])
+            #
+            # def j_fun(x):
+            #     return approx_jacobian(x, fun)
+            #
+            # def hes_fun(x):
+            #     return approx_hessian1d(x, fun)
+            #
+            #
+            # # result = minimize(fun, x0, method='Powell', jac=j_fun, tol=1e-5,
+            # #                   options={'disp': True, 'xtol': 1e-03, 'eps': 1.4901161193847656e-08})
+            # # result = fmin(fun, x0=x0, full_output=1, ftol=0.0001, xtol=1e-3)
             # print(approx_jacobian([2,3,4], fun))
-            print(approx_jacobian(x0, fun))
-
-            Jfun = nd.Jacobian(fun)
-            print(Jfun(x0))
+            # print(approx_jacobian(x0, fun))
+            # print(approx_hessian1d(x0, fun))
+            # print(approx_hessian1d([2,3,4], fun))
+            # print(approx_hessian1d_diag(x0, fun))
+            # print(approx_errors(fun, x0))
+            # print('--'*15)
+            #
+            # #
+            # Jfun = nd.Jacobian(fun)
+            # Hfun = nd.Hessian(fun)
+            # print(Jfun(x0))
+            # print(Hfun(x0))
+            #  <----- test
+            errors = approx_errors(fun, x0)
+            for i in enumerate(x0):
+                print('--'*20)
+                print('x[{0}] = {1} +/- {2}'.format(i, x0[i], errors[i]))
+                print('--'*20)
 
 
 

@@ -1,0 +1,283 @@
+/*
+-----------------------------------------------
+support.sas.com template bookpage.css
+author:   ginny matsey
+version:  29DEC09
+
+Updated for Bookviewer V2
+author:  pjt
+version: 2009-12-01
+----------------------------------------------- */
+
+/* override the body width setting from sasbase.css */
+ body {
+ 	min-width: 525px;
+ }
+
+/* -------------------------------------------- */	
+/* previous next navigation 					*/
+/* -------------------------------------------- */
+#booknav	{
+	background-color: #f3f3f3;
+	font-size: .84em;
+	padding: 3px;
+	margin-bottom: 2em;
+}
+/* NEW: for IE 6 */ 
+* html #booknav {
+	display:inline-block;
+	clear:both;
+}
+
+/* NEW: for IE 7 */
+* + html #booknav {
+	display:inline-block;
+	clear:both;
+}
+
+#booknav_bottom	{
+	font-size: .84em;
+	padding: 3px;
+	margin-top: 2em;
+	margin-bottom: 1em;
+	border-top: 1px solid #ccc;
+}
+
+#booknav ul,
+#booknav_bottom ul {
+        margin: 0px 0px 0px 0px;
+        padding: 0em .2em .2em 0px;
+        text-align: left;
+}
+
+#booknav li,
+#booknav_bottom li {
+        margin:0px 0px 0px 0px;
+        padding: 0px 2px 0px 2px;
+        list-style-type:none;
+        display: inline;
+        white-space: nowrap;
+}
+
+#booknav divider,
+#booknav_bottom divider	{
+	color: #999999;
+}
+
+#booknav a:link,
+#booknav_bottom a:link {text-decoration: none;}
+#booknav a:visited,
+#booknav_bottom a:visited {text-decoration: none;}
+#booknav a:active,
+#booknav_bottom a:active {text-decoration: none;}
+#booknav a:hover,
+#booknav_bottom a:hover {text-decoration: underline;}
+
+
+
+
+/* alpha bar	------------------------------- */
+#index ul	{
+	list-style-type: none;
+	padding: 0px;
+	margin: 6px 8px 0px 8px;
+}
+#index li	{
+	margin:0;
+	padding: 4px 4px 3px 0px;
+	float:left;
+	display: block;
+}
+#index a.alpha	{
+	background-color:#dae3f5;
+	padding: 0px 3px 2px 3px;
+}
+	
+
+/* entries	---------------------------------- */
+#entries	{
+	margin-top:1em;
+}
+#entries ul	{
+	list-style-type: none;
+	padding: 0px;
+	margin: 6px 8px 0px 8px;
+}
+#entries li {
+	padding: 4px 0 0 0;
+	margin: 0;
+	display: block;
+}
+#entries .multiple	{
+	font-size: .825em;
+	color: #7f7f80;
+	padding-left: .5em;
+}
+
+/* -------------------------------------------- */	
+/* CONTENT									*/
+/* -------------------------------------------- */
+#bookpage	{
+	font-size: medium;
+	overflow-x: auto;
+	overflow-y: auto;
+	/* added 2008/01/14 ashreve(pjt) fix ie6 formatting bug */
+	/* display: inline-block; */
+
+}
+/* moved to IE specific hack 2008/07/17 pjt fix firefox 3 formatting bug */
+/* NEW: for IE 6 */ 
+* html #bookpage {
+	display:inline-block;
+}
+
+/* -------------------------------------------- */	
+/* SGML FIXES									*/
+/* -------------------------------------------- */
+/* fixes caption */
+.sgml caption a	{
+	font-weight: bold;
+	font-style: italic;
+	text-align: left;
+}
+.sgml caption a:hover {
+	text-decoration: none;
+	color: #000000;
+}
+.sgml caption {
+	padding-top:1.4em;
+	padding-bottom:.3em;
+}
+
+/* fixes head level 2 */
+.sgml td hr	{
+	margin-top: 1.4em;
+	padding-bottom: 0px;
+}
+.sgml .title2 a {
+	font-family: arial, "Arial Unicode MS", geneva, "Lucida Grande",  sans-serif;
+   	color: #000000;
+   	font-weight: bold;
+   	font-size: 100%;
+	margin:0px;
+	padding:0px;
+} 
+.sgml .title2 a:hover	{
+	text-decoration: none;
+	color: #000000;
+}
+
+/* fixes head level 3 */
+.sgml h3 a	{
+	font-size: 115%;
+	color:#000000;
+}
+.sgml h3 a:hover	{
+	text-decoration: none;
+	color: #000000;
+}
+.sgml h3	{
+	margin:0px;
+	padding:.7em 0px 0px 0px;
+}
+
+/* fixes chapter toc first level links */
+#bookpage .sgml h4 	{
+	margin-bottom: .7em;
+}
+#bookpage .sgml h4 a	{
+	color:#06c;
+}
+#bookpage .sgml h4 a:link	{
+	color:#06c;
+}
+#bookpage .sgml h4 a:hover	
+{
+    color:#06c; 
+	text-decoration:underline;
+}
+#bookpage .sgml h4 a:visited	{
+	color:#06c;
+}
+
+
+
+/* fixes chapter toc second level links and links within dictionary elements */
+.sgml .toc1 a	{
+	font-weight:bold;
+}
+
+/* helped fix some of teh spacing issues */
+.sgml p	{
+	margin-top: 1.4em;
+	padding:0px;
+}
+
+
+/* fixes nested unordered list in a definition */
+.sgml dd li p	{
+	margin-top: 1.4em;
+}
+
+/* fixes extra spacing in statement list */
+.sgml td p	{
+	margin:0px;
+	padding:0px;
+}
+
+/* helps fix spacing issue below a table */
+.sgml table	{
+	margin:0;
+	padding:0;
+}
+
+/* fixes code spacing problem and font-family problem in FireFox */
+.sgml pre	{
+	font-family:monospace;
+	font-size: 110%;
+   	color: #333333;
+	padding:1.4em 0px 0px 12px;
+	margin:0px;
+}
+
+
+
+
+/* -------------------------------------------- */	
+/* ************   NAVIGATION   **********       */ 
+/* **   Do not display inline navigation elements */
+/* **   contained in body of content              */
+/* -------------------------------------------- */	
+/* Do not display the top and bottom bars        */
+.navBg {
+	display: none;
+}
+
+.navBgTop {
+	display: none;
+}
+
+/* Do not display the previous and next links 	 */
+.nav {
+	display: none;
+}
+
+/* Do not display the dividers "|"               */
+.navDivider {
+	display: none;
+}
+
+/* Do not display the running heads              */
+.runninghead {
+	display: none;
+}
+
+/* Do not display the internal bottom navigation line */
+.navLine {
+	display: none;
+}
+
+/* Do not display the internal copyright notice     */
+.copyright {
+	display: none;
+}

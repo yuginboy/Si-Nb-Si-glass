@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 2002 (1.63)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<html><head>
+<title>Error Matrix and Correlations</title>
+<meta name="description" content="Error Matrix and Correlations">
+<meta name="keywords" content="curve_fit">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="Generator" content="LaTeX2HTML v2002">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="Error%20Matrix%20and%20Correlations_files/curve_fit.css">
+
+<link rel="next" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node9.html">
+<link rel="previous" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node4.html">
+<link rel="up" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/curve_fit.html">
+<link rel="next" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node9.html">
+</head>
+
+<body>
+<!--Navigation Panel-->
+<a name="tex2html94" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node9.html">
+<img alt="next" src="Error%20Matrix%20and%20Correlations_files/next.gif" border="0" width="37" align="BOTTOM" height="24"></a> 
+<a name="tex2html92" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/curve_fit.html">
+<img alt="up" src="Error%20Matrix%20and%20Correlations_files/up.gif" border="0" width="26" align="BOTTOM" height="24"></a> 
+<a name="tex2html86" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node7.html">
+<img alt="previous" src="Error%20Matrix%20and%20Correlations_files/prev.gif" border="0" width="63" align="BOTTOM" height="24"></a>   
+<br>
+<b> Next:</b> <a name="tex2html95" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node9.html">About this document ...</a>
+<b> Up:</b> <a name="tex2html93" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/curve_fit.html">curve_fit</a>
+<b> Previous:</b> <a name="tex2html87" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node7.html">Levenberg-Marquardt Method</a>
+<br>
+<br>
+<!--End of Navigation Panel-->
+
+<h1><a name="SECTION00050000000000000000">
+Error Matrix and Correlations</a>
+</h1>
+
+<p>
+<a name="sec:error"></a>
+</p><p>
+Let's take a closer look at the meaning of the Taylor series expansion
+of <img src="Error%20Matrix%20and%20Correlations_files/img1.gif" alt="$\chi ^2$" border="0" width="23" align="MIDDLE" height="37"> about the minimum.  Suppose there are only two parameters.
+Call them <img src="Error%20Matrix%20and%20Correlations_files/img131.gif" alt="$a_1$" border="0" width="21" align="MIDDLE" height="30"> and <img src="Error%20Matrix%20and%20Correlations_files/img132.gif" alt="$a_2$" border="0" width="21" align="MIDDLE" height="30">.  Let the minimum (best fit values ) be at
+<img src="Error%20Matrix%20and%20Correlations_files/img133.gif" alt="$a_1^*$" border="0" width="21" align="MIDDLE" height="32"> and <img src="Error%20Matrix%20and%20Correlations_files/img134.gif" alt="$a_2^*$" border="0" width="21" align="MIDDLE" height="32">.  The Taylor series expansion is then
+<br>
+</p><div align="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\chi^2 = \chi^2(a_1^*,a_2^*) + 
+    \frac{1}{2}(a_1 - a_1^*)^2\frac{\partial^2\chi^2}{\partial a_1^2} +
+    \frac{1}{2}(a_2 - a_2^*)^2\frac{\partial^2\chi^2}{\partial a_2^2} +
+  (a_1 - a_1^*)(a_2 - a_2^*)\frac{\partial^2\chi^2}{\partial a_1
+\partial a_2}
+\end{equation}
+ -->
+<table width="100%" align="CENTER">
+<tbody><tr valign="MIDDLE"><td nowrap="nowrap" align="CENTER"><a name="lsq.eq:errellipse"></a><img src="Error%20Matrix%20and%20Correlations_files/img135.gif" alt="\begin{displaymath}
+\chi^2 = \chi^2(a_1^*,a_2^*) +
+\frac{1}{2}(a_1 - a_1^*)^2...
+...a_2 - a_2^*)\frac{\partial^2\chi^2}{\partial a_1
+\partial a_2}
+\end{displaymath}" border="0" width="575" height="50"></td>
+<td width="10" align="RIGHT">
+(43)</td></tr>
+</tbody></table>
+<br clear="ALL"></div><p></p>
+The second partial derivatives give the matrix elements of the Hessian
+matrix <img src="Error%20Matrix%20and%20Correlations_files/img136.gif" alt="$H$" border="0" width="20" align="BOTTOM" height="15">.  This matrix is twice the curvature matrix <img src="Error%20Matrix%20and%20Correlations_files/img39.gif" alt="$M$" border="0" width="23" align="BOTTOM" height="15">.  We used
+the inverse of the curvature matrix previously to get the errors in
+the parameters.
+<br>
+<div align="CENTER">
+
+<!-- MATH
+ \begin{eqnarray}
+H_{i,j} = 2M_{i,j} &=& \frac{\partial^2\chi^2}{\partial a_i \partial a_j} \\
+   R &=& M^{-1}
+\end{eqnarray}
+ -->
+<table cellpadding="0" width="100%" align="CENTER">
+<tbody><tr valign="MIDDLE"><td nowrap="nowrap" align="RIGHT"><img src="Error%20Matrix%20and%20Correlations_files/img137.gif" alt="$\displaystyle H_{i,j} = 2M_{i,j}$" border="0" width="99" align="MIDDLE" height="32"></td>
+<td nowrap="nowrap" align="CENTER"><img src="Error%20Matrix%20and%20Correlations_files/img29.gif" alt="$\textstyle =$" border="0" width="18" align="MIDDLE" height="30"></td>
+<td nowrap="nowrap" align="LEFT"><img src="Error%20Matrix%20and%20Correlations_files/img138.gif" alt="$\displaystyle \frac{\partial^2\chi^2}{\partial a_i \partial a_j}$" border="0" width="58" align="MIDDLE" height="60"></td>
+<td width="10" align="RIGHT">
+(44)</td></tr>
+<tr valign="MIDDLE"><td nowrap="nowrap" align="RIGHT"><img src="Error%20Matrix%20and%20Correlations_files/img139.gif" alt="$\displaystyle R$" border="0" width="18" align="MIDDLE" height="32"></td>
+<td nowrap="nowrap" align="CENTER"><img src="Error%20Matrix%20and%20Correlations_files/img29.gif" alt="$\textstyle =$" border="0" width="18" align="MIDDLE" height="30"></td>
+<td nowrap="nowrap" align="LEFT"><img src="Error%20Matrix%20and%20Correlations_files/img140.gif" alt="$\displaystyle M^{-1}$" border="0" width="41" align="MIDDLE" height="38"></td>
+<td width="10" align="RIGHT">
+(45)</td></tr>
+</tbody></table></div>
+<br clear="ALL"><p></p>
+
+<p>
+From this expression we can see that the contour lines of constant
+<img src="Error%20Matrix%20and%20Correlations_files/img1.gif" alt="$\chi ^2$" border="0" width="23" align="MIDDLE" height="37"> are concentric ellipses, centered at the best fit value.  A
+one standard deviation change in the parameter values raises <img src="Error%20Matrix%20and%20Correlations_files/img1.gif" alt="$\chi ^2$" border="0" width="23" align="MIDDLE" height="37">
+one unit above the minimum.  This <img src="Error%20Matrix%20and%20Correlations_files/img141.gif" alt="$1 \sigma$" border="0" width="24" align="BOTTOM" height="16"> contour is called the
+error ellipse.  If the mixed partial derivative vanishes, then the
+major and minor axes of the ellipses are parallel to the parameter
+axes.  If not, then the ellipse is rotated with respect to the axes.
+If the ellipses are particularly eccentric and rotated, as shown in
+Fig.&nbsp;<a href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node8.html#fig:ellipse">2</a>, we see that it takes a large change in
+parameter values along the major axis in order to get to the <img src="Error%20Matrix%20and%20Correlations_files/img141.gif" alt="$1 \sigma$" border="0" width="24" align="BOTTOM" height="16">
+contour.  This implies that the parameter values are strongly
+correlated.  A measure of this correlation is obtained from the
+elements of the inverse matrix <img src="Error%20Matrix%20and%20Correlations_files/img142.gif" alt="$R$" border="0" width="18" align="BOTTOM" height="16">, which is also called the ``error
+matrix''.
+<br>
+</p><div align="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\rho = R_{1,2}/\sqrt{R_{11} R_{22}}.
+\end{equation}
+ -->
+<table width="100%" align="CENTER">
+<tbody><tr valign="MIDDLE"><td nowrap="nowrap" align="CENTER"><img src="Error%20Matrix%20and%20Correlations_files/img143.gif" alt="\begin{displaymath}
+\rho = R_{1,2}/\sqrt{R_{11} R_{22}}.
+\end{displaymath}" border="0" width="147" height="32"></td>
+<td width="10" align="RIGHT">
+(46)</td></tr>
+</tbody></table>
+<br clear="ALL"></div><p></p>
+A small or zero value implies little correlation.  A value close to 1
+corresponds to a strong correlation.  
+
+<p>
+An example of a situation that leads to such a correlation would be a
+linear fit to a cluster of <img src="Error%20Matrix%20and%20Correlations_files/img144.gif" alt="$x,y$" border="0" width="31" align="MIDDLE" height="30"> points that are all distant from the
+<img src="Error%20Matrix%20and%20Correlations_files/img14.gif" alt="$y$" border="0" width="14" align="MIDDLE" height="30"> axis.  See Fig.&nbsp;<a href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node8.html#fig:corrfit">3</a>.  The <img src="Error%20Matrix%20and%20Correlations_files/img14.gif" alt="$y$" border="0" width="14" align="MIDDLE" height="30"> intercept is
+especially uncertain, because it is far from the points.  But the
+value of the intercept is strongly correlated with the slope, since
+any reasonably good fit must be a line that passes through the points.
+A small change in the slope of this line requires a corresponding
+change in the intercept.  If we look at the Hessian matrix for a
+linear <img src="Error%20Matrix%20and%20Correlations_files/img1.gif" alt="$\chi ^2$" border="0" width="23" align="MIDDLE" height="37"> fit, we find that in precisely this situation, the off
+diagonal terms are large compared with the diagonal terms, so <img src="Error%20Matrix%20and%20Correlations_files/img145.gif" alt="$\rho$" border="0" width="13" align="MIDDLE" height="30">
+is large.
+
+</p><div align="CENTER"><a name="fig:ellipse"></a><a name="480"></a>
+<table>
+<caption align="BOTTOM"><strong>Figure 2:</strong>
+One sigma error ellipse, showing a strong correlation
+between the parameters <img src="Error%20Matrix%20and%20Correlations_files/img3.gif" alt="$a_{1}$" border="0" width="21" align="MIDDLE" height="30"> and <img src="Error%20Matrix%20and%20Correlations_files/img4.gif" alt="$a_{2}$" border="0" width="21" align="MIDDLE" height="30">.  The ellipse is obtained
+from Eq.&nbsp;(<a href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node8.html#lsq.eq:errellipse">43</a>) by setting <!-- MATH
+ $\Delta \chi^2 =
+\chi^2 - \chi^2(a_1^*,a_2^*) = 1$
+ -->
+<img src="Error%20Matrix%20and%20Correlations_files/img5.gif" alt="$\Delta \chi ^2 = \chi ^2 - \chi ^2(a_1^*,a_2^*) = 1$" border="0" width="206" align="MIDDLE" height="37">, i.e. one unit above the best 
+value of <img src="Error%20Matrix%20and%20Correlations_files/img1.gif" alt="$\chi ^2$" border="0" width="23" align="MIDDLE" height="37">.
+</caption>
+<tbody><tr><td><img src="Error%20Matrix%20and%20Correlations_files/img146.gif" alt="\includegraphics [width=4in]{correl.ps}" border="0" width="411" align="BOTTOM" height="415"></td></tr>
+</tbody></table>
+</div>
+
+<div align="CENTER"><a name="fig:corrfit"></a><a name="431"></a>
+<table>
+<caption align="BOTTOM"><strong>Figure 3:</strong>
+A linear fit producing strong correlations between slope and
+intercept.  The two lines represent small departures from the best
+fit.  An increase in slope can be compensated by a decrease in intercept.
+</caption>
+<tbody><tr><td><img src="Error%20Matrix%20and%20Correlations_files/img147.gif" alt="\includegraphics [width=4in]{lin_fit.ps}" border="0" width="433" align="BOTTOM" height="417"></td></tr>
+</tbody></table>
+</div>
+
+<p>
+</p><hr>
+<!--Navigation Panel-->
+<a name="tex2html94" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node9.html">
+<img alt="next" src="Error%20Matrix%20and%20Correlations_files/next.gif" border="0" width="37" align="BOTTOM" height="24"></a> 
+<a name="tex2html92" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/curve_fit.html">
+<img alt="up" src="Error%20Matrix%20and%20Correlations_files/up.gif" border="0" width="26" align="BOTTOM" height="24"></a> 
+<a name="tex2html86" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node7.html">
+<img alt="previous" src="Error%20Matrix%20and%20Correlations_files/prev.gif" border="0" width="63" align="BOTTOM" height="24"></a>   
+<br>
+<b> Next:</b> <a name="tex2html95" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node9.html">About this document ...</a>
+<b> Up:</b> <a name="tex2html93" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/curve_fit.html">curve_fit</a>
+<b> Previous:</b> <a name="tex2html87" href="http://www.physics.utah.edu/%7Edetar/phys6720/handouts/curve_fit/curve_fit/node7.html">Levenberg-Marquardt Method</a>
+<!--End of Navigation Panel-->
+<address>
+Carleton DeTar
+2009-11-23
+</address>
+
+
+</body></html>
