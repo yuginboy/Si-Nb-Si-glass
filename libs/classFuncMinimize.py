@@ -73,6 +73,7 @@ class BaseClassForCalcAndMinimize():
         self.a.k_R_Mg_60 = 1
 
         self.x = np.array([200.000, 15.000, 0.001, 0.001, 50.000, 5.000, 5.000, 5.000])
+        self.x_vec_txt = ''
 
     def generateWorkPlace(self, dirPath=r'/home/yugin/VirtualboxShare/Co-CoO/out/00001'):
         # created folder and copy the files:
@@ -377,12 +378,14 @@ class BaseClassForCalcAndMinimize():
             self.saveToASCIIcolumnData(folder=self.a.global_min_R_factor_path, headerTxt=textToHeader)
 
             fpath = create_unique_out_data_file(self.projPath, first_part_of_file_name='min_R', ext='txt')
+            self.createNumPyformatFromXvector()
             textFile = open(fpath, 'a')
             # load calculated data from the best case:
             lsFiles = listOfFilesFN_with_selected_ext(folder=self.a.global_min_R_factor_path)
             copyfile(lsFiles[-1],
                      os.path.join(self.projPath, os.path.basename(lsFiles[-1])))
 
+            textFile.write(self.x_vec_txt)
             textFile.write('\n')
             textFile.write('-> global minimum R-factor is: {}'.format(self.a.global_min_R_factor))
             textFile.write('\n')
@@ -476,6 +479,14 @@ class BaseClassForCalcAndMinimize():
                             yDataTheory=structToOut.theory.data.fit.intensity,
                             header=headerTxt
                             )
+    def createNumPyformatFromXvector(self):
+        self.x_vec_txt = '\nx0 = np.array(['
+        for i, val in enumerate(self.x):
+            # self.x = np.array([200.000, 15.000, 0.001, 0.001, 50.000, 5.000, 5.000, 5.000])
+            self.x_vec_txt = self.x_vec_txt + '{:.3f}, '.format(val)
+        self.x_vec_txt = self.x_vec_txt + '])\n'
+
+
 
 
 

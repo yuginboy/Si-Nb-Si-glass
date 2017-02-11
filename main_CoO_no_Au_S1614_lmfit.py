@@ -174,7 +174,10 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO
             # x0 = np.array([9.963, 7.555, 24.087, 20.162, 0.437, 3.663, 1.181])
 
             # R=0.2821
-            x0 = np.array([8.199, 6.719, 21.292, 21.811, 0.08, 3.704, 0.842])
+            # x0 = np.array([8.199, 6.719, 21.292, 21.811, 0.08, 3.704, 0.842])
+
+            # R=0.2558
+            x0 = np.array([8.517, 7.334, 18.081, 23.657, 0.084, 3.578, 0.808])
 
             # rranges = (
             #     slice(0.001, 8, 0.2),  # MgOH
