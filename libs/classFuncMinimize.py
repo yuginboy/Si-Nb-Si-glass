@@ -130,7 +130,9 @@ class BaseClassForCalcAndMinimize():
             # # Getting back the objects:
             # with open(pcklFile, 'rb') as f:
             #     obj0 = pickle.load(f)
-            self.returncode = execProjectSessionWithTimeoutControl(workDir=self.workFolder, timeOut=120)
+
+            # print('I\'m here')
+            self.returncode = execProjectSessionWithTimeoutControl(workDir=self.workFolder)
             self.clearWorkPlace(self.workFolder)
     def checkCase_R_factor(self):
 

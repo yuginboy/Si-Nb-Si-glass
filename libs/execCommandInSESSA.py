@@ -99,7 +99,7 @@ def execProjectSession(workDir = r'/home/yugin/VirtualboxShare/Co-CoO/src/2016-1
     # subprocess.call('pkill -f wine', shell=True)
     print("finished")
 
-def execProjectSessionWithTimeoutControl(workDir = r'/home/yugin/VirtualboxShare/Co-CoO/src/2016-11-21/tmp', timeOut = 60):
+def execProjectSessionWithTimeoutControl(workDir = r'/home/yugin/VirtualboxShare/Co-CoO/src/2016-11-21/tmp', timeOut=240):
     os.chdir(workDir)
     run_exe = 'wine cmd /C "' + workDir + '/exec.bat"'
     # RunCmd(run_exe, 7).Run()
