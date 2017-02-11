@@ -236,11 +236,19 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             # print(Jfun(x0))
             # print(Hfun(x0))
             #  <----- test
+            # def fun(x):
+            #     res = 0
+            #     for i, val in enumerate(x):
+            #         res += (i - val)**2
+            #     return res
+            #
+
             errors = approx_errors(fun, x0)
-            for i in enumerate(x0):
-                print('--'*20)
+            print('--' * 20)
+            for i, val in enumerate(x0):
+
                 print('x[{0}] = {1} +/- {2}'.format(i, x0[i], errors[i]))
-                print('--'*20)
+            print('--'*20)
 
 
 
