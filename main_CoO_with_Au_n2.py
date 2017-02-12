@@ -15,18 +15,19 @@ import datetime
 from io import StringIO
 from shutil import copyfile
 from libs.dir_and_file_operations import create_out_data_folder, createFolder
+from libs.math_libs import *
 
 import numpy as np
 import pickle
 from libs.functionsForMinimize import func_CoO_with_Au
 from scipy.optimize import  differential_evolution
 from scipy.optimize import basinhopping, brute
-from scipy.optimize import minimize
+from scipy.optimize import minimize, fmin
 from libs.dir_and_file_operations import create_out_data_folder
 from libs.minimization_additions import SESSA_Step, BH_Bounds_for_SESSA
 from libs.gensa import gensa
 
-def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic_CoO_with_Au', case_mix_or_layers='layers'):
+def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO_with_Au', case_mix_or_layers='layers'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
     # (does not use gradient methods) to find the minimium, and can search large areas of candidate space,
     # but often requires larger numbers of function evaluations than conventional gradient based techniques.
@@ -47,7 +48,8 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
         # case_optimize_method = 'differential evolution'
         # case_optimize_method = 'basinhopping'
         # Find the global minimum of a function using the Generalized Simulated Annealing algorithm:
-        case_optimize_method = 'gensa'
+        # case_optimize_method = 'gensa'
+        case_optimize_method = 'error_estimation'
         # case_optimize_method = 'brute force'
 
         # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
@@ -59,6 +61,9 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
 
         if case_optimize_method is 'differential evolution':
             optimize_method = 'de'
+        if case_optimize_method is 'error_estimation':
+            optimize_method = 'ee'
+            methodName = ''
         if case_optimize_method is 'gensa':
             optimize_method = 'gensa'
             methodName = ''
@@ -220,6 +225,62 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/out_genetic
             take_step.xmin = [x[0] for x in bounds]
 
             result = brute(fun, ranges=rranges, full_output=True, finish=None)
+        if case_optimize_method =='error_estimation':
+            # test:
+            # x0 = np.array([0, 0, 1])
+            # def fun(x):
+            #     return np.array([(x[0] - 2) ** 2 + (x[1] - 3) ** 2 + (x[2] - 4) ** 2])
+            #
+            # def j_fun(x):
+            #     return approx_jacobian(x, fun)
+            #
+            # def hes_fun(x):
+            #     return approx_hessian1d(x, fun)
+            #
+            #
+            # # result = minimize(fun, x0, method='Powell', jac=j_fun, tol=1e-5,
+            # #                   options={'disp': True, 'xtol': 1e-03, 'eps': 1.4901161193847656e-08})
+            # # result = fmin(fun, x0=x0, full_output=1, ftol=0.0001, xtol=1e-3)
+            # print(approx_jacobian([2,3,4], fun))
+            # print(approx_jacobian(x0, fun))
+            # print(approx_hessian1d(x0, fun))
+            # print(approx_hessian1d([2,3,4], fun))
+            # print(approx_hessian1d_diag(x0, fun))
+            # print(approx_errors(fun, x0))
+            # print('--'*15)
+            #
+            # #
+            # Jfun = nd.Jacobian(fun)
+            # Hfun = nd.Hessian(fun)
+            # print(Jfun(x0))
+            # print(Hfun(x0))
+            #  <----- test
+            # def fun(x):
+            #     res = 0
+            #     for i, val in enumerate(x):
+            #         res += (i - val)**2
+            #     return res
+
+            # result = fmin(fun, x0=x0, full_output=1, ftol=0.0001, xtol=1e-3)
+            #
+            # print('--' * 20)
+            # print('Initial x0:')
+            # print(x0)
+            # print('--' * 20)
+            # x0 = result[0]
+            # print('new x0:')
+            # print(x0)
+
+
+            errors = approx_errors(fun, x0)
+            print('--' * 20)
+            f_out_name = os.path.join(newProjPath, 'errors.txt')
+            f_out = open(f_out_name, 'a')
+            for i, val in enumerate(x0):
+                txt = 'x[{0}] = {1} +/- {2}'.format(i, x0[i], errors[i])
+                f_out.write(txt + '\n')
+                print(txt)
+            print('--'*20)
 
 
         print('-*'*25)
