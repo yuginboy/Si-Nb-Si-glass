@@ -6,7 +6,12 @@
 '''
 from libs.materialProperties import *
 import os
-import prettytable as pt
+try:
+  import prettytable as pt
+except ImportError:
+  print ("Trying to Install required module: prettytable\n")
+  os.system('python -m pip install prettytable')
+  import prettytable as pt
 import numpy as np
 
 tmpMaterial = Au_bottom()

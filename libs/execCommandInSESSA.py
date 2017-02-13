@@ -4,7 +4,12 @@ import subprocess
 import threading
 import signal
 from subprocess import call
-import shlex
+try:
+  import shlex
+except ImportError:
+  print ("Trying to Install required module: shlex\n")
+  os.system('python -m pip install shlex')
+  import shlex
 
 def terminate(process):
     if process.poll() is None:

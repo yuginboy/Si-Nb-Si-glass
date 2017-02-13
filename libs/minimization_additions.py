@@ -7,7 +7,7 @@
 import numpy as np
 class SESSA_Step(object):
     # round to the 3 decimals
-    def __init__(self, xmax=[1.1,1.1], xmin=[0.001,0.001], stepsize=0.5):
+    def __init__(self, xmax=[1.1,1.1], xmin=[0.001,0.001], stepsize=0.1):
         self.stepsize = stepsize
         self.xmax = np.array(xmax)
         self.xmin = np.array(xmin)
@@ -18,7 +18,7 @@ class SESSA_Step(object):
             xnew = x + np.random.uniform(-self.stepsize, self.stepsize, np.shape(x))
             if np.all(xnew < self.xmax) and np.all(xnew > self.xmin):
                 break
-        return np.round(xnew, 3)
+        return np.round(xnew, 4)
 
 class BH_Bounds_for_SESSA(object):
     def __init__(self, xmax=[1.1,1.1], xmin=[0.001,0.001] ):

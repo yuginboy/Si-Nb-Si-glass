@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 '''
 * Created by Zhenia Syryanyy (Yevgen Syryanyy)
 * e-mail: yuginboy@gmail.com
@@ -26,6 +27,7 @@ from scipy.optimize import minimize, fmin
 from libs.dir_and_file_operations import create_out_data_folder
 from libs.minimization_additions import SESSA_Step, BH_Bounds_for_SESSA
 from libs.gensa import gensa
+import argparse
 
 def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO_with_Au', case_mix_or_layers='layers'):
     # Finds the global minimum of a multivariate function. Differential Evolution is stochastic in nature
@@ -200,7 +202,7 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO
             )
 
         if case_optimize_method == 'differential evolution':
-            result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy=methodName, init='random')
+            result = differential_evolution(fun, bounds, maxiter=10000, disp=True, strategy=methodName)
 
         if case_optimize_method == 'gensa':
             print('=====  x0 is : {} '.format(x0))
@@ -261,15 +263,15 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO
             #         res += (i - val)**2
             #     return res
 
-            # result = fmin(fun, x0=x0, full_output=1, ftol=0.0001, xtol=1e-3)
-            #
-            # print('--' * 20)
-            # print('Initial x0:')
-            # print(x0)
-            # print('--' * 20)
-            # x0 = result[0]
-            # print('new x0:')
-            # print(x0)
+            result = fmin(fun, x0=x0, full_output=1, ftol=0.0001, xtol=1e-3)
+
+            print('--' * 20)
+            print('Initial x0:')
+            print(x0)
+            print('--' * 20)
+            x0 = result[0]
+            print('new x0:')
+            print(x0)
 
 
             errors = approx_errors(fun, x0)
@@ -294,16 +296,32 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO
 
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
-    print('----- SYS.ARGV{}:')
-    print(sys.argv)
-    if len(sys.argv) > 1:
-        if sys.argv[1] == 'debug':
-            print('-- script run in debug mode:')
-            if len(sys.argv) > 2:
-                path = r'/home/yugin/VirtualboxShare/Co-CoO/debug/out_genetic_CoO_with_Au'
-                startCalculation(projPath=path, case_mix_or_layers=sys.argv[2])
-        else:
-            startCalculation(case_mix_or_layers=sys.argv[1])
+    mode_type = ''
+    case_mix_or_layers = ''
+    parser = argparse.ArgumentParser(description='Calculate samle with CoO/Au/MgO slayers tructure',
+                                     prog='main_CoO_with_Au_n2', usage='%(prog)s [options]',
+                                     formatter_class=argparse.RawTextHelpFormatter,
+                                     epilog="And that's example how you'd start caclulation:\n" +
+                                            '--mode normal --case layers\n' +
+                                            '*-'*20)
+    parser.add_argument('--mode', action='store', dest='mode_type',
+                        type=str, default='debug', help='mode type of script working. [debug/normal]' +
+                                                        '\n default is [debug]')
+    parser.add_argument('--case', action='store', dest='case_mix_or_layers',
+                        type=str, default='mix', help='Case of layers structure: [mix/layers].' +
+                                                      '\nmix - is one layer CoO_{x}Au_{1-x}' +
+                                                      '\nlayers - is separated layers CoO/Au'
+                                                      + '\n default is [mix]')
+    print(parser.parse_args())
+    if mode_type == 'debug':
+        print('-- script run in debug mode:')
+        path = r'/home/yugin/VirtualboxShare/Co-CoO/debug/out_genetic_CoO_with_Au'
+        startCalculation(projPath=path, case_mix_or_layers=case_mix_or_layers)
+    elif mode_type == 'normal':
+        startCalculation(case_mix_or_layers=case_mix_or_layers)
     else:
-        print('Can not run')
-        print(sys.argv)
+        print('=='*20)
+        print('Can not run. --mode=' + mode_type + ' is not correct')
+        print('=='*20)
+        print(parser.print_help())
+

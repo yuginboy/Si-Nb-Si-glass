@@ -16,14 +16,22 @@ from libs.math_libs import *
 import numpy as np
 import pickle
 from libs.functionsForMinimize import func_CoO_no_Au
-from scipy.optimize import  differential_evolution
+from scipy.optimize import differential_evolution
 from scipy.optimize import basinhopping, brute
 from scipy.optimize import minimize, leastsq, fmin
 from libs.dir_and_file_operations import create_out_data_folder
 from libs.minimization_additions import SESSA_Step
 from libs.gensa import gensa
 
-import numdifftools as nd
+
+try:
+  import numdifftools as nd
+except ImportError:
+  print ("Trying to Install required module: numdifftools\n")
+  os.system('python -m pip install numdifftools')
+  import numdifftools as nd
+
+
 
 
 def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO_no_Au', case_mix_or_layers='layers'):
