@@ -48,10 +48,10 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO
         case_R_factor = 'all_lines'
 
         # case_optimize_method = 'differential evolution'
-        # case_optimize_method = 'basinhopping'
+        case_optimize_method = 'basinhopping'
         # Find the global minimum of a function using the Generalized Simulated Annealing algorithm:
         # case_optimize_method = 'gensa'
-        case_optimize_method = 'error_estimation'
+        # case_optimize_method = 'error_estimation'
         # case_optimize_method = 'brute force'
 
         # timestamp = datetime.datetime.now().strftime("_[%Y-%m-%d_%H_%M_%S]_")
@@ -296,8 +296,6 @@ def startCalculation(projPath = r'/home/yugin/VirtualboxShare/Co-CoO/new_out/CoO
 
 if __name__ == '__main__':
     print('-> you run ', __file__, ' file in a main mode')
-    mode_type = ''
-    case_mix_or_layers = ''
     parser = argparse.ArgumentParser(description='Calculate samle with CoO/Au/MgO slayers tructure',
                                      prog='main_CoO_with_Au_n2', usage='%(prog)s [options]',
                                      formatter_class=argparse.RawTextHelpFormatter,
@@ -313,15 +311,17 @@ if __name__ == '__main__':
                                                       '\nlayers - is separated layers CoO/Au'
                                                       + '\n default is [mix]')
     print(parser.parse_args())
-    if mode_type == 'debug':
+    opts = parser.parse_args()
+    if opts.mode_type == 'debug':
         print('-- script run in debug mode:')
         path = r'/home/yugin/VirtualboxShare/Co-CoO/debug/out_genetic_CoO_with_Au'
-        startCalculation(projPath=path, case_mix_or_layers=case_mix_or_layers)
-    elif mode_type == 'normal':
-        startCalculation(case_mix_or_layers=case_mix_or_layers)
+        startCalculation(projPath=path, case_mix_or_layers=opts.case_mix_or_layers)
+    elif opts.mode_type == 'normal':
+        print('-- script run in normal mode:')
+        startCalculation(case_mix_or_layers=opts.case_mix_or_layers)
     else:
         print('=='*20)
-        print('Can not run. --mode=' + mode_type + ' is not correct')
+        print('Can not run. --mode=' + opts.mode_type + ' is not correct')
         print('=='*20)
         print(parser.print_help())
 
