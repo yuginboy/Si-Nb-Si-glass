@@ -121,7 +121,7 @@ class TwoTypesData():
         n = self.experiment.data.fit.intensity.__len__()
         A = np.sum( np.abs(self.experiment.data.fit.intensity - self.theory.data.fit.intensity) )
         B = np.sum( np.abs(self.experiment.data.fit.intensity) )
-        self.R_factor = (A/B)/n*100
+        self.R_factor = (A/B)#/n*100
         # > 0.10    Model may be fundamentally incorrect.
         # 0.05 - 0.10   Serious flaws in model or very low quality data.
         # 0.02 - 0.05 Either model has some details wrong, or data is low quality.Nevertheless, consistent with a broadly correct model.
